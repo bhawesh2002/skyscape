@@ -5,7 +5,7 @@ import 'package:getx_weather_app/api/get_location.dart';
 class LocationController extends GetxController {
   RxDouble lat = 0.0.obs;
   RxDouble long = 0.0.obs;
-  final GetLocation _myLocation = GetLocation();
+  final FetchLocation _myLocation = FetchLocation();
   Future<void> setLocation() async {
     try {
       final serviceEnabled = await _myLocation.isServiceEnabled();

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 
-class GetLocation {
+class FetchLocation {
   final Location _location = Location();
 
   Future<bool> isServiceEnabled() async {
