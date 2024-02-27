@@ -11,7 +11,7 @@ class LocationController extends GetxController {
       final serviceEnabled = await _myLocation.isServiceEnabled();
       final permissionGranted = await _myLocation.isPermissionGranted();
       if (serviceEnabled && permissionGranted) {
-        final locationData = await _myLocation.getLocation();
+        final locationData = await _myLocation.fetchLocation();
         lat.value = locationData.latitude!;
         long.value = locationData.longitude!;
       }

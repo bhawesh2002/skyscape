@@ -32,7 +32,7 @@ class GetLocation {
     return false;
   }
 
-  Future<LocationData> getLocation() async {
+  Future<LocationData> fetchLocation() async {
     debugPrint("GetLocation Status: Fetching Coordinates");
     LocationData coordinates = await _location.getLocation();
     debugPrint("GetLocation Status: Coordinates Fetched Successfully");
