@@ -17,7 +17,7 @@ class LocationController extends GetxController {
       }
       update();
     } catch (e) {
-      debugPrint("Error has Occured wile setting location: $e");
+      debugPrint("Error has Occured while setting location: $e");
     }
   }
 }
