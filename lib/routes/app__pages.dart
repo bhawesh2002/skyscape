@@ -17,7 +17,7 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.home,
-      page: () => const HomePage(),
+      page: () => HomePage(),
     ),
     GetPage(
       name: AppRoutes.settings,
