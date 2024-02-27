@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_weather_app/controllers/location_controller.dart';
+import 'package:getx_weather_app/controllers/weater_controller.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
   final LocationController _locationController = Get.put(LocationController());
+  final WeatherController _weatherController = Get.put(WeatherController());
 
   @override
   Widget build(BuildContext context) {
@@ -13,25 +15,35 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            GetBuilder<LocationController>(
-              builder: (locationController) => Text(
-                "Latitude: ${locationController.lat.value}",
+            Obx(
+              () => Text(
+                "Latitude : ${_locationController.lat.value}",
               ),
             ),
             const Padding(
               padding: EdgeInsets.all(20),
             ),
-            GetBuilder<LocationController>(
-              builder: (locationController) => Text(
-                "Longitude: ${locationController.long.value}",
-              ),
+            Obx(
+              () => Text("Longitude: ${_locationController.long.value}"),
+            ),
+            const Padding(
+              padding: EdgeInsets.all(20),
+            ),
+            Obx(
+              () => Text("Temperature: ${_weatherController.temperature}"),
+            ),
+            const Padding(
+              padding: EdgeInsets.all(20),
+            ),
+            Obx(
+              () => Text("Name: ${_weatherController.name}"),
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          await _locationController.setLocation();
+          await _weatherController.getweatherFromCoordinates();
         },
         child: const Icon(Icons.gps_fixed),
       ),
