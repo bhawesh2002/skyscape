@@ -7,8 +7,13 @@ import 'package:getx_weather_app/controllers/location_controller.dart';
 import 'package:http/http.dart' as http;
 
 class WeatherController extends GetxController {
-  var temperature = 0.0.obs;
+  var mainTemp = 0.0.obs;
   var name = "".obs;
+  var weatherMain = "".obs;
+  var mainPressure = 0.0.obs;
+  var mainHumidity = 0.0.obs;
+  var windSpeed = 0.0.obs;
+
   Future<void> getWeatherFromCity({required String cityName}) async {
     try {
       final response = await http.get(
@@ -22,9 +27,12 @@ class WeatherController extends GetxController {
         debugPrint("WeatherController Status: Decoding......");
         final weatherData = json.decode(response.body);
         debugPrint("WeatherController Status: Data Decoded successfully");
-        final temp = weatherData['main']['temp'];
-        temperature.value = temp;
+        mainTemp.value = weatherData['main']['temp'];
         name.value = weatherData['name'];
+        weatherMain.value = weatherData['weather']['main'];
+        mainPressure.value = weatherData['main']['pressure'];
+        mainHumidity.value = weatherData['main']['humidity'];
+        windSpeed.value = weatherData['wind']['speed'];
       } else {
         throw Exception("Error while fetching weather from City");
       }
@@ -49,9 +57,12 @@ class WeatherController extends GetxController {
         debugPrint("WeatherController Status: Decoding......");
         final weatherData = json.decode(response.body);
         debugPrint("WeatherController Status: Data Decoded successfully");
-        final temp = weatherData['main']['temp'];
-        temperature.value = temp;
+        mainTemp.value = weatherData['main']['temp'];
         name.value = weatherData['name'];
+        weatherMain.value = weatherData['weather']['main'];
+        mainPressure.value = weatherData['main']['pressure'];
+        mainHumidity.value = weatherData['main']['humidity'];
+        windSpeed.value = weatherData['wind']['speed'];
       } else {
         throw Exception("Error while fetching weather from City");
       }
