@@ -10,9 +10,15 @@ class WeatherController extends GetxController {
   var mainTemp = 0.0.obs;
   var name = "".obs;
   var weatherMain = "".obs;
-  var mainPressure = 0.0.obs;
-  var mainHumidity = 0.0.obs;
+  RxInt mainPressure = 0.obs;
+  RxInt mainHumidity = 0.obs;
   var windSpeed = 0.0.obs;
+
+  @override
+  void onInit() async {
+    await getweatherFromCoordinates();
+    super.onInit();
+  }
 
   Future<void> getWeatherFromCity({required String cityName}) async {
     try {
@@ -26,13 +32,13 @@ class WeatherController extends GetxController {
             "WeatherController Status: Weather Data successfully fetched");
         debugPrint("WeatherController Status: Decoding......");
         final weatherData = json.decode(response.body);
-        debugPrint("WeatherController Status: Data Decoded successfully");
         mainTemp.value = weatherData['main']['temp'];
         name.value = weatherData['name'];
-        weatherMain.value = weatherData['weather']['main'];
-        mainPressure.value = weatherData['main']['pressure'];
-        mainHumidity.value = weatherData['main']['humidity'];
+        weatherMain.value = weatherData['weather'][0]["main"];
+        mainPressure = (weatherData['main']['pressure'] as int).obs;
+        mainHumidity = (weatherData['main']['humidity'] as int).obs;
         windSpeed.value = weatherData['wind']['speed'];
+        debugPrint("WeatherController Status: Data Decoded successfully");
       } else {
         throw Exception("Error while fetching weather from City");
       }
@@ -56,13 +62,13 @@ class WeatherController extends GetxController {
             "WeatherController Status: Weather Data successfully fetched");
         debugPrint("WeatherController Status: Decoding......");
         final weatherData = json.decode(response.body);
-        debugPrint("WeatherController Status: Data Decoded successfully");
         mainTemp.value = weatherData['main']['temp'];
         name.value = weatherData['name'];
-        weatherMain.value = weatherData['weather']['main'];
-        mainPressure.value = weatherData['main']['pressure'];
-        mainHumidity.value = weatherData['main']['humidity'];
+        weatherMain.value = weatherData['weather'][0]["main"];
+        mainPressure = (weatherData['main']['pressure'] as int).obs;
+        mainHumidity = (weatherData['main']['humidity'] as int).obs;
         windSpeed.value = weatherData['wind']['speed'];
+        debugPrint("WeatherController Status: Data Decoded successfully");
       } else {
         throw Exception("Error while fetching weather from City");
       }
