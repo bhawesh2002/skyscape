@@ -21,7 +21,7 @@ class TemperatureWidget extends StatelessWidget {
       converted = temperature * 9 / 5 - 459.67;
       formatted = converted.toString();
     }
-    return formatted.substring(0, 6);
+    return formatted.substring(0, 5);
   }
 
   @override
