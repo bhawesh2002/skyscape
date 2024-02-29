@@ -9,23 +9,23 @@ class WeatherStatus extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WeatherController _weatherController = Get.find<WeatherController>();
+    WeatherController weatherController = Get.find<WeatherController>();
     return Obx(
       () => Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           WeatherStatusItems(
-            value: _weatherController.windSpeed.value.toString(),
+            value: weatherController.windSpeed.value.toString(),
             label: "WindSpeed",
             icon: Symbols.air,
           ),
           WeatherStatusItems(
-            value: _weatherController.mainHumidity.value.toString(),
+            value: weatherController.mainHumidity.value.toString(),
             label: "Humidity",
             icon: Symbols.humidity_percentage_rounded,
           ),
           WeatherStatusItems(
-            value: _weatherController.mainPressure.value.toString(),
+            value: weatherController.mainPressure.value.toString(),
             label: "Pressure",
             icon: Symbols.wind_power,
           )
