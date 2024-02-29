@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx_weather_app/routes/app__pages.dart';
 import 'package:getx_weather_app/screen/home.dart';
 
 void main() {
@@ -11,6 +12,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      getPages: AppPages.pages,
       home: HomePage(),
     );
   }
