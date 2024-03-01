@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_weather_app/controllers/weater_controller.dart';
 import 'package:getx_weather_app/routes/app_routes.dart';
-import 'package:getx_weather_app/utils/enums/temperature_units.dart';
 import 'package:getx_weather_app/widgets/loaction_name.dart';
 import 'package:getx_weather_app/widgets/temperature_widget.dart';
 import 'package:getx_weather_app/widgets/weather_status_widget.dart';
@@ -61,14 +60,13 @@ class HomePage extends StatelessWidget {
                   child: Obx(
                     () => TemperatureWidget(
                       temperature: _weatherController.mainTemp.value,
-                      tempUnit: TemperatureUnit.celsius,
                     ),
                   ),
                 ),
               ),
               //Display weatherMain
               Positioned.fill(
-                bottom: Get.height * 0.15,
+                bottom: Get.height * 0.125,
                 child: Align(
                   alignment: Alignment.center,
                   child: Obx(
@@ -81,7 +79,7 @@ class HomePage extends StatelessWidget {
               ),
               //Display weather status widget
               Positioned.fill(
-                bottom: Get.height * -0.1,
+                bottom: Get.height * -0.15,
                 child: Align(
                   alignment: Alignment.center,
                   child: Container(
