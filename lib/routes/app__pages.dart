@@ -21,7 +21,7 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.settings,
-      page: () => const SettingsPage(),
+      page: () => SettingsPage(),
     ),
   ];
 }
