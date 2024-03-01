@@ -13,7 +13,6 @@ class WeatherController extends GetxController {
   RxInt mainPressure = 0.obs;
   RxInt mainHumidity = 0.obs;
   var windSpeed = 0.0.obs;
-
   @override
   void onInit() async {
     await getweatherFromCoordinates();
@@ -33,6 +32,7 @@ class WeatherController extends GetxController {
         debugPrint("WeatherController Status: Decoding......");
         final weatherData = json.decode(response.body);
         mainTemp.value = weatherData['main']['temp'];
+        mainTemp.value = mainTemp.value - 273.15; //convert kelvin to celsius
         name.value = weatherData['name'];
         weatherMain.value = weatherData['weather'][0]["main"];
         mainPressure = (weatherData['main']['pressure'] as int).obs;
@@ -63,6 +63,7 @@ class WeatherController extends GetxController {
         debugPrint("WeatherController Status: Decoding......");
         final weatherData = json.decode(response.body);
         mainTemp.value = weatherData['main']['temp'];
+        mainTemp.value = mainTemp.value - 273.15; //convert kelvin to celsius
         name.value = weatherData['name'];
         weatherMain.value = weatherData['weather'][0]["main"];
         mainPressure = (weatherData['main']['pressure'] as int).obs;
