@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_weather_app/controllers/weater_controller.dart';
 import 'package:getx_weather_app/routes/app_routes.dart';
+import 'package:getx_weather_app/widgets/expandable_fab.dart';
 import 'package:getx_weather_app/widgets/loaction_name.dart';
 import 'package:getx_weather_app/widgets/temperature_widget.dart';
 import 'package:getx_weather_app/widgets/weather_status_widget.dart';
 import 'package:getx_weather_app/widgets/weather_status_widgets_collection.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:material_symbols_icons/symbols.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -116,18 +118,22 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          Get.snackbar(
-            'Weather status',
-            'Fetching weather data',
-            snackPosition: SnackPosition.TOP,
-          );
-          await _weatherController.getweatherFromCoordinates();
-        },
-        child: const Icon(
-          Icons.gps_fixed_rounded,
-        ),
+      floatingActionButton: ExpandableFab(
+        distance: 112,
+        children: [
+          ActionButton(
+            onPressed: () async {
+              await _weatherController.getweatherFromCoordinates();
+            },
+            icon: const Icon(Symbols.gps_fixed),
+          ),
+          ActionButton(
+            onPressed: () async {
+              await _weatherController.getWeatherFromCity(cityName: "Nagpur");
+            },
+            icon: const Icon(Symbols.search),
+          ),
+        ],
       ),
     );
   }
