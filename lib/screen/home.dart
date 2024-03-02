@@ -12,7 +12,6 @@ import 'package:material_symbols_icons/symbols.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
-  // final LocationController _locationController = Get.put(LocationController());
   final WeatherController _weatherController = Get.put(WeatherController());
 
   @override
@@ -128,8 +127,8 @@ class HomePage extends StatelessWidget {
             icon: const Icon(Symbols.gps_fixed),
           ),
           ActionButton(
-            onPressed: () async {
-              await _weatherController.getWeatherFromCity(cityName: "Nagpur");
+            onPressed: () {
+              Get.toNamed(AppRoutes.search);
             },
             icon: const Icon(Symbols.search),
           ),
