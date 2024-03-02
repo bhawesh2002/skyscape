@@ -4,6 +4,7 @@ import 'package:getx_weather_app/controllers/search_controller.dart';
 import 'package:getx_weather_app/controllers/weater_controller.dart';
 import 'package:getx_weather_app/routes/app_routes.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:material_symbols_icons/symbols.dart';
 
 class SearchPage extends StatelessWidget {
   SearchPage({super.key});
@@ -14,6 +15,16 @@ class SearchPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              _searchController.search(query: "");
+              Get.back();
+            },
+            icon: Icon(
+              Symbols.arrow_back,
+              size: Get.width * 0.06,
+              weight: 1000,
+            )),
         title: Text(
           "City Search",
           style: GoogleFonts.montserrat(
@@ -46,7 +57,7 @@ class SearchPage extends StatelessWidget {
               child: Container(
                 width: Get.width,
                 height: Get.height * 0.8,
-                padding: EdgeInsets.symmetric(horizontal: Get.width * 0.05),
+                padding: EdgeInsets.symmetric(horizontal: Get.width * 0.03),
                 child: ListView.builder(
                   itemCount: _searchController.filterCities.length,
                   itemBuilder: (context, index) {
@@ -56,6 +67,7 @@ class SearchPage extends StatelessWidget {
                           _weatherController.getWeatherFromCity(
                               cityName: _searchController
                                   .filterCities[index].cityName);
+                          _searchController.search(query: "");
                           Get.toNamed(AppRoutes.home);
                         },
                         title: Text(
@@ -64,6 +76,16 @@ class SearchPage extends StatelessWidget {
                             fontSize: Get.width * 0.045,
                             fontWeight: FontWeight.w500,
                           ),
+                        ),
+                        subtitle: Text(
+                          "${_searchController.filterCities[index].district}, ${_searchController.filterCities[index].state}",
+                          overflow: TextOverflow.ellipsis,
+                          style: GoogleFonts.montserrat(),
+                        ),
+                        trailing: Text(
+                          _searchController.filterCities[index].countryShort,
+                          style: GoogleFonts.montserrat(
+                              fontWeight: FontWeight.w600),
                         ),
                       );
                     } else {
