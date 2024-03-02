@@ -1,58 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx_weather_app/controllers/search_controller.dart';
 import 'package:getx_weather_app/controllers/weater_controller.dart';
-import 'package:getx_weather_app/models/owm_city_list.dart';
 import 'package:getx_weather_app/routes/app_routes.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:material_symbols_icons/symbols.dart';
 
-class SearchPage extends StatefulWidget {
-  const SearchPage({super.key});
-
-  @override
-  State<SearchPage> createState() => _SearchPageState();
-}
-
-class _SearchPageState extends State<SearchPage> {
-  List<City> _cities = <City>[];
+class SearchPage extends StatelessWidget {
+  SearchPage({super.key});
+  final SearchPageController _searchController =
+      Get.put(SearchPageController());
   final WeatherController _weatherController = Get.find<WeatherController>();
-  bool _isLoading = true;
-  List<City> _filtered = <City>[];
-  @override
-  void initState() {
-    super.initState();
-    getCityData().then((value) {
-      setState(() {
-        _isLoading = false;
-        _cities.addAll(value);
-        _filtered = _cities;
-      });
-    });
-  }
-
-  void searchCities({required String query}) {
-    query = query.toLowerCase();
-    setState(() {
-      _filtered = _cities.where((city) {
-        var name = city.cityName.toLowerCase();
-        return name.contains(query);
-      }).toList();
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: const Icon(
-            Symbols.arrow_back_rounded,
-            weight: 1000,
-          ),
-        ),
         title: Text(
           "City Search",
           style: GoogleFonts.montserrat(
@@ -61,54 +22,61 @@ class _SearchPageState extends State<SearchPage> {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          Flexible(
-            child: Padding(
+      body: Obx(
+        () => Column(
+          children: [
+            Padding(
               padding: EdgeInsets.symmetric(
-                  vertical: Get.height * 0.02, horizontal: Get.width * 0.03),
+                vertical: Get.height * 0.01,
+                horizontal: Get.width * 0.05,
+              ),
               child: TextField(
-                onChanged: (query) => searchCities(query: query),
-                decoration: const InputDecoration(
-                  labelText: 'Search for a city',
-                  prefixIcon: Icon(Icons.search),
+                onChanged: (input) => _searchController.search(query: input),
+                style: GoogleFonts.montserrat(
+                  fontSize: Get.width * 0.045,
+                  fontWeight: FontWeight.w500,
+                ),
+                decoration: InputDecoration(
+                  hintText: "Search for a City",
+                  hintStyle: GoogleFonts.montserrat(),
                 ),
               ),
             ),
-          ),
-          Expanded(
-            flex: 4,
-            child: SizedBox(
-              width: Get.width,
-              child: ListView.builder(
-                itemCount: _filtered.length,
-                itemBuilder: ((context, index) {
-                  if (!_isLoading) {
-                    return ListTile(
-                      onTap: () async {
-                        await _weatherController.getWeatherFromCity(
-                            cityName: _filtered[index].cityName);
-                        Get.toNamed(
-                          AppRoutes.home,
-                          arguments: _filtered[index].cityName,
-                        );
-                      },
-                      title: Text(
-                        _filtered[index].cityName,
-                      ),
-                    );
-                  } else {
-                    return const Center(
-                      child: CircularProgressIndicator(
-                        color: Colors.amber,
-                      ),
-                    );
-                  }
-                }),
+            Expanded(
+              child: Container(
+                width: Get.width,
+                height: Get.height * 0.8,
+                padding: EdgeInsets.symmetric(horizontal: Get.width * 0.05),
+                child: ListView.builder(
+                  itemCount: _searchController.filterCities.length,
+                  itemBuilder: (context, index) {
+                    if (!_searchController.isLoading.value) {
+                      return ListTile(
+                        onTap: () {
+                          _weatherController.getWeatherFromCity(
+                              cityName: _searchController
+                                  .filterCities[index].cityName);
+                          Get.toNamed(AppRoutes.home);
+                        },
+                        title: Text(
+                          _searchController.filterCities[index].cityName,
+                          style: GoogleFonts.montserrat(
+                            fontSize: Get.width * 0.045,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      );
+                    } else {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  },
+                ),
               ),
-            ),
-          ),
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

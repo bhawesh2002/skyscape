@@ -26,7 +26,7 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.search,
-      page: () => const SearchPage(),
+      page: () => SearchPage(),
       transition: Transition.circularReveal,
       transitionDuration: const Duration(milliseconds: 500),
     ),
