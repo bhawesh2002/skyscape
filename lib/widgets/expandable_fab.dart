@@ -80,14 +80,15 @@ class _ExpandableFabState extends State<ExpandableFab>
         child: Material(
           shape: const CircleBorder(),
           clipBehavior: Clip.antiAlias,
+          color: Colors.amber.shade100,
           elevation: 4,
           child: InkWell(
             onTap: _toggle,
-            child: Padding(
-              padding: const EdgeInsets.all(8),
+            child: const Padding(
+              padding: EdgeInsets.all(8),
               child: Icon(
                 Icons.close,
-                color: Theme.of(context).primaryColor,
+                color: Colors.black,
               ),
             ),
           ),
@@ -133,7 +134,11 @@ class _ExpandableFabState extends State<ExpandableFab>
           duration: const Duration(milliseconds: 250),
           child: FloatingActionButton(
             onPressed: _toggle,
-            child: const Icon(Icons.create),
+            backgroundColor: Colors.amber,
+            child: const Icon(
+              Icons.create,
+              color: Colors.white,
+            ),
           ),
         ),
       ),
@@ -194,16 +199,15 @@ class ActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Material(
       shape: const CircleBorder(),
       clipBehavior: Clip.antiAlias,
-      color: theme.colorScheme.secondary,
+      color: Colors.amber,
       elevation: 4,
       child: IconButton(
         onPressed: onPressed,
         icon: icon,
-        color: theme.colorScheme.onSecondary,
+        color: Colors.white,
       ),
     );
   }
