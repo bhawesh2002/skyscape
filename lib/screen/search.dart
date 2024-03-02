@@ -73,8 +73,8 @@ class SearchPage extends StatelessWidget {
                         title: Text(
                           _searchController.filterCities[index].cityName,
                           style: GoogleFonts.montserrat(
-                            fontSize: Get.width * 0.045,
-                            fontWeight: FontWeight.w500,
+                            fontSize: Get.width * 0.04,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
                         subtitle: Text(
