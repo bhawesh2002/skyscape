@@ -58,11 +58,7 @@ class HomePage extends StatelessWidget {
                 bottom: Get.height * 0.3,
                 child: Align(
                   alignment: Alignment.center,
-                  child: Obx(
-                    () => TemperatureWidget(
-                      temperature: _weatherController.mainTemp.value,
-                    ),
-                  ),
+                  child: TemperatureWidget(),
                 ),
               ),
               //Display weatherMain

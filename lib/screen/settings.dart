@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getx_weather_app/controllers/temp_unit_controller.dart';
+import 'package:getx_weather_app/controllers/weater_controller.dart';
 import 'package:getx_weather_app/utils/enums/temperature_units.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:material_symbols_icons/symbols.dart';
@@ -8,7 +8,7 @@ import 'package:material_symbols_icons/symbols.dart';
 class SettingsPage extends StatelessWidget {
   SettingsPage({super.key});
 
-  final TempUnitController tempUnitController = Get.put(TempUnitController());
+  final WeatherController _weatherController = Get.find<WeatherController>();
 
   Widget settingsTile({
     required String title,
@@ -77,10 +77,11 @@ class SettingsPage extends StatelessWidget {
               title: "Units",
               icon: Symbols.measuring_tape,
               onTap: () {
-                tempUnitController.changeUnits();
+                _weatherController.tempUnitController.changeUnits();
               },
               trailing: Text(
-                tempUnitController.tempUnit.value == TemperatureUnit.celsius
+                _weatherController.tempUnitController.tempUnit.value ==
+                        TemperatureUnit.celsius
                     ? "Celsius"
                     : "Farhenit",
                 style: settingsTextStyle().copyWith(
