@@ -114,7 +114,7 @@ class HomePage extends StatelessWidget {
         ),
       ),
       floatingActionButton: ExpandableFab(
-        distance: 112,
+        distance: Get.width * 0.25,
         children: [
           ActionButton(
             onPressed: () async {

@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:getx_weather_app/controllers/theme_controller.dart';
 import 'package:getx_weather_app/controllers/weater_controller.dart';
 import 'package:getx_weather_app/utils/enums/temperature_units.dart';
-import 'package:getx_weather_app/utils/enums/themes.dart';
+import 'package:getx_weather_app/utils/enums/themes_mode.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
@@ -91,7 +91,9 @@ class SettingsPage extends StatelessWidget {
                 _themeController.changeTheme();
               },
               trailing: Text(
-                _themeController.currTheme == Themes.light ? "Light" : "Dark",
+                _themeController.currTheme == ThemeModes.light
+                    ? "Light"
+                    : "Dark",
                 style: settingsTileTralingTextStyle(),
               ),
             ),

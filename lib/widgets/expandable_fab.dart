@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
+import 'package:material_symbols_icons/symbols.dart';
+
 @immutable
 class ExpandableFab extends StatefulWidget {
   const ExpandableFab({
@@ -122,8 +124,8 @@ class _ExpandableFabState extends State<ExpandableFab>
       child: AnimatedContainer(
         transformAlignment: Alignment.center,
         transform: Matrix4.diagonal3Values(
-          _open ? 0.7 : 1.0,
-          _open ? 0.7 : 1.0,
+          _open ? 0.7 : 1.2,
+          _open ? 0.7 : 1.2,
           1.0,
         ),
         duration: const Duration(milliseconds: 250),
@@ -136,7 +138,7 @@ class _ExpandableFabState extends State<ExpandableFab>
             onPressed: _toggle,
             backgroundColor: Colors.amber,
             child: const Icon(
-              Icons.create,
+              Symbols.target_rounded,
               color: Colors.white,
             ),
           ),
