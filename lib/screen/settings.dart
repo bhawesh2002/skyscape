@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx_weather_app/controllers/theme_controller.dart';
 import 'package:getx_weather_app/controllers/weater_controller.dart';
 import 'package:getx_weather_app/utils/enums/temperature_units.dart';
+import 'package:getx_weather_app/utils/enums/themes.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
@@ -9,7 +11,7 @@ class SettingsPage extends StatelessWidget {
   SettingsPage({super.key});
 
   final WeatherController _weatherController = Get.find<WeatherController>();
-
+  final ThemeController _themeController = Get.put(ThemeController());
   Widget settingsTile({
     required String title,
     required IconData icon,
@@ -19,23 +21,40 @@ class SettingsPage extends StatelessWidget {
   }) {
     return ListTile(
       onTap: onTap,
+      contentPadding: EdgeInsets.symmetric(
+          vertical: Get.height * 0.005, horizontal: Get.width * 0.05),
       title: Text(
         title,
-        style: settingsTextStyle(),
+        style: settingsTileTitleStyle(),
       ),
       leading: Icon(
         icon,
         size: Get.width * 0.05,
+        weight: 1000,
       ),
       trailing: trailing,
       subtitle: subtitle,
     );
   }
 
-  TextStyle settingsTextStyle() {
+  TextStyle settingsTileTitleStyle() {
     return GoogleFonts.montserrat(
       fontWeight: FontWeight.w600,
-      fontSize: Get.width * 0.045,
+      fontSize: Get.width * 0.040,
+    );
+  }
+
+  TextStyle settingsTileSubtitleStyle() {
+    return settingsTileTitleStyle().copyWith(
+      fontSize: Get.width * 0.03,
+      fontWeight: FontWeight.w200,
+    );
+  }
+
+  TextStyle settingsTileTralingTextStyle() {
+    return settingsTileTitleStyle().copyWith(
+      fontSize: Get.width * 0.032,
+      fontWeight: FontWeight.w400,
     );
   }
 
@@ -52,7 +71,7 @@ class SettingsPage extends StatelessWidget {
         children: [
           settingsTile(
             title: "Profile",
-            icon: Symbols.supervisor_account,
+            icon: Symbols.manage_accounts_rounded,
             onTap: () {},
           ),
           settingsTile(
@@ -60,15 +79,20 @@ class SettingsPage extends StatelessWidget {
             icon: Symbols.location_automation_rounded,
             onTap: () {},
           ),
-          settingsTile(
-            title: "Theme",
-            icon: Symbols.sunny_rounded,
-            onTap: () {},
-            trailing: Text(
-              "Light",
-              style: settingsTextStyle().copyWith(
-                fontSize: Get.width * 0.035,
-                fontWeight: FontWeight.normal,
+          Obx(
+            () => settingsTile(
+              title: "Theme",
+              icon: Symbols.sunny_rounded,
+              subtitle: Text(
+                "Tap to chnage theme",
+                style: settingsTileSubtitleStyle(),
+              ),
+              onTap: () {
+                _themeController.changeTheme();
+              },
+              trailing: Text(
+                _themeController.currTheme == Themes.light ? "Light" : "Dark",
+                style: settingsTileTralingTextStyle(),
               ),
             ),
           ),
@@ -84,17 +108,11 @@ class SettingsPage extends StatelessWidget {
                         TemperatureUnit.celsius
                     ? "Celsius"
                     : "Farhenit",
-                style: settingsTextStyle().copyWith(
-                  fontSize: Get.width * 0.035,
-                  fontWeight: FontWeight.normal,
-                ),
+                style: settingsTileTralingTextStyle(),
               ),
               subtitle: Text(
                 "Tap to Change Unit",
-                style: settingsTextStyle().copyWith(
-                  fontSize: Get.width * 0.03,
-                  fontWeight: FontWeight.w400,
-                ),
+                style: settingsTileSubtitleStyle(),
               ),
             ),
           ),
