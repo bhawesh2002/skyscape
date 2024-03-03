@@ -44,7 +44,7 @@ class SearchPage extends StatelessWidget {
               child: TextField(
                 onChanged: (input) => _searchController.search(query: input),
                 style: GoogleFonts.montserrat(
-                  fontSize: Get.width * 0.045,
+                  fontSize: Get.width * 0.04,
                   fontWeight: FontWeight.w500,
                 ),
                 decoration: InputDecoration(
@@ -54,49 +54,69 @@ class SearchPage extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: Container(
+              child: SizedBox(
                 width: Get.width,
                 height: Get.height * 0.8,
-                padding: EdgeInsets.symmetric(horizontal: Get.width * 0.03),
-                child: ListView.builder(
-                  itemCount: _searchController.filterCities.length,
-                  itemBuilder: (context, index) {
-                    if (!_searchController.isLoading.value) {
-                      return ListTile(
-                        onTap: () {
-                          _weatherController.getWeatherFromCity(
-                              cityName: _searchController
-                                  .filterCities[index].cityName);
-                          _searchController.search(query: "");
-                          Get.toNamed(AppRoutes.home);
-                        },
-                        title: Text(
-                          _searchController.filterCities[index].cityName,
-                          style: GoogleFonts.montserrat(
-                            fontSize: Get.width * 0.04,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        subtitle: Text(
-                          "${_searchController.filterCities[index].district}, ${_searchController.filterCities[index].state}",
-                          overflow: TextOverflow.ellipsis,
-                          style: GoogleFonts.montserrat(),
-                        ),
-                        trailing: Text(
-                          _searchController.filterCities[index].countryShort,
-                          style: GoogleFonts.montserrat(
-                              fontWeight: FontWeight.w600),
-                        ),
-                      );
-                    } else {
-                      return const Center(
+                child: _searchController.isLoading.value == false
+                    ? _searchController.filterCities.isEmpty
+                        ? _searchController.searching.value == true
+                            ? Center(
+                                child: Text(
+                                  "No Cities Found",
+                                  style: GoogleFonts.montserrat(
+                                      fontSize: Get.width * 0.05),
+                                ),
+                              )
+                            : Center(
+                                child: Text(
+                                  "Search for your city",
+                                  style: GoogleFonts.montserrat(
+                                      fontSize: Get.width * 0.05),
+                                ),
+                              )
+                        : ListView.builder(
+                            itemCount: _searchController.filterCities.length,
+                            itemBuilder: (context, index) {
+                              return ListTile(
+                                onTap: () {
+                                  _weatherController.getWeatherFromCity(
+                                      cityName: _searchController
+                                          .filterCities[index].cityName);
+                                  _searchController.search(query: "");
+                                  Get.toNamed(AppRoutes.home);
+                                },
+                                contentPadding: EdgeInsets.symmetric(
+                                    horizontal: Get.width * 0.06),
+                                title: Text(
+                                  _searchController
+                                      .filterCities[index].cityName,
+                                  style: GoogleFonts.montserrat(
+                                    fontSize: Get.width * 0.035,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                subtitle: Text(
+                                  "${_searchController.filterCities[index].district}, ${_searchController.filterCities[index].state}",
+                                  overflow: TextOverflow.ellipsis,
+                                  style: GoogleFonts.montserrat(
+                                    fontSize: Get.width * 0.03,
+                                  ),
+                                ),
+                                trailing: Text(
+                                  _searchController
+                                      .filterCities[index].countryShort,
+                                  style: GoogleFonts.montserrat(
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              );
+                            },
+                          )
+                    : const Center(
                         child: CircularProgressIndicator(),
-                      );
-                    }
-                  },
-                ),
+                      ),
               ),
-            )
+            ),
           ],
         ),
       ),
