@@ -88,16 +88,14 @@ class WeatherController extends GetxController {
   double _fromKtoC() {
     double temp = _mainTemp.value;
     temp = _mainTemp.value - 273.15;
-    debugPrint("From K to C");
-    debugPrint("${_mainTemp.value} - ${273.15}}");
+    debugPrint("From K to C: ${_mainTemp.value} - ${273.15} = $temp");
     return temp.toPrecision(2);
   }
 
   double _fromKtoF() {
     double temp = _mainTemp.value;
     temp = (_mainTemp.value - 273.15) * 9 / 5 + 32;
-    debugPrint("From K to F");
-    debugPrint("${_mainTemp.value} - ${459.67}}");
+    debugPrint("From K to F: ${_mainTemp.value} - ${459.67} = $temp");
     return temp.toPrecision(2);
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'dart:math' as math;
 
 import 'package:material_symbols_icons/symbols.dart';
@@ -82,15 +83,16 @@ class _ExpandableFabState extends State<ExpandableFab>
         child: Material(
           shape: const CircleBorder(),
           clipBehavior: Clip.antiAlias,
-          color: Colors.amber.shade100,
+          color: Get.theme.primaryColor.withOpacity(0.2),
           elevation: 4,
+          shadowColor: Get.theme.primaryColor.withOpacity(0.2),
           child: InkWell(
             onTap: _toggle,
-            child: const Padding(
-              padding: EdgeInsets.all(8),
+            child: Padding(
+              padding: const EdgeInsets.all(8),
               child: Icon(
                 Icons.close,
-                color: Colors.black,
+                color: Get.theme.iconTheme.color,
               ),
             ),
           ),
@@ -136,7 +138,7 @@ class _ExpandableFabState extends State<ExpandableFab>
           duration: const Duration(milliseconds: 250),
           child: FloatingActionButton(
             onPressed: _toggle,
-            backgroundColor: Colors.amber,
+            backgroundColor: Get.theme.primaryColor,
             child: const Icon(
               Symbols.target_rounded,
               color: Colors.white,
@@ -204,7 +206,7 @@ class ActionButton extends StatelessWidget {
     return Material(
       shape: const CircleBorder(),
       clipBehavior: Clip.antiAlias,
-      color: Colors.amber,
+      color: Get.theme.primaryColor,
       elevation: 4,
       child: IconButton(
         onPressed: onPressed,

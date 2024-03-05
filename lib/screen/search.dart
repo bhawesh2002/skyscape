@@ -112,8 +112,10 @@ class SearchPage extends StatelessWidget {
                               );
                             },
                           )
-                    : const Center(
-                        child: CircularProgressIndicator(),
+                    : Center(
+                        child: CircularProgressIndicator(
+                          color: Get.theme.primaryColor,
+                        ),
                       ),
               ),
             ),

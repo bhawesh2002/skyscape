@@ -14,6 +14,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       initialRoute: AppRoutes.login,
+      theme: ThemeData(primaryColor: Colors.cyan),
       getPages: AppPages.pages,
       home: HomePage(),
     );
