@@ -9,6 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_svg: ^2.0.10+1
   get: ^4.6.6
   google_fonts: ^6.1.0
   http: ^1.2.0
@@ -24,3 +25,5 @@ flutter:
   uses-material-design: true
   assets:
     - assets\city_list\owm_city_list.json
+    - assets\images\Github.svg
+    - assets\images\Google.svg
