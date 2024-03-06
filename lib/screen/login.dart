@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx_weather_app/routes/app_routes.dart';
 import 'package:getx_weather_app/widgets/alternative_auth_option.dart';
 import 'package:getx_weather_app/widgets/auth_text_field.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -85,7 +86,9 @@ class LoginPage extends StatelessWidget {
                   color: Get.theme.primaryColor,
                   borderRadius: BorderRadius.circular(Get.width * 0.03),
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Get.offNamed(AppRoutes.home);
+                    },
                     borderRadius: BorderRadius.circular(Get.width * 0.03),
                     child: SizedBox(
                       width: Get.width * 0.45,
