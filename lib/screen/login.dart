@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:getx_weather_app/routes/app_routes.dart';
 import 'package:getx_weather_app/widgets/alternative_auth_option.dart';
 import 'package:getx_weather_app/widgets/auth_text_field.dart';
+import 'package:getx_weather_app/widgets/seperation.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
@@ -111,35 +112,8 @@ class LoginPage extends StatelessWidget {
             //OR seperation
             Positioned.fill(
               bottom: Get.height * 0.28,
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      width: Get.width * 0.35,
-                      height: Get.height * 0.002,
-                      decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.4),
-                          borderRadius: BorderRadius.circular(Get.width)),
-                    ),
-                    Text(
-                      "OR",
-                      style: GoogleFonts.montserrat(
-                        color: Colors.black.withOpacity(0.6),
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    Container(
-                      width: Get.width * 0.35,
-                      height: Get.height * 0.002,
-                      decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.4),
-                          borderRadius: BorderRadius.circular(Get.width)),
-                    )
-                  ],
-                ),
-              ),
+              child: const Align(
+                  alignment: Alignment.bottomCenter, child: Seperation()),
             ),
             Positioned.fill(
               bottom: Get.height * 0.235,
