@@ -79,7 +79,7 @@ class LoginPage extends StatelessWidget {
             ),
             //Login Button
             Positioned.fill(
-              top: Get.height * 0.15,
+              top: Get.height * 0.125,
               child: Align(
                 alignment: Alignment.center,
                 child: Material(
@@ -111,12 +111,12 @@ class LoginPage extends StatelessWidget {
             ),
             //OR seperation
             Positioned.fill(
-              bottom: Get.height * 0.28,
+              bottom: Get.height * 0.32,
               child: const Align(
                   alignment: Alignment.bottomCenter, child: Seperation()),
             ),
             Positioned.fill(
-              bottom: Get.height * 0.235,
+              bottom: Get.height * 0.275,
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Text(
@@ -128,8 +128,9 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
             ),
+            //Google
             Positioned.fill(
-              bottom: Get.height * 0.125,
+              bottom: Get.height * 0.175,
               right: Get.width * 0.5,
               child: Align(
                 alignment: Alignment.bottomCenter,
@@ -149,8 +150,9 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
             ),
+            //Github
             Positioned.fill(
-              bottom: Get.height * 0.125,
+              bottom: Get.height * 0.175,
               left: Get.width * 0.5,
               child: Align(
                 alignment: Alignment.bottomCenter,
@@ -165,6 +167,38 @@ class LoginPage extends StatelessWidget {
                       fontSize: Get.width * 0.04,
                       fontWeight: FontWeight.w600,
                       color: Colors.black,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Positioned.fill(
+              bottom: Get.height * 0.1,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Text(
+                  "Don't Have an Account",
+                  style: GoogleFonts.montserrat(
+                    color: Colors.black.withOpacity(0.6),
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ),
+            Positioned.fill(
+              bottom: Get.height * 0.04,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: GestureDetector(
+                  onTap: () {
+                    Get.toNamed(AppRoutes.signup);
+                  },
+                  child: Text(
+                    "Signup",
+                    style: GoogleFonts.montserrat(
+                      fontSize: Get.width * 0.05,
+                      fontWeight: FontWeight.w600,
+                      color: Get.theme.primaryColor,
                     ),
                   ),
                 ),
