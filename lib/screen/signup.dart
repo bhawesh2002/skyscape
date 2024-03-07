@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx_weather_app/routes/app_routes.dart';
 import 'package:getx_weather_app/widgets/auth_text_field.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:material_symbols_icons/symbols.dart';
@@ -48,11 +49,11 @@ class SignUpPage extends StatelessWidget {
                 child: SizedBox(
                   width: Get.width * 0.9,
                   child: AuthTextFieldTwo(
-                    icon: Symbols.person,
+                    icon: Symbols.email_rounded,
                     iconBoxColor: Get.theme.primaryColor,
                     border: Border.all(width: 2, color: Get.theme.primaryColor),
                     borderRadius: BorderRadius.circular(Get.width * 0.02),
-                    hintText: "Enter Your Name",
+                    hintText: "Enter Your Email",
                   ),
                 ),
               ),
@@ -64,17 +65,35 @@ class SignUpPage extends StatelessWidget {
                 child: SizedBox(
                   width: Get.width * 0.90,
                   child: AuthTextFieldTwo(
-                    icon: Symbols.email_rounded,
+                    icon: Symbols.key,
                     iconBoxColor: Get.theme.primaryColor,
                     border: Border.all(width: 2, color: Get.theme.primaryColor),
                     borderRadius: BorderRadius.circular(Get.width * 0.02),
-                    hintText: "Enter Your Email",
+                    obscureText: true,
+                    hintText: "Enter Your Password",
                   ),
                 ),
               ),
             ),
             Positioned.fill(
-              top: Get.height * 0.125,
+              top: Get.height * 0.12,
+              child: Align(
+                alignment: Alignment.center,
+                child: SizedBox(
+                  width: Get.width * 0.90,
+                  child: AuthTextFieldTwo(
+                    icon: Symbols.key_rounded,
+                    iconBoxColor: Get.theme.primaryColor,
+                    border: Border.all(width: 2, color: Get.theme.primaryColor),
+                    borderRadius: BorderRadius.circular(Get.width * 0.02),
+                    obscureText: false,
+                    hintText: "Confirm Your Password",
+                  ),
+                ),
+              ),
+            ),
+            Positioned.fill(
+              top: Get.height * 0.35,
               child: Align(
                 alignment: Alignment.center,
                 child: Material(
@@ -82,7 +101,9 @@ class SignUpPage extends StatelessWidget {
                   color: Get.theme.primaryColor,
                   borderRadius: BorderRadius.circular(Get.width * 0.03),
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Get.offAllNamed(AppRoutes.home);
+                    },
                     borderRadius: BorderRadius.circular(Get.width * 0.03),
                     child: SizedBox(
                       width: Get.width * 0.45,
