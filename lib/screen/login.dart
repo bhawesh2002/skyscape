@@ -52,8 +52,6 @@ class LoginPage extends StatelessWidget {
                   width: Get.width * 0.90,
                   child: AuthTextFieldTwo(
                     icon: Symbols.email_rounded,
-                    iconBoxColor: Get.theme.primaryColor,
-                    border: Border.all(width: 2, color: Get.theme.primaryColor),
                     borderRadius: BorderRadius.circular(Get.width * 0.02),
                     hintText: "Enter Your Email",
                   ),
@@ -68,8 +66,6 @@ class LoginPage extends StatelessWidget {
                   width: Get.width * 0.90,
                   child: AuthTextFieldTwo(
                     icon: Symbols.key,
-                    iconBoxColor: Get.theme.primaryColor,
-                    border: Border.all(width: 2, color: Get.theme.primaryColor),
                     borderRadius: BorderRadius.circular(Get.width * 0.02),
                     obscureText: true,
                     hintText: "Enter Your Password",
@@ -88,7 +84,7 @@ class LoginPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(Get.width * 0.03),
                   child: InkWell(
                     onTap: () {
-                      Get.offNamed(AppRoutes.home);
+                      Get.offAllNamed(AppRoutes.home);
                     },
                     borderRadius: BorderRadius.circular(Get.width * 0.03),
                     child: SizedBox(

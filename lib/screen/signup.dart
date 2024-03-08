@@ -50,8 +50,6 @@ class SignUpPage extends StatelessWidget {
                   width: Get.width * 0.9,
                   child: AuthTextFieldTwo(
                     icon: Symbols.email_rounded,
-                    iconBoxColor: Get.theme.primaryColor,
-                    border: Border.all(width: 2, color: Get.theme.primaryColor),
                     borderRadius: BorderRadius.circular(Get.width * 0.02),
                     hintText: "Enter Your Email",
                   ),
@@ -66,8 +64,6 @@ class SignUpPage extends StatelessWidget {
                   width: Get.width * 0.90,
                   child: AuthTextFieldTwo(
                     icon: Symbols.key,
-                    iconBoxColor: Get.theme.primaryColor,
-                    border: Border.all(width: 2, color: Get.theme.primaryColor),
                     borderRadius: BorderRadius.circular(Get.width * 0.02),
                     obscureText: true,
                     hintText: "Enter Your Password",
@@ -83,8 +79,6 @@ class SignUpPage extends StatelessWidget {
                   width: Get.width * 0.90,
                   child: AuthTextFieldTwo(
                     icon: Symbols.key_rounded,
-                    iconBoxColor: Get.theme.primaryColor,
-                    border: Border.all(width: 2, color: Get.theme.primaryColor),
                     borderRadius: BorderRadius.circular(Get.width * 0.02),
                     obscureText: false,
                     hintText: "Confirm Your Password",
@@ -102,7 +96,24 @@ class SignUpPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(Get.width * 0.03),
                   child: InkWell(
                     onTap: () {
-                      Get.offAllNamed(AppRoutes.home);
+                      Get.defaultDialog(
+                        title: "Confirm Email",
+                        content: const Column(
+                          children: [Text("Confirm your email")],
+                        ),
+                        confirm: TextButton(
+                          onPressed: () {
+                            Get.offAllNamed(AppRoutes.home);
+                          },
+                          child: const Text("Confirm"),
+                        ),
+                        cancel: TextButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          child: const Text("Cancel"),
+                        ),
+                      );
                     },
                     borderRadius: BorderRadius.circular(Get.width * 0.03),
                     child: SizedBox(

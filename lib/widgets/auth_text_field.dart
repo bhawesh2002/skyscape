@@ -142,8 +142,8 @@ class AuthTextFieldTwo extends StatelessWidget {
       height: Get.height * 0.07,
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
-          border: border,
-          borderRadius: borderRadius,
+          border: border ?? Border.all(width: 2, color: Get.theme.primaryColor),
+          borderRadius: borderRadius ?? BorderRadius.circular(0),
           color: bgColor ?? Colors.white),
       child: LayoutBuilder(
         builder: ((context, constraints) {
@@ -152,7 +152,7 @@ class AuthTextFieldTwo extends StatelessWidget {
               Container(
                 width: constraints.maxWidth * 0.18,
                 decoration: BoxDecoration(
-                  color: iconBoxColor,
+                  color: iconBoxColor ?? Get.theme.primaryColor,
                 ),
                 child: Stack(
                   children: [
@@ -188,10 +188,10 @@ class AuthTextFieldTwo extends StatelessWidget {
                     onChanged: onChanged,
                     onTap: onTap,
                     controller: controller,
-                    cursorColor: cursorColor ?? Colors.white,
+                    cursorColor: cursorColor ?? Get.theme.primaryColor,
                     style: style ??
                         GoogleFonts.montserrat(
-                            color: iconBoxColor ?? Colors.white,
+                            color: iconBoxColor ?? Get.theme.primaryColor,
                             fontWeight: FontWeight.w600,
                             fontSize: constraints.maxWidth * 0.038),
                     obscureText: obscureText ?? false,
@@ -199,12 +199,12 @@ class AuthTextFieldTwo extends StatelessWidget {
                       border: const OutlineInputBorder(
                         borderSide: BorderSide.none,
                       ),
-                      fillColor: iconBoxColor ?? Colors.white,
+                      fillColor: iconBoxColor ?? Get.theme.primaryColor,
                       hintText: hintText ?? "",
                       hintStyle: hintStyle ??
                           GoogleFonts.montserrat(
-                            color:
-                                iconBoxColor ?? Colors.white.withOpacity(0.6),
+                            color: iconBoxColor ??
+                                Get.theme.primaryColor.withOpacity(0.8),
                             fontWeight: FontWeight.w500,
                           ),
                     ),
