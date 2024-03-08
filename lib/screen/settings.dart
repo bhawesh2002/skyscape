@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_weather_app/controllers/theme_controller.dart';
 import 'package:getx_weather_app/controllers/weater_controller.dart';
+import 'package:getx_weather_app/routes/app_routes.dart';
 import 'package:getx_weather_app/utils/enums/temperature_units.dart';
 import 'package:getx_weather_app/utils/enums/themes_mode.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -116,6 +117,17 @@ class SettingsPage extends StatelessWidget {
                 "Tap to Change Unit",
                 style: settingsTileSubtitleStyle(),
               ),
+            ),
+          ),
+          settingsTile(
+            onTap: () {
+              Get.offAllNamed(AppRoutes.login);
+            },
+            title: "Logut",
+            icon: Symbols.logout,
+            subtitle: Text(
+              "Logout from current session",
+              style: settingsTileSubtitleStyle(),
             ),
           ),
         ],
