@@ -17,6 +17,7 @@ class AuthTextFieldOne extends StatelessWidget {
   final String? hintText;
   final TextStyle? hintStyle;
   final VoidCallback? onTap;
+  final String? errorText;
   const AuthTextFieldOne({
     super.key,
     required this.icon,
@@ -33,6 +34,7 @@ class AuthTextFieldOne extends StatelessWidget {
     this.hintStyle,
     this.iconBoxColor,
     this.onTap,
+    this.errorText,
   });
 
   @override
@@ -68,7 +70,7 @@ class AuthTextFieldOne extends StatelessWidget {
                       border: border,
                       borderRadius: borderRadius,
                       color: bgColor ?? Colors.white),
-                  child: TextField(
+                  child: TextFormField(
                     onChanged: onChanged,
                     onTap: onTap,
                     controller: controller,
@@ -80,6 +82,7 @@ class AuthTextFieldOne extends StatelessWidget {
                             fontSize: constraints.maxWidth * 0.038),
                     obscureText: obscureText ?? false,
                     decoration: InputDecoration(
+                      errorText: errorText,
                       border: const OutlineInputBorder(
                         borderSide: BorderSide.none,
                       ),
@@ -118,6 +121,8 @@ class AuthTextFieldTwo extends StatelessWidget {
   final String? hintText;
   final TextStyle? hintStyle;
   final VoidCallback? onTap;
+  final String? errorText;
+  final String? Function(String?)? validator;
   const AuthTextFieldTwo({
     super.key,
     required this.icon,
@@ -134,6 +139,8 @@ class AuthTextFieldTwo extends StatelessWidget {
     this.hintStyle,
     this.iconBoxColor,
     this.onTap,
+    this.errorText,
+    this.validator,
   });
 
   @override
@@ -184,9 +191,10 @@ class AuthTextFieldTwo extends StatelessWidget {
               ),
               Expanded(
                 child: SizedBox(
-                  child: TextField(
+                  child: TextFormField(
                     onChanged: onChanged,
                     onTap: onTap,
+                    validator: validator,
                     controller: controller,
                     cursorColor: cursorColor ?? Get.theme.primaryColor,
                     style: style ??
@@ -201,6 +209,7 @@ class AuthTextFieldTwo extends StatelessWidget {
                       ),
                       fillColor: iconBoxColor ?? Get.theme.primaryColor,
                       hintText: hintText ?? "",
+                      errorText: errorText,
                       hintStyle: hintStyle ??
                           GoogleFonts.montserrat(
                             color: iconBoxColor ??
