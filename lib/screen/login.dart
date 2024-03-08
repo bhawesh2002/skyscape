@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx_weather_app/controllers/login_controller.dart';
 import 'package:getx_weather_app/routes/app_routes.dart';
 import 'package:getx_weather_app/widgets/alternative_auth_option.dart';
 import 'package:getx_weather_app/widgets/auth_text_field.dart';
@@ -8,8 +9,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
-
+  LoginPage({super.key});
+  final LoginController _loginController = Get.put(LoginController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,6 +52,7 @@ class LoginPage extends StatelessWidget {
                 child: SizedBox(
                   width: Get.width * 0.90,
                   child: AuthTextFieldTwo(
+                    controller: _loginController.emailController,
                     icon: Symbols.email_rounded,
                     borderRadius: BorderRadius.circular(Get.width * 0.02),
                     hintText: "Enter Your Email",
@@ -65,6 +67,7 @@ class LoginPage extends StatelessWidget {
                 child: SizedBox(
                   width: Get.width * 0.90,
                   child: AuthTextFieldTwo(
+                    controller: _loginController.passwordController,
                     icon: Symbols.key,
                     borderRadius: BorderRadius.circular(Get.width * 0.02),
                     obscureText: true,
@@ -84,7 +87,9 @@ class LoginPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(Get.width * 0.03),
                   child: InkWell(
                     onTap: () {
-                      Get.offAllNamed(AppRoutes.home);
+                      _loginController.validate(
+                          email: _loginController.emailController.text,
+                          pass: _loginController.passwordController.text);
                     },
                     borderRadius: BorderRadius.circular(Get.width * 0.03),
                     child: SizedBox(
