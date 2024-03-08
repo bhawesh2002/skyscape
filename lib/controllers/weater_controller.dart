@@ -12,8 +12,8 @@ class WeatherController extends GetxController {
   final RxDouble _mainTemp = 0.0.obs;
   var name = "".obs;
   var weatherMain = "".obs;
-  RxInt mainPressure = 0.obs;
-  RxInt mainHumidity = 0.obs;
+  var mainPressure = 0.obs;
+  var mainHumidity = 0.obs;
   var windSpeed = 0.0.obs;
 
   final TempUnitController tempUnitController = Get.put(TempUnitController());
@@ -40,11 +40,11 @@ class WeatherController extends GetxController {
             "WeatherController Status: Weather Data successfully fetched");
         debugPrint("WeatherController Status: Decoding......");
         final weatherData = json.decode(response.body);
-        _mainTemp.value = weatherData['main']['temp'];
+        _mainTemp.value = (weatherData['main']['temp'] as double);
         name.value = weatherData['name'];
         weatherMain.value = weatherData['weather'][0]["main"];
-        mainPressure = (weatherData['main']['pressure'] as int).obs;
-        mainHumidity = (weatherData['main']['humidity'] as int).obs;
+        mainPressure.value = weatherData['main']['pressure'];
+        mainHumidity.value = weatherData['main']['humidity'];
         windSpeed.value = weatherData['wind']['speed'];
         debugPrint("WeatherController Status: Data Decoded successfully");
       } else {
@@ -73,12 +73,12 @@ class WeatherController extends GetxController {
         _mainTemp.value = weatherData['main']['temp'];
         name.value = weatherData['name'];
         weatherMain.value = weatherData['weather'][0]["main"];
-        mainPressure = (weatherData['main']['pressure'] as int).obs;
-        mainHumidity = (weatherData['main']['humidity'] as int).obs;
+        mainPressure.value = weatherData['main']['pressure'];
+        mainHumidity.value = weatherData['main']['humidity'];
         windSpeed.value = weatherData['wind']['speed'];
         debugPrint("WeatherController Status: Data Decoded successfully");
       } else {
-        throw Exception("Error while fetching weather from City");
+        throw Exception("Error while fetching weather from Location");
       }
     } catch (e) {
       debugPrint("getWeatherFromCoordinates Error has occured: $e");
