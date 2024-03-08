@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getx_weather_app/routes/app_routes.dart';
+import 'package:getx_weather_app/controllers/signup_controller.dart';
 import 'package:getx_weather_app/widgets/auth_text_field.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
 class SignUpPage extends StatelessWidget {
-  const SignUpPage({super.key});
-
+  SignUpPage({super.key});
+  final SignupController _signupController = Get.put(SignupController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,10 +48,22 @@ class SignUpPage extends StatelessWidget {
                 alignment: Alignment.center,
                 child: SizedBox(
                   width: Get.width * 0.9,
-                  child: AuthTextFieldTwo(
-                    icon: Symbols.email_rounded,
-                    borderRadius: BorderRadius.circular(Get.width * 0.02),
-                    hintText: "Enter Your Email",
+                  child: Obx(
+                    () => AuthTextFieldTwo(
+                      controller: _signupController.emailController,
+                      icon: Symbols.email_rounded,
+                      iconBoxColor: _signupController.isEmailValid.value
+                          ? Get.theme.primaryColor
+                          : Colors.redAccent,
+                      border: Border.all(
+                        width: 2,
+                        color: _signupController.isEmailValid.value
+                            ? Get.theme.primaryColor
+                            : Colors.redAccent,
+                      ),
+                      borderRadius: BorderRadius.circular(Get.width * 0.02),
+                      hintText: "Enter Your Email",
+                    ),
                   ),
                 ),
               ),
@@ -62,11 +74,23 @@ class SignUpPage extends StatelessWidget {
                 alignment: Alignment.center,
                 child: SizedBox(
                   width: Get.width * 0.90,
-                  child: AuthTextFieldTwo(
-                    icon: Symbols.key,
-                    borderRadius: BorderRadius.circular(Get.width * 0.02),
-                    obscureText: true,
-                    hintText: "Enter Your Password",
+                  child: Obx(
+                    () => AuthTextFieldTwo(
+                      controller: _signupController.passwordController,
+                      icon: Symbols.key,
+                      iconBoxColor: _signupController.isPassValid.value
+                          ? Get.theme.primaryColor
+                          : Colors.redAccent,
+                      border: Border.all(
+                        width: 2,
+                        color: _signupController.isPassValid.value
+                            ? Get.theme.primaryColor
+                            : Colors.redAccent,
+                      ),
+                      borderRadius: BorderRadius.circular(Get.width * 0.02),
+                      obscureText: true,
+                      hintText: "Enter Your Password",
+                    ),
                   ),
                 ),
               ),
@@ -77,11 +101,23 @@ class SignUpPage extends StatelessWidget {
                 alignment: Alignment.center,
                 child: SizedBox(
                   width: Get.width * 0.90,
-                  child: AuthTextFieldTwo(
-                    icon: Symbols.key_rounded,
-                    borderRadius: BorderRadius.circular(Get.width * 0.02),
-                    obscureText: false,
-                    hintText: "Confirm Your Password",
+                  child: Obx(
+                    () => AuthTextFieldTwo(
+                      controller: _signupController.confirmPassController,
+                      icon: Symbols.key_rounded,
+                      iconBoxColor: _signupController.arePassSame.value
+                          ? Get.theme.primaryColor
+                          : Colors.redAccent,
+                      border: Border.all(
+                        width: 2,
+                        color: _signupController.arePassSame.value
+                            ? Get.theme.primaryColor
+                            : Colors.redAccent,
+                      ),
+                      borderRadius: BorderRadius.circular(Get.width * 0.02),
+                      obscureText: false,
+                      hintText: "Confirm Your Password",
+                    ),
                   ),
                 ),
               ),
@@ -96,24 +132,11 @@ class SignUpPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(Get.width * 0.03),
                   child: InkWell(
                     onTap: () {
-                      Get.defaultDialog(
-                        title: "Confirm Email",
-                        content: const Column(
-                          children: [Text("Confirm your email")],
-                        ),
-                        confirm: TextButton(
-                          onPressed: () {
-                            Get.offAllNamed(AppRoutes.home);
-                          },
-                          child: const Text("Confirm"),
-                        ),
-                        cancel: TextButton(
-                          onPressed: () {
-                            Get.back();
-                          },
-                          child: const Text("Cancel"),
-                        ),
-                      );
+                      _signupController.validate(
+                          email: _signupController.emailController.text,
+                          pass: _signupController.passwordController.text,
+                          confirmPass:
+                              _signupController.confirmPassController.text);
                     },
                     borderRadius: BorderRadius.circular(Get.width * 0.03),
                     child: SizedBox(

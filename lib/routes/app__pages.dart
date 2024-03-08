@@ -14,7 +14,7 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.signup,
-      page: () => const SignUpPage(),
+      page: () => SignUpPage(),
     ),
     GetPage(
       name: AppRoutes.home,
