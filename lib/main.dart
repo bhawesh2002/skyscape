@@ -15,7 +15,7 @@ class MainApp extends StatelessWidget {
     return GetMaterialApp(
       theme: ThemeData(primaryColor: Colors.cyan),
       getPages: AppPages.pages,
-      home: const LoginPage(),
+      home: LoginPage(),
     );
   }
 }
