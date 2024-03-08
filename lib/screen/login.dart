@@ -51,11 +51,21 @@ class LoginPage extends StatelessWidget {
                 alignment: Alignment.center,
                 child: SizedBox(
                   width: Get.width * 0.90,
-                  child: AuthTextFieldTwo(
-                    controller: _loginController.emailController,
-                    icon: Symbols.email_rounded,
-                    borderRadius: BorderRadius.circular(Get.width * 0.02),
-                    hintText: "Enter Your Email",
+                  child: Obx(
+                    () => AuthTextFieldTwo(
+                      controller: _loginController.emailController,
+                      icon: Symbols.email_rounded,
+                      iconBoxColor: _loginController.isEmailValid.value
+                          ? Get.theme.primaryColor
+                          : Colors.red,
+                      border: Border.all(
+                          width: 2,
+                          color: _loginController.isEmailValid.value
+                              ? Get.theme.primaryColor
+                              : Colors.red),
+                      borderRadius: BorderRadius.circular(Get.width * 0.02),
+                      hintText: "Enter Your Email",
+                    ),
                   ),
                 ),
               ),
@@ -66,12 +76,23 @@ class LoginPage extends StatelessWidget {
                 alignment: Alignment.center,
                 child: SizedBox(
                   width: Get.width * 0.90,
-                  child: AuthTextFieldTwo(
-                    controller: _loginController.passwordController,
-                    icon: Symbols.key,
-                    borderRadius: BorderRadius.circular(Get.width * 0.02),
-                    obscureText: true,
-                    hintText: "Enter Your Password",
+                  child: Obx(
+                    () => AuthTextFieldTwo(
+                      controller: _loginController.passwordController,
+                      icon: Symbols.key,
+                      iconBoxColor: _loginController.isPassValid.value
+                          ? Get.theme.primaryColor
+                          : Colors.redAccent,
+                      border: Border.all(
+                        width: 2,
+                        color: _loginController.isPassValid.value
+                            ? Get.theme.primaryColor
+                            : Colors.redAccent,
+                      ),
+                      borderRadius: BorderRadius.circular(Get.width * 0.02),
+                      obscureText: true,
+                      hintText: "Enter Your Password",
+                    ),
                   ),
                 ),
               ),

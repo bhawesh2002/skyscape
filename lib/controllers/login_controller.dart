@@ -5,8 +5,8 @@ import 'package:getx_weather_app/routes/app_routes.dart';
 class LoginController extends GetxController {
   RxBool isInitialized = false.obs;
   RxBool hidePassword = true.obs;
-  RxBool isEmailValid = false.obs;
-  RxBool isPassValid = false.obs;
+  RxBool isEmailValid = true.obs;
+  RxBool isPassValid = true.obs;
   TextEditingController emailController = TextEditingController(text: "");
   TextEditingController passwordController = TextEditingController(text: "");
   @override
@@ -23,11 +23,19 @@ class LoginController extends GetxController {
   }
 
   void validate({required String email, required String pass}) {
-    if (_emailCheck(email) && _passCheck(pass)) {
-      debugPrint("Going to Home");
-      emailController.clear();
-      passwordController.clear();
-      Get.offAllNamed(AppRoutes.home);
+    if (_emailCheck(email)) {
+      isEmailValid.value = true;
+      if (_passCheck(pass)) {
+        isPassValid.value = true;
+        debugPrint("Going to Home");
+        emailController.clear();
+        passwordController.clear();
+        Get.offAllNamed(AppRoutes.home);
+      } else {
+        isPassValid.value = false;
+      }
+    } else {
+      isEmailValid.value = false;
     }
   }
 
@@ -36,11 +44,11 @@ class LoginController extends GetxController {
       debugPrint("Email is Empty");
       return false;
     } else {
-      isEmailValid.value = RegExp(
+      bool isValid = RegExp(
               r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
           .hasMatch(email);
       update();
-      if (!isEmailValid.value) {
+      if (!isValid) {
         debugPrint("Enter valid Email");
         return false;
       } else {
