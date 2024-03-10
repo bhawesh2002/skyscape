@@ -132,7 +132,7 @@ class SignUpPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(Get.width * 0.03),
                   child: InkWell(
                     onTap: () {
-                      _signupController.validate(
+                      _signupController.createAccount(
                           email: _signupController.emailController.text,
                           pass: _signupController.passwordController.text,
                           confirmPass:

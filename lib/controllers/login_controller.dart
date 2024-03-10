@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_weather_app/routes/app_routes.dart';
@@ -9,6 +10,8 @@ class LoginController extends GetxController {
   RxBool isPassValid = true.obs;
   TextEditingController emailController = TextEditingController(text: "");
   TextEditingController passwordController = TextEditingController(text: "");
+  String? _email;
+  String? _password;
   @override
   void onInit() {
     isInitialized.value = true;
@@ -22,21 +25,54 @@ class LoginController extends GetxController {
     super.dispose();
   }
 
-  void validate({required String email, required String pass}) {
+  void login({required String email, required String pass}) {
+    bool isValid = _validate(email: email, pass: pass);
+    if (isValid) {
+      _loginWithEmail();
+      debugPrint("Going to Home");
+      emailController.clear();
+      passwordController.clear();
+    }
+  }
+
+  void _loginWithEmail() async {
+    try {
+      final credential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: _email!, password: _password!);
+      User? currentUser = credential.user;
+      if (currentUser != null) {
+        Get.offAllNamed(AppRoutes.home);
+      }
+      debugPrint("Login Successful\tEmail:${currentUser?.email}");
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        Get.snackbar("User not registered", "No user found for that email.");
+        debugPrint('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        Get.snackbar("Wrong Password",
+            "Provided password was wrong. Please Re-enter password");
+        debugPrint('Wrong password provided for that user.');
+      }
+    } catch (e) {
+      debugPrint("Error while logging in: $e");
+    }
+  }
+
+  bool _validate({required String email, required String pass}) {
     if (_emailCheck(email)) {
       isEmailValid.value = true;
       if (_passCheck(pass)) {
         isPassValid.value = true;
-        debugPrint("Going to Home");
-        emailController.clear();
-        passwordController.clear();
-        Get.offAllNamed(AppRoutes.home);
+        _email = emailController.text;
+        _password = passwordController.text;
+        return true;
       } else {
         isPassValid.value = false;
       }
     } else {
       isEmailValid.value = false;
     }
+    return false;
   }
 
   bool _emailCheck(String email) {

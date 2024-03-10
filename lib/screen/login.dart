@@ -108,7 +108,7 @@ class LoginPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(Get.width * 0.03),
                   child: InkWell(
                     onTap: () {
-                      _loginController.validate(
+                      _loginController.login(
                           email: _loginController.emailController.text,
                           pass: _loginController.passwordController.text);
                     },
