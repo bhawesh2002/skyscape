@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx_weather_app/controllers/auth_state_controller.dart';
 import 'package:getx_weather_app/controllers/theme_controller.dart';
 import 'package:getx_weather_app/controllers/weater_controller.dart';
-import 'package:getx_weather_app/routes/app_routes.dart';
 import 'package:getx_weather_app/utils/enums/temperature_units.dart';
 import 'package:getx_weather_app/utils/enums/themes_mode.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,6 +13,8 @@ class SettingsPage extends StatelessWidget {
 
   final WeatherController _weatherController = Get.find<WeatherController>();
   final ThemeController _themeController = Get.put(ThemeController());
+  final AuthStateController _authStateController =
+      Get.find<AuthStateController>();
   Widget settingsTile({
     required String title,
     required IconData icon,
@@ -121,7 +123,7 @@ class SettingsPage extends StatelessWidget {
           ),
           settingsTile(
             onTap: () {
-              Get.offAllNamed(AppRoutes.login);
+              _authStateController.logOut();
             },
             title: "Logut",
             icon: Symbols.logout,

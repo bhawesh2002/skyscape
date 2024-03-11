@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_weather_app/routes/app_routes.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginController extends GetxController {
   RxBool isInitialized = false.obs;
@@ -25,46 +28,79 @@ class LoginController extends GetxController {
     super.dispose();
   }
 
-  void login({required String email, required String pass}) {
-    bool isValid = _validate(email: email, pass: pass);
+  Future<void> login() async {
+    bool isValid =
+        _validate(email: emailController.text, pass: passwordController.text);
     if (isValid) {
-      _loginWithEmail();
-      debugPrint("Going to Home");
+      await _loginWithEmail(email: _email!, pass: _password!);
       emailController.clear();
       passwordController.clear();
     }
   }
 
-  void _loginWithEmail() async {
+  Future<void> _loginWithEmail(
+      {required String email, required String pass}) async {
     try {
       final credential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: _email!, password: _password!);
+          .signInWithEmailAndPassword(email: email, password: pass);
       User? currentUser = credential.user;
       if (currentUser != null) {
         Get.offAllNamed(AppRoutes.home);
       }
       debugPrint("Login Successful\tEmail:${currentUser?.email}");
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        Get.snackbar("User not registered", "No user found for that email.");
-        debugPrint('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        Get.snackbar("Wrong Password",
-            "Provided password was wrong. Please Re-enter password");
-        debugPrint('Wrong password provided for that user.');
-      }
+      Get.snackbar("Error has Occured", e.message!);
+      debugPrint("FirebaseAuth Error: ${e.message!}");
     } catch (e) {
       debugPrint("Error while logging in: $e");
     }
   }
 
+  Future<void> loginWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+      // Obtain the auth details from the request
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
+
+      // Create a new credential
+      OAuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+      FirebaseAuth.instance
+          .signInWithCredential(credential)
+          .then((value) => Get.offAllNamed(AppRoutes.home));
+    } on FirebaseAuthException catch (e) {
+      Get.snackbar("Error has occured", e.message!);
+    } catch (e) {
+      debugPrint("loginWithGoogle() error: $e");
+    }
+  }
+
+  Future<void> loginWithGithub() async {
+    try {
+      GithubAuthProvider githubAuthProvider = GithubAuthProvider();
+      await FirebaseAuth.instance
+          .signInWithProvider(githubAuthProvider)
+          .then((value) => Get.offAllNamed(AppRoutes.home));
+    } on FirebaseAuthException catch (e) {
+      Get.snackbar("Error has occured", e.message!);
+      debugPrint("FirebaseAuth Error: $e");
+    } catch (e) {
+      debugPrint("loginWithGithub() error: $e");
+    }
+  }
+
+  Future<void> linkAuthProviders() async {}
   bool _validate({required String email, required String pass}) {
     if (_emailCheck(email)) {
       isEmailValid.value = true;
       if (_passCheck(pass)) {
         isPassValid.value = true;
-        _email = emailController.text;
-        _password = passwordController.text;
+        _email = email;
+        _password = pass;
         return true;
       } else {
         isPassValid.value = false;

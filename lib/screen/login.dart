@@ -107,10 +107,8 @@ class LoginPage extends StatelessWidget {
                   color: Get.theme.primaryColor,
                   borderRadius: BorderRadius.circular(Get.width * 0.03),
                   child: InkWell(
-                    onTap: () {
-                      _loginController.login(
-                          email: _loginController.emailController.text,
-                          pass: _loginController.passwordController.text);
+                    onTap: () async {
+                      await _loginController.login();
                     },
                     borderRadius: BorderRadius.circular(Get.width * 0.03),
                     child: SizedBox(
@@ -157,7 +155,9 @@ class LoginPage extends StatelessWidget {
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: AlternativeAuthOptiion(
-                  onTap: () {},
+                  onTap: () async {
+                    await _loginController.loginWithGoogle();
+                  },
                   image: 'assets/images/Google.svg',
                   imageSize: Get.width * 0.1,
                   width: Get.width * 0.4,
@@ -179,7 +179,9 @@ class LoginPage extends StatelessWidget {
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: AlternativeAuthOptiion(
-                  onTap: () {},
+                  onTap: () {
+                    _loginController.loginWithGithub();
+                  },
                   image: 'assets/images/Github.svg',
                   imageSize: Get.width * 0.1,
                   width: Get.width * 0.4,

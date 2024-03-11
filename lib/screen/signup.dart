@@ -131,12 +131,8 @@ class SignUpPage extends StatelessWidget {
                   color: Get.theme.primaryColor,
                   borderRadius: BorderRadius.circular(Get.width * 0.03),
                   child: InkWell(
-                    onTap: () {
-                      _signupController.createAccount(
-                          email: _signupController.emailController.text,
-                          pass: _signupController.passwordController.text,
-                          confirmPass:
-                              _signupController.confirmPassController.text);
+                    onTap: () async {
+                      await _signupController.createAccount();
                     },
                     borderRadius: BorderRadius.circular(Get.width * 0.03),
                     child: SizedBox(

@@ -13,53 +13,37 @@ class SignupController extends GetxController {
   TextEditingController confirmPassController = TextEditingController(text: "");
   String? _email;
   String? _password;
-
   @override
   void onInit() {
     isInitialized.value = true;
     super.onInit();
   }
 
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    confirmPassController.dispose();
-    super.dispose();
-  }
-
-  void createAccount(
-      {required String email,
-      required String pass,
-      required String confirmPass}) {
-    bool isValid =
-        _validate(email: email, pass: pass, confirmPass: confirmPass);
+  Future<void> createAccount() async {
+    bool isValid = _validate(
+        email: emailController.text,
+        pass: passwordController.text,
+        confirmPass: confirmPassController.text);
     if (isValid) {
-      debugPrint("Going to Home");
-      emailController.clear();
-      passwordController.clear();
-      confirmPassController.clear();
-      _signUpWithEmail();
+      await _signUpWithEmail(email: _email!, pass: _password!);
     }
   }
 
-  void _signUpWithEmail() async {
+  Future<void> _signUpWithEmail(
+      {required String email, required String pass}) async {
     try {
       final credential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: _email!, password: _password!);
+          .createUserWithEmailAndPassword(email: email, password: pass);
       User? currentUser = credential.user;
       if (currentUser != null) {
         Get.offAllNamed(AppRoutes.home);
       }
       debugPrint("SignUp Successful\tEmail:${currentUser?.email}");
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        debugPrint('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        debugPrint('The account already exists for that email.');
-      }
+      Get.snackbar("Error", e.message!);
+      debugPrint(e.message!);
     } catch (e) {
-      debugPrint("Error while logging in: $e");
+      debugPrint("Error while Sigining up: $e");
     }
   }
 
@@ -73,8 +57,8 @@ class SignupController extends GetxController {
         isPassValid.value = true;
         if (_confirmPassCheck(pass, confirmPass)) {
           arePassSame.value = true;
-          _email = emailController.text;
-          _password = passwordController.text;
+          _email = email;
+          _password = pass;
           return true;
         } else {
           arePassSame.value = false;
@@ -127,5 +111,13 @@ class SignupController extends GetxController {
     } else {
       return false;
     }
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPassController.dispose();
+    super.dispose();
   }
 }

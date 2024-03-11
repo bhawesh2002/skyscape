@@ -13,7 +13,6 @@ import 'package:material_symbols_icons/symbols.dart';
 class HomePage extends StatelessWidget {
   HomePage({super.key});
   final WeatherController _weatherController = Get.put(WeatherController());
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
