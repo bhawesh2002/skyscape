@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "366175134369",
+    "project_id": "skyscape-f975a",
+    "storage_bucket": "skyscape-f975a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:366175134369:android:8b5881fe3af324e88906e0",
+        "android_client_info": {
+          "package_name": "com.example.getx_weather_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "366175134369-16dhnto77s9soqo40qev811lnnc0djft.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.getx_weather_app",
+            "certificate_hash": "0a0a47b3efb48e140afc101dc6100e039b724ce9"
+          }
+        },
+        {
+          "client_id": "366175134369-s72co625roh64lnkoa1l90f7dutirrn8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZ7C-pqSmKb_f3YjTdyPcIuMBRtZNMwXs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "366175134369-s72co625roh64lnkoa1l90f7dutirrn8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "366175134369-n1ilrgvb5minc0hku4do5ulpffgpdri3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.getxWeatherApp.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
