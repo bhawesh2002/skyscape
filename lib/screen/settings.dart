@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:getx_weather_app/controllers/auth_state_controller.dart';
 import 'package:getx_weather_app/controllers/theme_controller.dart';
 import 'package:getx_weather_app/controllers/weater_controller.dart';
+import 'package:getx_weather_app/routes/app_routes.dart';
 import 'package:getx_weather_app/utils/enums/temperature_units.dart';
 import 'package:getx_weather_app/utils/enums/themes_mode.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -75,7 +76,9 @@ class SettingsPage extends StatelessWidget {
           settingsTile(
             title: "Profile",
             icon: Symbols.manage_accounts_rounded,
-            onTap: () {},
+            onTap: () {
+              Get.toNamed(AppRoutes.profile);
+            },
           ),
           settingsTile(
             title: "Location",

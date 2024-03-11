@@ -6,7 +6,7 @@ import 'package:getx_weather_app/routes/app_routes.dart';
 class AuthStateController extends GetxController {
   late RxBool isUserLoggedIn = false.obs;
   final RxBool emailVerified = false.obs;
-  late User _currUser;
+  late User currUser;
 
   @override
   void onInit() {
@@ -23,7 +23,7 @@ class AuthStateController extends GetxController {
             debugPrint("User Signed Out");
           } else {
             isUserLoggedIn.value = true;
-            _currUser = user;
+            currUser = user;
             debugPrint("${user.email} is Signed In");
           }
         },
@@ -37,8 +37,8 @@ class AuthStateController extends GetxController {
   }
 
   void emailVerification() {
-    if (!_currUser.emailVerified) {
-      _currUser.sendEmailVerification();
+    if (!currUser.emailVerified) {
+      currUser.sendEmailVerification();
       emailVerified.value = true;
     } else {
       emailVerified.value = true;
