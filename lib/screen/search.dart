@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:getx_weather_app/controllers/search_controller.dart';
 import 'package:getx_weather_app/controllers/weater_controller.dart';
 import 'package:getx_weather_app/routes/app_routes.dart';
+import 'package:getx_weather_app/widgets/city_list_tile.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
@@ -14,6 +15,7 @@ class SearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
@@ -34,83 +36,92 @@ class SearchPage extends StatelessWidget {
         ),
       ),
       body: Obx(
-        () => Column(
+        () => Stack(
           children: [
-            Padding(
-              padding: EdgeInsets.symmetric(
-                vertical: Get.height * 0.01,
-                horizontal: Get.width * 0.05,
-              ),
-              child: TextField(
-                onChanged: (input) => _searchController.search(query: input),
-                style: GoogleFonts.montserrat(
-                  fontSize: Get.width * 0.04,
-                  fontWeight: FontWeight.w500,
-                ),
-                decoration: InputDecoration(
-                  hintText: "Search for a City",
-                  hintStyle: GoogleFonts.montserrat(),
+            Positioned.fill(
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: Get.height * 0.01,
+                    horizontal: Get.width * 0.05,
+                  ),
+                  child: TextField(
+                    onChanged: (input) =>
+                        _searchController.search(query: input),
+                    style: GoogleFonts.montserrat(
+                      fontSize: Get.width * 0.04,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    decoration: InputDecoration(
+                      hintText: "Search for a City",
+                      hintStyle: GoogleFonts.montserrat(),
+                    ),
+                  ),
                 ),
               ),
             ),
-            Expanded(
-              child: SizedBox(
-                width: Get.width,
-                height: Get.height * 0.8,
+            Positioned.fill(
+              top: Get.height * 0.1,
+              child: Align(
+                alignment: Alignment.topCenter,
                 child: _searchController.isLoading.value == false
-                    ? _searchController.filterCities.isEmpty
-                        ? _searchController.searching.value == true
-                            ? Center(
-                                child: Text(
-                                  "No Cities Found",
-                                  style: GoogleFonts.montserrat(
-                                      fontSize: Get.width * 0.05),
-                                ),
-                              )
-                            : Center(
-                                child: Text(
-                                  "Search for your city",
-                                  style: GoogleFonts.montserrat(
-                                      fontSize: Get.width * 0.05),
-                                ),
-                              )
-                        : ListView.builder(
-                            itemCount: _searchController.filterCities.length,
-                            itemBuilder: (context, index) {
-                              return ListTile(
-                                onTap: () {
-                                  _weatherController.getWeatherFromCity(
-                                      cityName: _searchController
-                                          .filterCities[index].cityName);
-                                  _searchController.search(query: "");
-                                  Get.toNamed(AppRoutes.home);
-                                },
-                                contentPadding: EdgeInsets.symmetric(
-                                    horizontal: Get.width * 0.06),
-                                title: Text(
-                                  _searchController
-                                      .filterCities[index].cityName,
-                                  style: GoogleFonts.montserrat(
-                                    fontSize: Get.width * 0.035,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                subtitle: Text(
-                                  "${_searchController.filterCities[index].district}, ${_searchController.filterCities[index].state}",
-                                  overflow: TextOverflow.ellipsis,
-                                  style: GoogleFonts.montserrat(
-                                    fontSize: Get.width * 0.03,
-                                  ),
-                                ),
-                                trailing: Text(
-                                  _searchController
-                                      .filterCities[index].countryShort,
-                                  style: GoogleFonts.montserrat(
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              );
-                            },
+                    ? _searchController.searching.value == false
+                        ? Center(
+                            child: Text(
+                              "No Saved Cities",
+                              style: GoogleFonts.montserrat(
+                                  fontSize: Get.width * 0.05),
+                            ),
+                          )
+                        : Container(
+                            constraints: BoxConstraints(
+                              maxHeight: Get.height * 0.4,
+                            ),
+                            width: Get.width * 0.9,
+                            child: Material(
+                              elevation: 10,
+                              borderRadius:
+                                  BorderRadius.circular(Get.width * 0.05),
+                              color: Colors.white,
+                              child: _searchController.filterCities.isEmpty
+                                  ? SizedBox(
+                                      height: Get.height * 0.08,
+                                      child: Center(
+                                        child: Text(
+                                          "No cities Found",
+                                          style: GoogleFonts.montserrat(
+                                            fontSize: Get.width * 0.04,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  : ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount:
+                                          _searchController.filterCities.length,
+                                      itemBuilder: (context, index) {
+                                        return CityListTile(
+                                          onTap: () {
+                                            _weatherController
+                                                .getWeatherFromCity(
+                                                    cityName: _searchController
+                                                        .filterCities[index]
+                                                        .cityName);
+                                            _searchController.search(query: "");
+                                            Get.toNamed(AppRoutes.home);
+                                          },
+                                          cityName: _searchController
+                                              .filterCities[index].cityName,
+                                          moreDetails:
+                                              "${_searchController.filterCities[index].district}, ${_searchController.filterCities[index].state}",
+                                          countryShort: _searchController
+                                              .filterCities[index].countryShort,
+                                        );
+                                      },
+                                    ),
+                            ),
                           )
                     : Center(
                         child: CircularProgressIndicator(
