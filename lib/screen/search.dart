@@ -147,20 +147,22 @@ class SearchPage extends StatelessWidget {
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
                                       SavedCity(
-                                        cityName: "Nagpur",
-                                        countryShort: "IN",
-                                        districtNState: "Nagpur, Maharashtra",
-                                        pincode: "420010",
-                                        timeOfDay: Symbols.sunny_rounded,
-                                        weatherMood: Symbols.sunny_snowing,
+                                        cityName: "Austin",
+                                        countryShort: "US",
+                                        districtNState:
+                                            "Texas, United States Of America",
+                                        pincode: "100120",
+                                        timeOfDay: Symbols.clear_night_rounded,
+                                        weatherMood:
+                                            Symbols.partly_cloudy_night_rounded,
                                       ),
                                       SavedCity(
-                                        cityName: "Mumbai",
-                                        countryShort: "IN",
-                                        districtNState: "Mumbai, Maharashtra",
-                                        pincode: "420018",
+                                        cityName: "Tokyo",
+                                        countryShort: "JP",
+                                        districtNState: "Tokyo, Japan",
+                                        pincode: "545435",
                                         timeOfDay: Symbols.clear_night_rounded,
-                                        weatherMood: Symbols.cyclone_rounded,
+                                        weatherMood: Symbols.weather_hail,
                                       ),
                                     ],
                                   ),
