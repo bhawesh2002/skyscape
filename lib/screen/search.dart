@@ -39,6 +39,7 @@ class SearchPage extends StatelessWidget {
       body: Obx(
         () => Stack(
           children: [
+            //TextField for searching cities
             Positioned.fill(
               child: Align(
                 alignment: Alignment.topCenter,
@@ -62,6 +63,7 @@ class SearchPage extends StatelessWidget {
                 ),
               ),
             ),
+            //Search State Indicator
             Positioned.fill(
               top: Get.height * 0.1,
               left: Get.width * 0.05,
@@ -80,6 +82,7 @@ class SearchPage extends StatelessWidget {
                 ),
               ),
             ),
+            //display SavedCity or searchResult based on state of SearchContorller
             Positioned.fill(
               top: Get.height * 0.165,
               child: Align(
@@ -87,6 +90,7 @@ class SearchPage extends StatelessWidget {
                 child: _searchController.isLoading.value == false
                     ? _searchController.searching.value == false
                         ? SizedBox(
+                            //if search controller has loaded and user is not searching then display SavedCity
                             height: Get.height * 0.7,
                             child: SingleChildScrollView(
                               child: Column(
@@ -171,6 +175,7 @@ class SearchPage extends StatelessWidget {
                             ),
                           )
                         : Container(
+                            //if search controller has loaded and user is searching then display search results
                             constraints: BoxConstraints(
                               maxHeight: Get.height * 0.4,
                             ),
@@ -220,6 +225,7 @@ class SearchPage extends StatelessWidget {
                             ),
                           )
                     : Center(
+                        ////if search controller has not loaded then display a CircularProgressIndicator
                         child: CircularProgressIndicator(
                           color: Get.theme.primaryColor,
                         ),
