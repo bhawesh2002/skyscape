@@ -72,7 +72,7 @@ class City {
 
 Future<List<City>> getCityData() async {
   final String jsonData =
-      await rootBundle.loadString('assets/city_list/owm_city_list.json');
+      await rootBundle.loadString('lib/assets/city_list/owm_city_list.json');
   var cityData = json.decode(jsonData) as List<dynamic>;
   var cities = cityData.map((json) => City.formJson(json)).toList();
   return cities;

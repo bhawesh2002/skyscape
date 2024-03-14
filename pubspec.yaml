@@ -28,6 +28,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets\city_list\owm_city_list.json
-    - assets\images\Github.svg
-    - assets\images\Google.svg
+    - lib\assets\city_list\owm_city_list.json
+    - lib\assets\images\Github.svg
+    - lib\assets\images\Google.svg

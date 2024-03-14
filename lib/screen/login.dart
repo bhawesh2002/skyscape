@@ -158,7 +158,7 @@ class LoginPage extends StatelessWidget {
                   onTap: () async {
                     await _loginController.loginWithGoogle();
                   },
-                  image: 'assets/images/Google.svg',
+                  image: 'lib/assets/images/Google.svg',
                   imageSize: Get.width * 0.1,
                   width: Get.width * 0.4,
                   authOption: Text(
@@ -182,7 +182,7 @@ class LoginPage extends StatelessWidget {
                   onTap: () {
                     _loginController.loginWithGithub();
                   },
-                  image: 'assets/images/Github.svg',
+                  image: 'lib/assets/images/Github.svg',
                   imageSize: Get.width * 0.1,
                   width: Get.width * 0.4,
                   authOption: Text(
