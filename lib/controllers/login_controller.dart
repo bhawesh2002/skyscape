@@ -48,6 +48,7 @@ class LoginController extends GetxController {
       User? user = userCred.user;
       if (user != null) {
         debugPrint("Login Successful\tEmail:${user.email}");
+        Get.offAllNamed(AppRoutes.home);
       }
     } on FirebaseAuthException catch (e) {
       Get.snackbar("Error has Occured", e.message!);
