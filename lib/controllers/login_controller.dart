@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx_weather_app/controllers/db_controller.dart';
 import 'package:getx_weather_app/routes/app_routes.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -15,6 +16,7 @@ class LoginController extends GetxController {
   TextEditingController passwordController = TextEditingController(text: "");
   String? _email;
   String? _password;
+  final DBController _dbController = Get.put(DBController());
   @override
   void onInit() {
     isInitialized.value = true;
@@ -41,13 +43,12 @@ class LoginController extends GetxController {
   Future<void> _loginWithEmail(
       {required String email, required String pass}) async {
     try {
-      final credential = await FirebaseAuth.instance
+      final userCred = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: pass);
-      User? currentUser = credential.user;
-      if (currentUser != null) {
-        Get.offAllNamed(AppRoutes.home);
+      User? user = userCred.user;
+      if (user != null) {
+        debugPrint("Login Successful\tEmail:${user.email}");
       }
-      debugPrint("Login Successful\tEmail:${currentUser?.email}");
     } on FirebaseAuthException catch (e) {
       Get.snackbar("Error has Occured", e.message!);
       debugPrint("FirebaseAuth Error: ${e.message!}");
@@ -69,9 +70,13 @@ class LoginController extends GetxController {
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
-      FirebaseAuth.instance
-          .signInWithCredential(credential)
-          .then((value) => Get.offAllNamed(AppRoutes.home));
+      final userCred =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+      if (userCred.user != null) {
+        await _dbController
+            .addNewUser(userCred.user!)
+            .then((value) => Get.offAllNamed(AppRoutes.home));
+      }
     } on FirebaseAuthException catch (e) {
       Get.snackbar("Error has occured", e.message!);
     } catch (e) {
@@ -82,9 +87,13 @@ class LoginController extends GetxController {
   Future<void> loginWithGithub() async {
     try {
       GithubAuthProvider githubAuthProvider = GithubAuthProvider();
-      await FirebaseAuth.instance
-          .signInWithProvider(githubAuthProvider)
-          .then((value) => Get.offAllNamed(AppRoutes.home));
+      final userCred =
+          await FirebaseAuth.instance.signInWithProvider(githubAuthProvider);
+      if (userCred.user != null) {
+        await _dbController
+            .addNewUser(userCred.user!)
+            .then((value) => Get.offAllNamed(AppRoutes.home));
+      }
     } on FirebaseAuthException catch (e) {
       Get.snackbar("Error has occured", e.message!);
       debugPrint("FirebaseAuth Error: $e");

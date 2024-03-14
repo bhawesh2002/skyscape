@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx_weather_app/controllers/db_controller.dart';
 import 'package:getx_weather_app/routes/app_routes.dart';
 
 class SignupController extends GetxController {
@@ -13,6 +14,7 @@ class SignupController extends GetxController {
   TextEditingController confirmPassController = TextEditingController(text: "");
   String? _email;
   String? _password;
+  final DBController _dbController = Get.find<DBController>();
   @override
   void onInit() {
     isInitialized.value = true;
@@ -32,13 +34,15 @@ class SignupController extends GetxController {
   Future<void> _signUpWithEmail(
       {required String email, required String pass}) async {
     try {
-      final credential = await FirebaseAuth.instance
+      final userCred = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: pass);
-      User? currentUser = credential.user;
-      if (currentUser != null) {
-        Get.offAllNamed(AppRoutes.home);
+      User? user = userCred.user;
+      if (user != null) {
+        await _dbController
+            .addNewUser(user)
+            .then((value) => Get.offAllNamed(AppRoutes.home));
       }
-      debugPrint("SignUp Successful\tEmail:${currentUser?.email}");
+      debugPrint("SignUp Successful\tEmail:${user?.email}");
     } on FirebaseAuthException catch (e) {
       Get.snackbar("Error", e.message!);
       debugPrint(e.message!);
