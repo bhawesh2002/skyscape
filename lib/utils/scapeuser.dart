@@ -16,18 +16,3 @@ class SkyScapeUser {
         avatarUrl: userdata['avatarUrl'] ?? "");
   }
 }
-
-class CityDetails {
-  String cityName;
-  String countryShort;
-  String state;
-  String district;
-  String pinCode;
-  CityDetails({
-    required this.cityName,
-    required this.countryShort,
-    required this.state,
-    required this.district,
-    required this.pinCode,
-  });
-}
