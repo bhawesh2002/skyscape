@@ -2,12 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getx_weather_app/utils/scapeuser.dart';
+import 'package:getx_weather_app/models/scapeuser.dart';
 
 class DBController extends GetxController {
   late final Rx<SkyScapeUser> scapeUser =
       SkyScapeUser(name: '', email: '', avatarUrl: '').obs;
-  late final String? _uid;
+  late String? _uid;
   @override
   void onInit() async {
     await findUser();
@@ -48,14 +48,20 @@ class DBController extends GetxController {
   }
 
   Future<void> readUserData() async {
-    await findUser();
-    final userDataRef =
-        FirebaseDatabase.instance.ref().child('users').child(_uid!);
-    DatabaseEvent event = await userDataRef.once(DatabaseEventType.value);
-    DataSnapshot snapshot = event.snapshot;
-    if (snapshot.exists) {
-      final data = Map<String, dynamic>.from(snapshot.value as Map);
-      scapeUser.value = SkyScapeUser.fromRTDB(data);
+    try {
+      await findUser();
+      final userDataRef =
+          FirebaseDatabase.instance.ref().child('users').child(_uid!);
+      DatabaseEvent event = await userDataRef.once(DatabaseEventType.value);
+      DataSnapshot snapshot = event.snapshot;
+      if (snapshot.exists) {
+        final data = Map<String, dynamic>.from(snapshot.value as Map);
+        debugPrint(data['name']);
+        debugPrint(data['email']);
+        scapeUser.value = SkyScapeUser.fromRTDB(data);
+      }
+    } catch (e) {
+      debugPrint("readUserData() error: $e");
     }
   }
 
@@ -78,24 +84,3 @@ class DBController extends GetxController {
     }
   }
 }
-
-// Future<void> addCity(
-//       {required String cityName,
-//       required String countryShort,
-//       required String state,
-//       required String district,
-//       required String pinCode}) async {
-//     final savedCity = FirebaseDatabase.instance
-//         .ref()
-//         .child('users')
-//         .child(_uid!)
-//         .child('savedCities')
-//         .push();
-//     await savedCity.set({
-//       'cityName': cityName,
-//       'countryShort': countryShort,
-//       'state': state,
-//       'district': district,
-//       'pinCode': pinCode,
-//     });
-//   }
