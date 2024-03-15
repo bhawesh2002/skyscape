@@ -33,8 +33,8 @@ class HomePage extends StatelessWidget {
               Positioned.fill(
                 child: Align(
                   alignment: Alignment.topLeft,
-                  child: Obx(
-                      () => LocationName(name: _weatherController.name.value)),
+                  child: Obx(() => LocationName(
+                      name: _weatherController.cityWeather.value.name)),
                 ),
               ),
               //Settings Icon
@@ -68,7 +68,10 @@ class HomePage extends StatelessWidget {
                   child: Obx(
                     () => weatherMain(
                       weatherMain:
-                          _weatherController.weatherMain.value.toString(),
+                          _weatherController.cityWeather.value.weather.isEmpty
+                              ? ""
+                              : _weatherController
+                                  .cityWeather.value.weather[0].main,
                     ),
                   ),
                 ),

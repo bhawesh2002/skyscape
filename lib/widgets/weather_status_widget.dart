@@ -15,17 +15,24 @@ class WeatherStatus extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           WeatherStatusItems(
-            value: weatherController.windSpeed.value.toString(),
+            value: weatherController.cityWeather.value.wind == null
+                ? ""
+                : weatherController.cityWeather.value.wind!.speed
+                    .toString(), //weatherController.windSpeed.value.toString(),
             label: "WindSpeed",
             icon: Symbols.air,
           ),
           WeatherStatusItems(
-            value: weatherController.mainHumidity.value.toString(),
+            value: weatherController.cityWeather.value.wind == null
+                ? ""
+                : weatherController.cityWeather.value.main!.humidity.toString(),
             label: "Humidity",
             icon: Symbols.humidity_percentage_rounded,
           ),
           WeatherStatusItems(
-            value: weatherController.mainPressure.value.toString(),
+            value: weatherController.cityWeather.value.wind == null
+                ? ""
+                : weatherController.cityWeather.value.main!.pressure.toString(),
             label: "Pressure",
             icon: Symbols.wind_power,
           )

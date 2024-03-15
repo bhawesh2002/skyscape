@@ -12,34 +12,45 @@ class TemperatureWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => RichText(
-        text: TextSpan(
-          text: "${_weatherController.temperature}",
-          style: GoogleFonts.montserrat(
-            fontSize: Get.width * 0.1,
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-          ),
-          children: [
-            _weatherController.tempUnitController.tempUnit.value ==
-                    TemperatureUnit.celsius
-                ? TextSpan(
-                    text: "°C",
-                    style: GoogleFonts.montserrat(
-                      fontSize: Get.width * 0.09,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )
-                : TextSpan(
-                    text: "°F",
-                    style: GoogleFonts.montserrat(
-                      fontSize: Get.width * 0.09,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-          ],
-        ),
-      ),
+      () => _weatherController.cityWeather.value.main == null
+          ? Center(
+              child: Text(
+                "Fetching Weather",
+                style: GoogleFonts.montserrat(
+                  fontSize: Get.width * 0.06,
+                  color: Colors.grey,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            )
+          : RichText(
+              text: TextSpan(
+                text: "${_weatherController.temperature}",
+                style: GoogleFonts.montserrat(
+                  fontSize: Get.width * 0.1,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+                children: [
+                  _weatherController.tempUnitController.tempUnit.value ==
+                          TemperatureUnit.celsius
+                      ? TextSpan(
+                          text: "°C",
+                          style: GoogleFonts.montserrat(
+                            fontSize: Get.width * 0.09,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+                      : TextSpan(
+                          text: "°F",
+                          style: GoogleFonts.montserrat(
+                            fontSize: Get.width * 0.09,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                ],
+              ),
+            ),
     );
   }
 }

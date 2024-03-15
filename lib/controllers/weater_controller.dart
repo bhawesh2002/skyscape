@@ -5,17 +5,27 @@ import 'package:get/get.dart';
 import 'package:getx_weather_app/api/api_key.dart';
 import 'package:getx_weather_app/controllers/location_controller.dart';
 import 'package:getx_weather_app/controllers/temp_unit_controller.dart';
+import 'package:getx_weather_app/models/weather%20models/city_weather.dart';
 import 'package:getx_weather_app/utils/enums/temperature_units.dart';
 import 'package:http/http.dart' as http;
 
 class WeatherController extends GetxController {
-  final RxDouble _mainTemp = 0.0.obs;
-  var name = "".obs;
-  var weatherMain = "".obs;
-  var mainPressure = 0.obs;
-  var mainHumidity = 0.obs;
-  var windSpeed = 0.0.obs;
-
+  Rx<CityWeather> cityWeather = CityWeather(
+          coord: null,
+          weather: [],
+          base: "",
+          main: null,
+          visibility: 0,
+          wind: null,
+          rain: null,
+          clouds: null,
+          dt: 0,
+          sys: null,
+          timezone: 0,
+          id: 0,
+          name: "",
+          cod: 0)
+      .obs;
   final TempUnitController tempUnitController = Get.put(TempUnitController());
 
   get temperature => tempUnitController.currentUnit == TemperatureUnit.celsius
@@ -24,7 +34,6 @@ class WeatherController extends GetxController {
   @override
   void onInit() async {
     await getweatherFromCoordinates();
-
     super.onInit();
   }
 
@@ -40,13 +49,7 @@ class WeatherController extends GetxController {
             "WeatherController Status: Weather Data successfully fetched");
         debugPrint("WeatherController Status: Decoding......");
         final weatherData = json.decode(response.body);
-        _mainTemp.value = (weatherData['main']['temp'] as double);
-        name.value = weatherData['name'];
-        weatherMain.value = weatherData['weather'][0]["main"];
-        mainPressure.value = weatherData['main']['pressure'];
-        mainHumidity.value = weatherData['main']['humidity'];
-        windSpeed.value = weatherData['wind']['speed'];
-        debugPrint("WeatherController Status: Data Decoded successfully");
+        cityWeather.value = CityWeather.fromJson(weatherData);
       } else {
         throw Exception("Error while fetching weather from City");
       }
@@ -70,12 +73,7 @@ class WeatherController extends GetxController {
             "WeatherController Status: Weather Data successfully fetched");
         debugPrint("WeatherController Status: Decoding......");
         final weatherData = json.decode(response.body);
-        _mainTemp.value = weatherData['main']['temp'];
-        name.value = weatherData['name'];
-        weatherMain.value = weatherData['weather'][0]["main"];
-        mainPressure.value = weatherData['main']['pressure'];
-        mainHumidity.value = weatherData['main']['humidity'];
-        windSpeed.value = weatherData['wind']['speed'];
+        cityWeather.value = CityWeather.fromJson(weatherData);
         debugPrint("WeatherController Status: Data Decoded successfully");
       } else {
         throw Exception("Error while fetching weather from Location");
@@ -86,16 +84,18 @@ class WeatherController extends GetxController {
   }
 
   double _fromKtoC() {
-    double temp = _mainTemp.value;
-    temp = _mainTemp.value - 273.15;
-    debugPrint("From K to C: ${_mainTemp.value} - ${273.15} = $temp");
+    debugPrint("_fromKtoC()");
+    double temp = cityWeather.value.main!.temp - 273.15;
+    debugPrint(
+        "From K to C: ${cityWeather.value.main!.temp} - ${273.15} = $temp");
     return temp.toPrecision(2);
   }
 
   double _fromKtoF() {
-    double temp = _mainTemp.value;
-    temp = (_mainTemp.value - 273.15) * 9 / 5 + 32;
-    debugPrint("From K to F: ${_mainTemp.value} - ${459.67} = $temp");
+    debugPrint("_fromKtoF()");
+    double temp = (cityWeather.value.main!.temp - 273.15) * 9 / 5 + 32;
+    debugPrint(
+        "From K to F: ${cityWeather.value.main!.temp} - ${459.67} = $temp");
     return temp.toPrecision(2);
   }
 }
