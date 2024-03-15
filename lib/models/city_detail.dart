@@ -12,13 +12,13 @@ class CityDetails {
     required this.pinCode,
   });
 
-  factory CityDetails.fromRTDB(Map<String, dynamic> cityName) {
+  factory CityDetails.fromRTDB(Map<dynamic, dynamic> cityDetails) {
     return CityDetails(
-      countryShort: cityName['countryShort'],
-      countryLong: cityName['countryLong'],
-      state: cityName['state'],
-      district: cityName['district'],
-      pinCode: cityName['pinCode'],
+      countryShort: cityDetails['countryShort'],
+      countryLong: cityDetails['countryLong'],
+      state: cityDetails['state'],
+      district: cityDetails['district'],
+      pinCode: cityDetails['pinCode'],
     );
   }
 
