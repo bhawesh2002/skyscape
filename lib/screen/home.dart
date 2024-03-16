@@ -33,8 +33,11 @@ class HomePage extends StatelessWidget {
               Positioned.fill(
                 child: Align(
                   alignment: Alignment.topLeft,
-                  child: Obx(() => LocationName(
-                      name: _weatherController.cityWeather.value.name)),
+                  child: Obx(
+                    () => LocationName(
+                      name: _weatherController.cityWeather.value.name,
+                    ),
+                  ),
                 ),
               ),
               //Settings Icon
@@ -82,30 +85,52 @@ class HomePage extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.center,
                   child: Container(
-                      width: Get.width * 0.85,
-                      height: Get.height * 0.15,
-                      decoration: BoxDecoration(
-                        color: Get.theme.primaryColor.withOpacity(0.4),
-                        borderRadius: BorderRadius.circular(Get.width),
-                      ),
-                      padding: EdgeInsets.symmetric(
-                          vertical: Get.height * 0.01,
-                          horizontal: Get.width * 0.15),
-                      child: const WeatherStatus()),
+                    width: Get.width * 0.85,
+                    height: Get.height * 0.15,
+                    decoration: BoxDecoration(
+                      color: Get.theme.primaryColor.withOpacity(0.4),
+                      borderRadius: BorderRadius.circular(Get.width),
+                    ),
+                    padding: EdgeInsets.symmetric(
+                        vertical: Get.height * 0.01,
+                        horizontal: Get.width * 0.15),
+                    child: const WeatherStatus(),
+                  ),
                 ),
               ),
+              //Save City
               Positioned.fill(
                 bottom: Get.height * 0.15,
                 child: Align(
                   alignment: Alignment.bottomCenter,
-                  child: TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      "More Info",
-                      style: GoogleFonts.montserrat(
-                        fontSize: Get.width * 0.05,
-                        color: Colors.black.withOpacity(0.6),
-                        fontWeight: FontWeight.w500,
+                  child: Material(
+                    clipBehavior: Clip.antiAlias,
+                    shape: RoundedRectangleBorder(
+                      side: const BorderSide(color: Colors.black, width: 2),
+                      borderRadius: BorderRadius.circular(Get.width * 0.1),
+                    ),
+                    child: InkWell(
+                      onTap: () {},
+                      child: SizedBox(
+                        width: Get.width * 0.4,
+                        height: Get.height * 0.05,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            const Icon(
+                              Icons.bookmark_add_outlined,
+                              color: Colors.black,
+                            ),
+                            Text(
+                              "Save City",
+                              style: GoogleFonts.montserrat(
+                                fontSize: Get.width * 0.05,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
