@@ -16,21 +16,20 @@ class SavedCitiesDBController extends GetxController {
         FirebaseDatabase.instance.ref().child("SavedCities").child(_uid);
     final snapshot = await savedCitiesRef.get();
     if (snapshot.value == null) {
-      debugPrint("savedCitiesRef snapshot: No cities saved.");
       final cityData = savedCitiesRef.push();
       cityData.set(city.toJson());
       debugPrint("${city.cityName} saved");
     } else {
-      debugPrint("savedCitiesRef snapshot: City Exist.");
       final checkSnapshot = await savedCitiesRef
           .orderByChild('owm_city_id')
           .equalTo(city.cityId)
           .get();
       if (checkSnapshot.value == null) {
-        debugPrint("checkSnapshot status: ${city.cityName} does not exist");
         final cityData = savedCitiesRef.push();
         cityData.set(city.toJson());
         debugPrint("${city.cityName} saved");
+      } else {
+        debugPrint("${city.cityName} exists");
       }
     }
   }
