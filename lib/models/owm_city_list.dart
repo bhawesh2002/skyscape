@@ -32,7 +32,7 @@ class City {
     required this.countryLong,
     required this.postalCode,
   });
-  factory City.formJson(Map<String, dynamic> json) {
+  factory City.formJson(Map<dynamic, dynamic> json) {
     return City(
         cityId: json['owm_city_id'],
         cityName: json['owm_city_name'],
