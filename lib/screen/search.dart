@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx_weather_app/controllers/saved_cities_db_controller.dart';
 import 'package:getx_weather_app/controllers/search_controller.dart';
 import 'package:getx_weather_app/controllers/weater_controller.dart';
 import 'package:getx_weather_app/routes/app_routes.dart';
@@ -13,6 +14,8 @@ class SearchPage extends StatelessWidget {
   final SearchCityController _searchController =
       Get.put(SearchCityController());
   final WeatherController _weatherController = Get.find<WeatherController>();
+  final SavedCitiesDBController _savedCitiesDBController =
+      Get.find<SavedCitiesDBController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,86 +95,22 @@ class SearchPage extends StatelessWidget {
                         ? SizedBox(
                             //if search controller has loaded and user is not searching then display SavedCity
                             height: Get.height * 0.7,
-                            child: SingleChildScrollView(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      SavedCity(
-                                        cityName: "Bhandara",
-                                        countryShort: "IN",
-                                        districtNState: "Bhandara, Maharashtra",
-                                        pincode: "441904",
-                                        timeOfDay: Symbols.sunny_rounded,
-                                        weatherMood: Symbols.snowing,
-                                      ),
-                                      SavedCity(
-                                        cityName: "Pune",
-                                        countryShort: "IN",
-                                        districtNState: "Pune, Maharashtra",
-                                        pincode: "411035",
-                                        timeOfDay: Symbols.clear_night_rounded,
-                                        weatherMood: Symbols.thunderstorm,
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: Get.height * 0.015,
-                                  ),
-                                  const Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      SavedCity(
-                                        cityName: "Nagpur",
-                                        countryShort: "IN",
-                                        districtNState: "Nagpur, Maharashtra",
-                                        pincode: "420010",
-                                        timeOfDay: Symbols.sunny_rounded,
-                                        weatherMood: Symbols.sunny_snowing,
-                                      ),
-                                      SavedCity(
-                                        cityName: "Mumbai",
-                                        countryShort: "IN",
-                                        districtNState: "Mumbai, Maharashtra",
-                                        pincode: "420018",
-                                        timeOfDay: Symbols.clear_night_rounded,
-                                        weatherMood: Symbols.cyclone_rounded,
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: Get.height * 0.015,
-                                  ),
-                                  const Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      SavedCity(
-                                        cityName: "Austin",
-                                        countryShort: "US",
-                                        districtNState:
-                                            "Texas, United States Of America",
-                                        pincode: "100120",
-                                        timeOfDay: Symbols.clear_night_rounded,
-                                        weatherMood:
-                                            Symbols.partly_cloudy_night_rounded,
-                                      ),
-                                      SavedCity(
-                                        cityName: "Tokyo",
-                                        countryShort: "JP",
-                                        districtNState: "Tokyo, Japan",
-                                        pincode: "545435",
-                                        timeOfDay: Symbols.clear_night_rounded,
-                                        weatherMood: Symbols.weather_hail,
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                            width: Get.width * 0.93,
+                            child: GridView.builder(
+                              itemCount:
+                                  _savedCitiesDBController.savedCities.length,
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                mainAxisSpacing: 10,
+                                crossAxisSpacing: 10,
                               ),
+                              itemBuilder: ((context, index) => SavedCity(
+                                    savedCity: _savedCitiesDBController
+                                        .savedCities[index],
+                                    timeOfDay: Symbols.sunny_rounded,
+                                    weatherMood: Symbols.rainy,
+                                  )),
                             ),
                           )
                         : Container(
