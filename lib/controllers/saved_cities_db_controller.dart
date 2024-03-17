@@ -10,8 +10,21 @@ class SavedCitiesDBController extends GetxController {
   late String _uid;
   RxList<City> savedCities = <City>[].obs;
 
+  Future<void> _findUser() async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        _uid = user.uid;
+      }
+    } on FirebaseAuthException catch (e) {
+      debugPrint("_findUser() FirebaseAuthException: $e");
+    } catch (e) {
+      debugPrint("_findUser() error: $e");
+    }
+  }
+
   Future<void> saveCity({required City city}) async {
-    _uid = FirebaseAuth.instance.currentUser!.uid;
+    await _findUser();
     final savedCitiesRef =
         FirebaseDatabase.instance.ref().child("SavedCities").child(_uid);
     final snapshot = await savedCitiesRef.get();
