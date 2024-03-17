@@ -10,8 +10,8 @@ import 'package:material_symbols_icons/symbols.dart';
 
 class SearchPage extends StatelessWidget {
   SearchPage({super.key});
-  final SearchPageController _searchController =
-      Get.put(SearchPageController());
+  final SearchCityController _searchController =
+      Get.put(SearchCityController());
   final WeatherController _weatherController = Get.find<WeatherController>();
   @override
   Widget build(BuildContext context) {

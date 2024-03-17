@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_weather_app/models/owm_city_list.dart';
 
-class SearchPageController extends GetxController {
+class SearchCityController extends GetxController {
   final List<City> _cities = [];
   RxList<City> filterCities = <City>[].obs;
   RxBool isLoading = true.obs;
@@ -27,5 +27,31 @@ class SearchPageController extends GetxController {
             return name.contains(query);
           }).toList()
         : filterCities.value = [];
+  }
+
+  City findCity({required String cityID}) {
+    City city = City(
+        cityId: "",
+        cityName: "",
+        latitude: "",
+        longitude: "",
+        country: "",
+        localityShort: "",
+        localityLong: "",
+        stateShort: "",
+        state: "",
+        district: "",
+        districtLong: "",
+        countryShort: "",
+        countryLong: "",
+        postalCode: "");
+    debugPrint("finding city");
+    for (var element in _cities) {
+      if (element.cityId == cityID.toString()) {
+        city = element;
+        break;
+      }
+    }
+    return city;
   }
 }
