@@ -10,6 +10,12 @@ class SavedCitiesDBController extends GetxController {
   late String _uid;
   RxList<City> savedCities = <City>[].obs;
 
+  @override
+  onInit() async {
+    await _fetchSavedCities();
+    super.onInit();
+  }
+
   Future<void> _findUser() async {
     try {
       final user = FirebaseAuth.instance.currentUser;
@@ -24,26 +30,57 @@ class SavedCitiesDBController extends GetxController {
   }
 
   Future<void> saveCity({required City city}) async {
-    await _findUser();
-    final savedCitiesRef =
-        FirebaseDatabase.instance.ref().child("SavedCities").child(_uid);
-    final snapshot = await savedCitiesRef.get();
-    if (snapshot.value == null) {
-      final cityData = savedCitiesRef.push();
-      cityData.set(city.toJson());
-      debugPrint("${city.cityName} saved");
-    } else {
-      final checkSnapshot = await savedCitiesRef
-          .orderByChild('owm_city_id')
-          .equalTo(city.cityId)
-          .get();
-      if (checkSnapshot.value == null) {
+    try {
+      await _findUser();
+      final savedCitiesRef =
+          FirebaseDatabase.instance.ref().child("SavedCities").child(_uid);
+      final snapshot = await savedCitiesRef.get();
+      if (snapshot.value == null) {
         final cityData = savedCitiesRef.push();
-        cityData.set(city.toJson());
+        await cityData
+            .set(city.toJson())
+            .then((value) async => await _fetchSavedCities());
         debugPrint("${city.cityName} saved");
       } else {
-        debugPrint("${city.cityName} exists");
+        final checkSnapshot = await savedCitiesRef
+            .orderByChild('owm_city_id')
+            .equalTo(city.cityId)
+            .get();
+        if (checkSnapshot.value == null) {
+          final cityData = savedCitiesRef.push();
+          await cityData
+              .set(city.toJson())
+              .then((value) async => await _fetchSavedCities());
+          debugPrint("${city.cityName} saved");
+        } else {
+          debugPrint("${city.cityName} exists");
+        }
       }
+    } catch (e) {
+      debugPrint("saveCity() error: $e");
+    }
+  }
+
+  Future<void> _fetchSavedCities() async {
+    try {
+      await _findUser();
+      final savedCitiesRef =
+          FirebaseDatabase.instance.ref().child('SavedCities').child(_uid);
+      final snapshot = await savedCitiesRef.get();
+      if (snapshot.value == null) {
+        debugPrint("User has no saved cities");
+      } else {
+        final data = Map<String, dynamic>.from(snapshot.value as Map);
+        data.forEach((key, value) {
+          City city = City.formJson(value);
+          if (!savedCities.any((element) => element.cityId == city.cityId)) {
+            savedCities.add(city);
+            debugPrint("Saved city added: ${city.cityName}");
+          }
+        });
+      }
+    } catch (e) {
+      debugPrint("_fetchSavedCities() error: $e");
     }
   }
 }
