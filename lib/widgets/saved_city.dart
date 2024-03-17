@@ -1,24 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_weather_app/controllers/weater_controller.dart';
+import 'package:getx_weather_app/models/owm_city_list.dart';
 import 'package:getx_weather_app/routes/app_routes.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SavedCity extends StatelessWidget {
   final String imgPath;
-  final String cityName;
-  final String districtNState;
-  final String pincode;
-  final String countryShort;
   final IconData timeOfDay;
   final IconData weatherMood;
+  final City savedCity;
   const SavedCity({
     super.key,
     this.imgPath = "",
-    required this.cityName,
-    required this.countryShort,
-    required this.pincode,
-    required this.districtNState,
+    required this.savedCity,
     required this.timeOfDay,
     required this.weatherMood,
   });
@@ -37,7 +32,8 @@ class SavedCity extends StatelessWidget {
             side: const BorderSide(width: 1, color: Colors.black)),
         child: InkWell(
           onTap: () async {
-            await weatherController.getWeatherFromCity(cityName: cityName);
+            await weatherController.getWeatherFromCity(
+                cityName: savedCity.cityName);
             Get.toNamed(AppRoutes.home);
           },
           borderRadius: BorderRadius.circular(Get.width * 0.04),
@@ -77,7 +73,7 @@ class SavedCity extends StatelessWidget {
                     child: Align(
                       alignment: Alignment.topRight,
                       child: Text(
-                        countryShort,
+                        savedCity.countryShort,
                         style: GoogleFonts.montserrat(
                           color: Colors.white,
                           fontSize: constraints.maxWidth * 0.07,
@@ -95,7 +91,7 @@ class SavedCity extends StatelessWidget {
                         padding: EdgeInsets.symmetric(
                             horizontal: constraints.maxWidth * 0.065),
                         child: Text(
-                          cityName,
+                          savedCity.cityName,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: GoogleFonts.montserrat(
@@ -120,7 +116,7 @@ class SavedCity extends StatelessWidget {
                           children: [
                             //district,state
                             Text(
-                              districtNState,
+                              "${savedCity.district},${savedCity.state}",
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: GoogleFonts.montserrat(
@@ -135,7 +131,7 @@ class SavedCity extends StatelessWidget {
                             ),
                             //pincode
                             Text(
-                              pincode,
+                              savedCity.postalCode,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: GoogleFonts.montserrat(
