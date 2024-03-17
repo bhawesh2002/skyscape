@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getx_weather_app/controllers/saved_cities_db_controller.dart';
-import 'package:getx_weather_app/controllers/search_controller.dart';
 import 'package:getx_weather_app/controllers/weater_controller.dart';
-import 'package:getx_weather_app/models/owm_city_list.dart';
 import 'package:getx_weather_app/routes/app_routes.dart';
 import 'package:getx_weather_app/widgets/expandable_fab.dart';
 import 'package:getx_weather_app/widgets/loaction_name.dart';
@@ -16,10 +13,6 @@ import 'package:material_symbols_icons/symbols.dart';
 class HomePage extends StatelessWidget {
   HomePage({super.key});
   final WeatherController _weatherController = Get.put(WeatherController());
-  final SavedCitiesDBController _savedCitiesDBController =
-      Get.put(SavedCitiesDBController());
-  final SearchCityController _searchCityController =
-      Get.put(SearchCityController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,13 +110,7 @@ class HomePage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(Get.width * 0.1),
                     ),
                     child: InkWell(
-                      onTap: () async {
-                        City city = _searchCityController.findCity(
-                            cityID: _weatherController.cityWeather.value.id
-                                .toString());
-                        debugPrint("City: ${city.cityName}");
-                        await _savedCitiesDBController.saveCity(city: city);
-                      },
+                      onTap: () {},
                       child: SizedBox(
                         width: Get.width * 0.4,
                         height: Get.height * 0.05,
@@ -141,7 +128,7 @@ class HomePage extends StatelessWidget {
                                 color: Colors.black,
                                 fontWeight: FontWeight.w500,
                               ),
-                            ),
+                            )
                           ],
                         ),
                       ),
