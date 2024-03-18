@@ -122,27 +122,74 @@ class HomePage extends StatelessWidget {
                             cityID: _weatherController.cityWeather.value.id
                                 .toString());
                         debugPrint("City: ${city.cityName}");
-                        await _savedCitiesDBController.saveCity(city: city);
+                        _savedCitiesDBController.savedCities.any((element) =>
+                                element.cityId ==
+                                _weatherController.cityWeather.value.id
+                                    .toString())
+                            ? await _savedCitiesDBController.removeSavedCity(
+                                city: city)
+                            : await _savedCitiesDBController.saveCity(
+                                city: city);
                       },
-                      child: SizedBox(
-                        width: Get.width * 0.4,
-                        height: Get.height * 0.05,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            const Icon(
-                              Icons.bookmark_add_outlined,
-                              color: Colors.black,
-                            ),
-                            Text(
-                              "Save City",
-                              style: GoogleFonts.montserrat(
-                                fontSize: Get.width * 0.05,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500,
+                      child: Obx(
+                        () => Container(
+                          width: Get.width * 0.4,
+                          height: Get.height * 0.05,
+                          color: _savedCitiesDBController.isCitySaved(
+                                  cityId: _weatherController
+                                      .cityWeather.value.id
+                                      .toString())
+                              ? Colors.black
+                              : Colors.white,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              _savedCitiesDBController.isCitySaved(
+                                      cityId: _weatherController
+                                          .cityWeather.value.id
+                                          .toString())
+                                  ? Icon(
+                                      Icons.bookmark_added_rounded,
+                                      color: _savedCitiesDBController
+                                              .savedCities
+                                              .any((element) =>
+                                                  element.cityId ==
+                                                  _weatherController
+                                                      .cityWeather.value.id
+                                                      .toString())
+                                          ? Colors.white
+                                          : Colors.black,
+                                    )
+                                  : Icon(
+                                      Icons.bookmark_add_outlined,
+                                      color:
+                                          _savedCitiesDBController.isCitySaved(
+                                                  cityId: _weatherController
+                                                      .cityWeather.value.id
+                                                      .toString())
+                                              ? Colors.white
+                                              : Colors.black,
+                                    ),
+                              Text(
+                                _savedCitiesDBController.isCitySaved(
+                                        cityId: _weatherController
+                                            .cityWeather.value.id
+                                            .toString())
+                                    ? "Saved"
+                                    : "Save City",
+                                style: GoogleFonts.montserrat(
+                                  fontSize: Get.width * 0.05,
+                                  color: _savedCitiesDBController.isCitySaved(
+                                          cityId: _weatherController
+                                              .cityWeather.value.id
+                                              .toString())
+                                      ? Colors.white
+                                      : Colors.black,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
