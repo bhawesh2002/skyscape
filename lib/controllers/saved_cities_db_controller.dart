@@ -101,6 +101,11 @@ class SavedCitiesDBController extends GetxController {
     }
   }
 
+  //check for saved city
+  bool isCitySaved({required String cityId}) {
+    return savedCities.any((element) => element.cityId == cityId);
+  }
+
   //listen to the changes made to the SavedCities
   void _listenToSavedCityChanges() {
     try {
