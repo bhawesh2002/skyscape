@@ -9,7 +9,7 @@ import 'package:getx_weather_app/models/owm_city_list.dart';
 class SavedCitiesDBController extends GetxController {
   late String _uid;
   RxList<City> savedCities = RxList<City>();
-
+  late final DatabaseReference _savedCitiesRef;
   @override
   onInit() async {
     super.onInit();
@@ -22,6 +22,8 @@ class SavedCitiesDBController extends GetxController {
       final user = FirebaseAuth.instance.currentUser;
       if (user != null) {
         _uid = user.uid;
+        _savedCitiesRef =
+            FirebaseDatabase.instance.ref().child('SavedCities').child(_uid);
       }
     } on FirebaseAuthException catch (e) {
       debugPrint("_findUser(), FirebaseAuthException: $e");
@@ -34,9 +36,7 @@ class SavedCitiesDBController extends GetxController {
   Future<void> saveCity({required City city}) async {
     await _findUser();
     try {
-      final savedCitiesRef =
-          FirebaseDatabase.instance.ref().child('SavedCities').child(_uid);
-      await savedCitiesRef
+      await _savedCitiesRef
           .orderByChild('owm_city_id')
           .equalTo(city.cityId)
           .get()
@@ -44,7 +44,7 @@ class SavedCitiesDBController extends GetxController {
         if (snapshot.value != null) {
           debugPrint('saveCity(), Status: ${city.cityName} already saved');
         } else {
-          final newCity = savedCitiesRef.push();
+          final newCity = _savedCitiesRef.push();
           await newCity.set(city.toJson());
           debugPrint('saveCity(), Status: ${city.cityName} saved successfully');
         }
@@ -57,9 +57,7 @@ class SavedCitiesDBController extends GetxController {
   //remove saved city form the db
   Future<void> removeSavedCity({required City city}) async {
     try {
-      final savedCityRef =
-          FirebaseDatabase.instance.ref().child('SavedCities').child(_uid);
-      await savedCityRef
+      await _savedCitiesRef
           .orderByChild('owm_city_id')
           .equalTo(city.cityId)
           .get()
@@ -67,7 +65,7 @@ class SavedCitiesDBController extends GetxController {
         if (snapshot.value != null) {
           final data = Map<String, dynamic>.from(snapshot.value as Map);
           final removeCityKey = data.keys.first;
-          await savedCityRef.child(removeCityKey).remove();
+          await _savedCitiesRef.child(removeCityKey).remove();
           debugPrint(
               "removeSavedCity(), Status: ${data.keys.first} removed Successfully");
         } else {
@@ -83,9 +81,7 @@ class SavedCitiesDBController extends GetxController {
   Future<void> _fetchSavedCities() async {
     await _findUser();
     try {
-      final savedCitiesRef =
-          FirebaseDatabase.instance.ref().child('SavedCities').child(_uid);
-      await savedCitiesRef.once().then((event) {
+      await _savedCitiesRef.once().then((event) {
         if (event.snapshot.value != null) {
           final data = Map<String, dynamic>.from(event.snapshot.value as Map);
           savedCities.assignAll(
@@ -109,11 +105,9 @@ class SavedCitiesDBController extends GetxController {
   //listen to the changes made to the SavedCities
   void _listenToSavedCityChanges() {
     try {
-      final savedCitiesRef =
-          FirebaseDatabase.instance.ref().child('SavedCities').child(_uid);
       debugPrint("listenToSavedCityChanges(), Status: Setting up listeners");
       //listen to changes when child is added
-      savedCitiesRef.onChildAdded.listen((event) {
+      _savedCitiesRef.onChildAdded.listen((event) {
         final data = Map<String, dynamic>.from(event.snapshot.value as Map);
         final cityExists =
             savedCities.any((city) => city.cityId == data['owm_city_id']);
@@ -123,7 +117,7 @@ class SavedCitiesDBController extends GetxController {
         }
       });
       //listen to changes when child is removed
-      savedCitiesRef.onChildRemoved.listen((event) {
+      _savedCitiesRef.onChildRemoved.listen((event) {
         if (event.snapshot.value != null) {
           final data = Map<String, dynamic>.from(event.snapshot.value as Map);
           savedCities.removeWhere((city) => city.cityId == data['owm_city_id']);
