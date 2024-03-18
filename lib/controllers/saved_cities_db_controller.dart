@@ -65,8 +65,11 @@ class SavedCitiesDBController extends GetxController {
           .get()
           .then((snapshot) async {
         if (snapshot.value != null) {
-          await savedCityRef.remove();
-          debugPrint("removeSavedCity(), Status: City removed Successfully");
+          final data = Map<String, dynamic>.from(snapshot.value as Map);
+          final removeCityKey = data.keys.first;
+          await savedCityRef.child(removeCityKey).remove();
+          debugPrint(
+              "removeSavedCity(), Status: ${data.keys.first} removed Successfully");
         } else {
           debugPrint("removeSavedCity(), Status: City not saved");
         }
