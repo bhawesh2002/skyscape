@@ -96,23 +96,24 @@ class SearchPage extends StatelessWidget {
                             //if search controller has loaded and user is not searching then display SavedCity
                             height: Get.height * 0.7,
                             width: Get.width * 0.93,
-                            child: GridView.builder(
-                              itemCount:
-                                  _savedCitiesDBController.savedCities.length,
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                mainAxisSpacing: 10,
-                                crossAxisSpacing: 10,
+                            child: Obx(
+                              () => GridView.builder(
+                                itemCount:
+                                    _savedCitiesDBController.savedCities.length,
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  mainAxisSpacing: 10,
+                                  crossAxisSpacing: 10,
+                                ),
+                                itemBuilder: ((context, index) => SavedCity(
+                                      savedCity: _savedCitiesDBController
+                                          .savedCities[index],
+                                      timeOfDay: Symbols.sunny_rounded,
+                                      weatherMood: Symbols.rainy,
+                                    )),
                               ),
-                              itemBuilder: ((context, index) => SavedCity(
-                                    savedCity: _savedCitiesDBController
-                                        .savedCities[index],
-                                    timeOfDay: Symbols.sunny_rounded,
-                                    weatherMood: Symbols.rainy,
-                                  )),
-                            ),
-                          )
+                            ))
                         : Container(
                             //if search controller has loaded and user is searching then display search results
                             constraints: BoxConstraints(
