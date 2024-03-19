@@ -23,7 +23,7 @@ class SavedCityCard extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       color: Colors.white,
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(Get.width * 0.04),
+          borderRadius: BorderRadius.circular(Get.width * 0.03),
           side: const BorderSide(width: 1, color: Colors.black)),
       child: InkWell(
         onTap: () async {
@@ -58,6 +58,7 @@ class SavedCityCard extends StatelessWidget {
                     child: Icon(
                       timeOfDay,
                       color: Colors.white,
+                      size: constraints.maxWidth * 0.12,
                     ),
                   ),
                 ),
@@ -107,7 +108,7 @@ class SavedCityCard extends StatelessWidget {
                       height: constraints.maxHeight * 0.35,
                       padding: EdgeInsets.symmetric(
                           horizontal: constraints.maxWidth * 0.065,
-                          vertical: constraints.maxHeight * 0.025),
+                          vertical: constraints.maxHeight * 0.03),
                       child: SingleChildScrollView(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -151,9 +152,10 @@ class SavedCityCard extends StatelessWidget {
                     alignment: Alignment.bottomLeft,
                     child: GestureDetector(
                       onTap: () {},
-                      child: const Icon(
+                      child: Icon(
                         Icons.bookmark,
                         color: Colors.black,
+                        size: constraints.maxWidth * 0.12,
                       ),
                     ),
                   ),
