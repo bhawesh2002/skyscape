@@ -103,14 +103,13 @@ class SearchPage extends StatelessWidget {
                                 gridDelegate:
                                     const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2,
-                                  mainAxisSpacing: 10,
-                                  crossAxisSpacing: 10,
+                                  mainAxisSpacing: 15,
+                                  crossAxisSpacing: 15,
                                 ),
                                 itemBuilder: ((context, index) => SavedCityCard(
                                       savedCity: _savedCitiesDBController
                                           .savedCities[index],
                                       timeOfDay: Symbols.sunny_rounded,
-                                      weatherMood: Symbols.rainy,
                                     )),
                               ),
                             ))
