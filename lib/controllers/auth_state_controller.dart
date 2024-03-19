@@ -16,11 +16,11 @@ class AuthStateController extends GetxController {
 
   @override
   void onInit() {
-    isLoggedIn();
+    _isLoggedIn();
     super.onInit();
   }
 
-  void isLoggedIn() {
+  void _isLoggedIn() {
     try {
       FirebaseAuth.instance.authStateChanges().listen(
         (User? user) {
