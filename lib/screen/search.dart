@@ -5,7 +5,7 @@ import 'package:getx_weather_app/controllers/search_controller.dart';
 import 'package:getx_weather_app/controllers/weater_controller.dart';
 import 'package:getx_weather_app/routes/app_routes.dart';
 import 'package:getx_weather_app/widgets/city_list_tile.dart';
-import 'package:getx_weather_app/widgets/saved_city.dart';
+import 'package:getx_weather_app/widgets/saved_city_card.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
@@ -106,7 +106,7 @@ class SearchPage extends StatelessWidget {
                                   mainAxisSpacing: 10,
                                   crossAxisSpacing: 10,
                                 ),
-                                itemBuilder: ((context, index) => SavedCity(
+                                itemBuilder: ((context, index) => SavedCityCard(
                                       savedCity: _savedCitiesDBController
                                           .savedCities[index],
                                       timeOfDay: Symbols.sunny_rounded,

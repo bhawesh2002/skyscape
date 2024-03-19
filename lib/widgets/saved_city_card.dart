@@ -5,12 +5,12 @@ import 'package:getx_weather_app/models/owm_city_list.dart';
 import 'package:getx_weather_app/routes/app_routes.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SavedCity extends StatelessWidget {
+class SavedCityCard extends StatelessWidget {
   final String imgPath;
   final IconData timeOfDay;
   final IconData weatherMood;
   final City savedCity;
-  const SavedCity({
+  const SavedCityCard({
     super.key,
     this.imgPath = "",
     required this.savedCity,
