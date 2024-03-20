@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_weather_app/controllers/saved_cities_db_controller.dart';
 import 'package:getx_weather_app/controllers/search_controller.dart';
+import 'package:getx_weather_app/controllers/unsplash_api_controller.dart';
 import 'package:getx_weather_app/controllers/weater_controller.dart';
 import 'package:getx_weather_app/models/owm_city_list.dart';
 import 'package:getx_weather_app/routes/app_routes.dart';
@@ -20,6 +21,8 @@ class HomePage extends StatelessWidget {
       Get.put(SavedCitiesDBController());
   final SearchCityController _searchCityController =
       Get.put(SearchCityController());
+  final UnsplashApiController _unsplashApiController =
+      Get.put(UnsplashApiController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,9 +30,16 @@ class HomePage extends StatelessWidget {
         child: Stack(
           children: [
             //Base widget.
-            SizedBox(
-              width: Get.width,
-              height: Get.height,
+            Obx(
+              () => SizedBox(
+                width: Get.width,
+                height: Get.height,
+                child: _unsplashApiController.imgUrl.value.isEmpty
+                    ? null
+                    : Image.network(
+                        _unsplashApiController.imgUrl.value,
+                      ),
+              ),
             ),
             //Display name of the location
             Positioned.fill(
@@ -186,6 +196,21 @@ class HomePage extends StatelessWidget {
                         ),
                       ),
                     ),
+                  ),
+                ),
+              ),
+            ),
+            Positioned.fill(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: IconButton(
+                  onPressed: () async {
+                    await _unsplashApiController.fetchUnsplashsImage();
+                  },
+                  icon: Icon(
+                    Icons.image_search,
+                    color: Colors.white,
+                    size: Get.width * 0.1,
                   ),
                 ),
               ),
