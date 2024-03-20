@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getx_weather_app/api/get_location.dart';
+import 'package:getx_weather_app/utils/get_location.dart';
 
 class LocationController extends GetxController {
   RxDouble lat = 0.0.obs;
