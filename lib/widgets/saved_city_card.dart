@@ -52,7 +52,7 @@ class SavedCityCard extends StatelessWidget {
                 //Time of Day
                 Positioned.fill(
                   left: constraints.maxWidth * 0.065,
-                  top: constraints.maxHeight * 0.05,
+                  top: constraints.maxHeight * 0.065,
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: Icon(
@@ -146,10 +146,10 @@ class SavedCityCard extends StatelessWidget {
                 ),
                 //bookmark icon
                 Positioned.fill(
-                  left: constraints.maxWidth * 0.065,
-                  bottom: constraints.maxHeight * 0.045,
+                  right: constraints.maxWidth * 0.05,
+                  bottom: constraints.maxHeight * 0.05,
                   child: Align(
-                    alignment: Alignment.bottomLeft,
+                    alignment: Alignment.bottomRight,
                     child: GestureDetector(
                       onTap: () {},
                       child: Icon(
