@@ -24,180 +24,173 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            vertical: Get.height * 0.02,
-            horizontal: Get.width * 0.04,
-          ),
-          child: Stack(
-            children: [
-              //Base widget.
-              SizedBox(
-                width: Get.width,
-                height: Get.height,
-              ),
-              //Display name of the location
-              Positioned.fill(
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Obx(
-                    () => LocationName(
-                      name: _weatherController.cityWeather.value.name,
-                    ),
+        child: Stack(
+          children: [
+            //Base widget.
+            SizedBox(
+              width: Get.width,
+              height: Get.height,
+            ),
+            //Display name of the location
+            Positioned.fill(
+              top: Get.height * 0.02,
+              left: Get.width * 0.04,
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: Obx(
+                  () => LocationName(
+                    name: _weatherController.cityWeather.value.name,
                   ),
                 ),
               ),
-              //Settings Icon
-              Positioned.fill(
-                child: Align(
-                  alignment: Alignment.topRight,
-                  child: GestureDetector(
-                    onTap: () {
-                      Get.toNamed(AppRoutes.settings);
+            ),
+            //Settings Icon
+            Positioned.fill(
+              top: Get.height * 0.02,
+              right: Get.width * 0.045,
+              child: Align(
+                alignment: Alignment.topRight,
+                child: GestureDetector(
+                  onTap: () {
+                    Get.toNamed(AppRoutes.settings);
+                  },
+                  child: Icon(
+                    Icons.settings,
+                    size: Get.width * 0.06,
+                  ),
+                ),
+              ),
+            ),
+            //Display the Temperature value
+            Positioned.fill(
+              bottom: Get.height * 0.3,
+              child: Align(
+                alignment: Alignment.center,
+                child: TemperatureWidget(),
+              ),
+            ),
+            //Display weatherMain
+            Positioned.fill(
+              bottom: Get.height * 0.125,
+              child: Align(
+                alignment: Alignment.center,
+                child: Obx(
+                  () => weatherMain(
+                    weatherMain: _weatherController
+                            .cityWeather.value.weather.isEmpty
+                        ? ""
+                        : _weatherController.cityWeather.value.weather[0].main,
+                  ),
+                ),
+              ),
+            ),
+            //Display weather status widget
+            Positioned.fill(
+              bottom: Get.height * -0.15,
+              child: Align(
+                alignment: Alignment.center,
+                child: Container(
+                  width: Get.width * 0.85,
+                  height: Get.height * 0.15,
+                  decoration: BoxDecoration(
+                    color: Get.theme.primaryColor.withOpacity(0.4),
+                    borderRadius: BorderRadius.circular(Get.width),
+                  ),
+                  padding: EdgeInsets.symmetric(
+                      vertical: Get.height * 0.01,
+                      horizontal: Get.width * 0.15),
+                  child: const WeatherStatus(),
+                ),
+              ),
+            ),
+            //Save City
+            Positioned.fill(
+              bottom: Get.height * 0.15,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Material(
+                  clipBehavior: Clip.antiAlias,
+                  shape: RoundedRectangleBorder(
+                    side: const BorderSide(color: Colors.black, width: 2),
+                    borderRadius: BorderRadius.circular(Get.width * 0.1),
+                  ),
+                  child: InkWell(
+                    onTap: () async {
+                      City city = _searchCityController.findCity(
+                          cityID: _weatherController.cityWeather.value.id
+                              .toString());
+                      debugPrint("City: ${city.cityName}");
+                      _savedCitiesDBController.savedCities.any((element) =>
+                              element.cityId ==
+                              _weatherController.cityWeather.value.id
+                                  .toString())
+                          ? await _savedCitiesDBController.removeSavedCity(
+                              city: city)
+                          : await _savedCitiesDBController.saveCity(city: city);
                     },
-                    child: Icon(
-                      Icons.settings,
-                      size: Get.width * 0.06,
-                    ),
-                  ),
-                ),
-              ),
-              //Display the Temperature value
-              Positioned.fill(
-                bottom: Get.height * 0.3,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: TemperatureWidget(),
-                ),
-              ),
-              //Display weatherMain
-              Positioned.fill(
-                bottom: Get.height * 0.125,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Obx(
-                    () => weatherMain(
-                      weatherMain:
-                          _weatherController.cityWeather.value.weather.isEmpty
-                              ? ""
-                              : _weatherController
-                                  .cityWeather.value.weather[0].main,
-                    ),
-                  ),
-                ),
-              ),
-              //Display weather status widget
-              Positioned.fill(
-                bottom: Get.height * -0.15,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Container(
-                    width: Get.width * 0.85,
-                    height: Get.height * 0.15,
-                    decoration: BoxDecoration(
-                      color: Get.theme.primaryColor.withOpacity(0.4),
-                      borderRadius: BorderRadius.circular(Get.width),
-                    ),
-                    padding: EdgeInsets.symmetric(
-                        vertical: Get.height * 0.01,
-                        horizontal: Get.width * 0.15),
-                    child: const WeatherStatus(),
-                  ),
-                ),
-              ),
-              //Save City
-              Positioned.fill(
-                bottom: Get.height * 0.15,
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Material(
-                    clipBehavior: Clip.antiAlias,
-                    shape: RoundedRectangleBorder(
-                      side: const BorderSide(color: Colors.black, width: 2),
-                      borderRadius: BorderRadius.circular(Get.width * 0.1),
-                    ),
-                    child: InkWell(
-                      onTap: () async {
-                        City city = _searchCityController.findCity(
-                            cityID: _weatherController.cityWeather.value.id
-                                .toString());
-                        debugPrint("City: ${city.cityName}");
-                        _savedCitiesDBController.savedCities.any((element) =>
-                                element.cityId ==
-                                _weatherController.cityWeather.value.id
+                    child: Obx(
+                      () => Container(
+                        width: Get.width * 0.4,
+                        height: Get.height * 0.05,
+                        color: _savedCitiesDBController.isCitySaved(
+                                cityId: _weatherController.cityWeather.value.id
                                     .toString())
-                            ? await _savedCitiesDBController.removeSavedCity(
-                                city: city)
-                            : await _savedCitiesDBController.saveCity(
-                                city: city);
-                      },
-                      child: Obx(
-                        () => Container(
-                          width: Get.width * 0.4,
-                          height: Get.height * 0.05,
-                          color: _savedCitiesDBController.isCitySaved(
-                                  cityId: _weatherController
-                                      .cityWeather.value.id
-                                      .toString())
-                              ? Colors.black
-                              : Colors.white,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
+                            ? Colors.black
+                            : Colors.white,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            _savedCitiesDBController.isCitySaved(
+                                    cityId: _weatherController
+                                        .cityWeather.value.id
+                                        .toString())
+                                ? Icon(
+                                    Icons.bookmark_added_rounded,
+                                    color: _savedCitiesDBController.savedCities
+                                            .any((element) =>
+                                                element.cityId ==
+                                                _weatherController
+                                                    .cityWeather.value.id
+                                                    .toString())
+                                        ? Colors.white
+                                        : Colors.black,
+                                  )
+                                : Icon(
+                                    Icons.bookmark_add_outlined,
+                                    color: _savedCitiesDBController.isCitySaved(
+                                            cityId: _weatherController
+                                                .cityWeather.value.id
+                                                .toString())
+                                        ? Colors.white
+                                        : Colors.black,
+                                  ),
+                            Text(
                               _savedCitiesDBController.isCitySaved(
                                       cityId: _weatherController
                                           .cityWeather.value.id
                                           .toString())
-                                  ? Icon(
-                                      Icons.bookmark_added_rounded,
-                                      color: _savedCitiesDBController
-                                              .savedCities
-                                              .any((element) =>
-                                                  element.cityId ==
-                                                  _weatherController
-                                                      .cityWeather.value.id
-                                                      .toString())
-                                          ? Colors.white
-                                          : Colors.black,
-                                    )
-                                  : Icon(
-                                      Icons.bookmark_add_outlined,
-                                      color:
-                                          _savedCitiesDBController.isCitySaved(
-                                                  cityId: _weatherController
-                                                      .cityWeather.value.id
-                                                      .toString())
-                                              ? Colors.white
-                                              : Colors.black,
-                                    ),
-                              Text(
-                                _savedCitiesDBController.isCitySaved(
+                                  ? "Saved"
+                                  : "Save City",
+                              style: GoogleFonts.montserrat(
+                                fontSize: Get.width * 0.05,
+                                color: _savedCitiesDBController.isCitySaved(
                                         cityId: _weatherController
                                             .cityWeather.value.id
                                             .toString())
-                                    ? "Saved"
-                                    : "Save City",
-                                style: GoogleFonts.montserrat(
-                                  fontSize: Get.width * 0.05,
-                                  color: _savedCitiesDBController.isCitySaved(
-                                          cityId: _weatherController
-                                              .cityWeather.value.id
-                                              .toString())
-                                      ? Colors.white
-                                      : Colors.black,
-                                  fontWeight: FontWeight.w500,
-                                ),
+                                    ? Colors.white
+                                    : Colors.black,
+                                fontWeight: FontWeight.w500,
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
       floatingActionButton: ExpandableFab(
