@@ -41,7 +41,7 @@ class WeatherController extends GetxController {
     try {
       final response = await http.get(
         Uri.parse(
-          "https://api.openweathermap.org/data/2.5/weather?q=$cityName&appid=$apiKey",
+          "https://api.openweathermap.org/data/2.5/weather?q=$cityName&appid=$openWeatherApiKey",
         ),
       );
       if (response.statusCode == 200) {
@@ -66,7 +66,7 @@ class WeatherController extends GetxController {
       double longitude = locationController.long.value;
       final response = await http.get(
         Uri.parse(
-            "https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey"),
+            "https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$openWeatherApiKey"),
       );
       if (response.statusCode == 200) {
         debugPrint(
