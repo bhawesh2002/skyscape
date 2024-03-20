@@ -124,22 +124,7 @@ class SearchPage extends StatelessWidget {
                               borderRadius:
                                   BorderRadius.circular(Get.width * 0.05),
                               color: Colors.white,
-                              child:
-                                  // _searchController.filterCities.isEmpty
-                                  //     ? SizedBox(
-                                  //         height: Get.height * 0.08,
-                                  //         child: Center(
-                                  //           child: Text(
-                                  //             "No cities Found",
-                                  //             style: GoogleFonts.montserrat(
-                                  //               fontSize: Get.width * 0.04,
-                                  //               fontWeight: FontWeight.w600,
-                                  //             ),
-                                  //           ),
-                                  //         ),
-                                  //       )
-                                  //     :
-                                  ListView.builder(
+                              child: ListView.builder(
                                 shrinkWrap: true,
                                 itemCount:
                                     _searchController.filterCities.length,
@@ -164,7 +149,7 @@ class SearchPage extends StatelessWidget {
                             ),
                           )
                     : Center(
-                        ////if search controller has not loaded then display a CircularProgressIndicator
+                        //if search controller has not loaded then display a CircularProgressIndicator
                         child: CircularProgressIndicator(
                           color: Get.theme.primaryColor,
                         ),
