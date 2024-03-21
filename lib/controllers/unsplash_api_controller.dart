@@ -24,7 +24,7 @@ class UnsplashApiController extends GetxController {
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         String rawUrl = data['urls']['raw'];
-        imgUrl.value = rawUrl;
+        imgUrl.value = "$rawUrl&fit=fill";
         debugPrint(imgUrl.value);
         debugPrint("Unsplash image fetched successfully");
       } else {
