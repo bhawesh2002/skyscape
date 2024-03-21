@@ -110,6 +110,14 @@ class SearchPage extends StatelessWidget {
                                       savedCity: _savedCitiesDBController
                                           .savedCities[index],
                                       timeOfDay: Symbols.sunny_rounded,
+                                      onBookmarkTapped: () async {
+                                        await _savedCitiesDBController
+                                            .removeSavedCity(
+                                          city: _savedCitiesDBController
+                                              .savedCities[index],
+                                        );
+                                        Get.back();
+                                      },
                                     )),
                               ),
                             ))

@@ -9,11 +9,13 @@ class SavedCityCard extends StatelessWidget {
   final String imgPath;
   final IconData timeOfDay;
   final City savedCity;
+  final VoidCallback onBookmarkTapped;
   const SavedCityCard({
     super.key,
     this.imgPath = "",
     required this.savedCity,
     required this.timeOfDay,
+    required this.onBookmarkTapped,
   });
 
   @override
@@ -151,7 +153,23 @@ class SavedCityCard extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.bottomRight,
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Get.defaultDialog(
+                            title: "Remove Saved City",
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: constraints.maxWidth * 0.1,
+                                vertical: constraints.maxHeight * 0.01),
+                            content: Column(
+                              children: [
+                                Text(
+                                  "Do you want to remove ${savedCity.cityName} from Saved Cities?",
+                                  style: GoogleFonts.montserrat(),
+                                )
+                              ],
+                            ),
+                            textConfirm: "Yes",
+                            onConfirm: onBookmarkTapped);
+                      },
                       child: Icon(
                         Icons.bookmark,
                         color: Colors.black,
