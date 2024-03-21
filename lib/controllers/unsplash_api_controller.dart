@@ -23,7 +23,9 @@ class UnsplashApiController extends GetxController {
       );
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-        imgUrl.value = data['urls']['regular'];
+        String rawUrl = data['urls']['raw'];
+        imgUrl.value = rawUrl;
+        debugPrint(imgUrl.value);
         debugPrint("Unsplash image fetched successfully");
       } else {
         throw Exception("http error: unable to fetch unsplash image");
