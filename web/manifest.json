@@ -1,6 +1,6 @@
 {
-    "name": "getx_weather_app",
-    "short_name": "getx_weather_app",
+    "name": "skyscape",
+    "short_name": "skyscape",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

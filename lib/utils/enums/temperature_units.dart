@@ -1,4 +1,0 @@
-enum TemperatureUnit {
-  celsius,
-  fahrenheit,
-}
