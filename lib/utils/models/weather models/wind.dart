@@ -6,6 +6,9 @@ class Wind {
   Wind({required this.speed, required this.deg, required this.gust});
 
   factory Wind.fromJosn(Map<String, dynamic> json) {
-    return Wind(speed: json['speed'], deg: json['deg'], gust: json['gust']);
+    return Wind(
+        speed: json['speed'] ?? 0.0,
+        deg: json['deg'] ?? 0,
+        gust: json['gust'] ?? 0.0);
   }
 }

@@ -12,11 +12,11 @@ class OpenWeather {
   final String base;
   final Main main;
   final int visibility;
-  final Wind wind;
+  final Wind? wind;
   final Rain? rain;
-  final Clouds clouds;
+  final Clouds? clouds;
   final int dt;
-  final Sys sys;
+  final Sys? sys;
   final int timezone;
   final int id;
   final String name;
@@ -47,11 +47,11 @@ class OpenWeather {
         base: json['base'] as String,
         main: Main.fromJson(json['main'] as Map<String, dynamic>),
         visibility: json['visibility'] as int,
-        wind: Wind.fromJosn(json['wind']),
+        wind: json['wind'] != null ? Wind.fromJosn(json['wind']) : null,
         rain: json['rain'] != null ? Rain.fromJson(json['rain']) : null,
-        clouds: Clouds.fromJson(json['clouds']),
+        clouds: json['clouds'] != null ? Clouds.fromJson(json['clouds']) : null,
         dt: json['dt'] as int,
-        sys: Sys.fromJson(json['sys']),
+        sys: json['sys'] != null ? Sys.fromJson(json['sys']) : null,
         timezone: json['timezone'] as int,
         id: json['id'] as int,
         name: json['name'] as String,

@@ -1,8 +1,8 @@
 class Weather {
   final int id;
   final String main;
-  final String description;
-  final String icon;
+  final String? description;
+  final String? icon;
 
   Weather(
       {required this.id,
@@ -14,7 +14,7 @@ class Weather {
     return Weather(
         id: json['id'],
         main: json['main'],
-        description: json['description'],
-        icon: json['icon']);
+        description: json['description'] ?? '',
+        icon: json['icon'] ?? '');
   }
 }
