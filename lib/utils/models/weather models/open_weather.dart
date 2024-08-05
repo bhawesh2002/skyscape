@@ -1,10 +1,10 @@
-import 'package:skyscape/models/weather%20models/clouds.dart';
-import 'package:skyscape/models/weather%20models/coord.dart';
-import 'package:skyscape/models/weather%20models/main_model.dart';
-import 'package:skyscape/models/weather%20models/rain.dart';
-import 'package:skyscape/models/weather%20models/sys.dart';
-import 'package:skyscape/models/weather%20models/weather.dart';
-import 'package:skyscape/models/weather%20models/wind.dart';
+import 'package:skyscape/utils/models/weather%20models/clouds.dart';
+import 'package:skyscape/utils/models/weather%20models/coord.dart';
+import 'package:skyscape/utils/models/weather%20models/main_model.dart';
+import 'package:skyscape/utils/models/weather%20models/rain.dart';
+import 'package:skyscape/utils/models/weather%20models/sys.dart';
+import 'package:skyscape/utils/models/weather%20models/weather.dart';
+import 'package:skyscape/utils/models/weather%20models/wind.dart';
 
 class OpenWeather {
   final Coord coord;
