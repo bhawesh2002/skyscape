@@ -1,7 +1,4 @@
-import 'dart:convert';
-import 'package:flutter/services.dart';
-
-class City {
+class OwmCity {
   String cityId;
   String cityName;
   String latitude;
@@ -16,7 +13,7 @@ class City {
   String countryShort;
   String countryLong;
   String postalCode;
-  City({
+  OwmCity({
     required this.cityId,
     required this.cityName,
     required this.latitude,
@@ -32,8 +29,8 @@ class City {
     required this.countryLong,
     required this.postalCode,
   });
-  factory City.formJson(Map<dynamic, dynamic> json) {
-    return City(
+  factory OwmCity.formJson(Map<dynamic, dynamic> json) {
+    return OwmCity(
         cityId: json['owm_city_id'],
         cityName: json['owm_city_name'],
         latitude: json['owm_latitude'],
@@ -68,12 +65,4 @@ class City {
       'postal_code': postalCode,
     };
   }
-}
-
-Future<List<City>> getCityData() async {
-  final String jsonData =
-      await rootBundle.loadString('lib/assets/city_list/owm_city_list.json');
-  var cityData = json.decode(jsonData) as List<dynamic>;
-  var cities = cityData.map((json) => City.formJson(json)).toList();
-  return cities;
 }
