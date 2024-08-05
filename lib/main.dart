@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:skyscape/pages/home.dart';
 import 'package:skyscape/utils/measurements/ui_sizes.dart';
 
 void main() {
@@ -14,14 +15,6 @@ class MainApp extends StatelessWidget {
     //Initialize UiSizes to get devices width and height
     UiSizes().init(context);
     return GetMaterialApp(
-      theme: ThemeData(fontFamily: 'GigaSans'),
-      home: const Scaffold(
-        body: Center(
-          child: Text(
-            'Hello World!',
-          ),
-        ),
-      ),
-    );
+        theme: ThemeData(fontFamily: 'GigaSans'), home: const HomePage());
   }
 }
