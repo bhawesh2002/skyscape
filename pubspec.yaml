@@ -9,6 +9,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_svg: ^2.0.10+1
+  get: ^4.6.6
   get_server: ^1.2.1
 
 dev_dependencies:
@@ -18,3 +20,22 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  fonts:
+    - family: GigaSans
+      fonts:
+        - asset: lib/assets/fonts/Locomotype  GigaSansBlack.otf
+          weight: 900
+        - asset: lib/assets/fonts/Locomotype  GigaSansBold.otf
+          weight: 800
+        - asset: lib/assets/fonts/Locomotype  GigaSansBold.otf
+          weight: 700
+        - asset: lib/assets/fonts/Locomotype  GigaSansSemiBold.otf
+          weight: 600
+        - asset: lib/assets/fonts/Locomotype  GigaSansMedium.otf
+          weight: 500
+        - asset: lib/assets/fonts/Locomotype  GigaSansRegular.otf
+          weight: 400
+        - asset: lib/assets/fonts/Locomotype  GigaSansLight.otf
+          weight: 300
+        - asset: lib/assets/fonts/Locomotype  GigaSansThin.otf
+          weight: 200
