@@ -13,7 +13,7 @@ class OpenWeather {
   final Main main;
   final int visibility;
   final Wind wind;
-  final Rain rain;
+  final Rain? rain;
   final Clouds clouds;
   final int dt;
   final Sys sys;
@@ -41,14 +41,14 @@ class OpenWeather {
   factory OpenWeather.fromJson(Map<String, dynamic> json) {
     return OpenWeather(
         coord: Coord.fromjson(json['coord'] as Map<String, dynamic>),
-        weather: (json['weather'] as List<Weather>)
+        weather: (json['weather'] as List<dynamic>)
             .map((e) => Weather.fromJson(e as Map<String, dynamic>))
             .toList(),
         base: json['base'] as String,
         main: Main.fromJson(json['main'] as Map<String, dynamic>),
         visibility: json['visibility'] as int,
         wind: Wind.fromJosn(json['wind']),
-        rain: Rain.fromJson(json['rain']),
+        rain: json['rain'] != null ? Rain.fromJson(json['rain']) : null,
         clouds: Clouds.fromJson(json['clouds']),
         dt: json['dt'] as int,
         sys: Sys.fromJson(json['sys']),
