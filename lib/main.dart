@@ -15,6 +15,11 @@ class MainApp extends StatelessWidget {
     //Initialize UiSizes to get devices width and height
     UiSizes().init(context);
     return GetMaterialApp(
-        theme: ThemeData(fontFamily: 'GigaSans'), home: const HomePage());
+      theme: ThemeData(fontFamily: 'GigaSans'),
+      home: const HomePage(
+        lat: 21.1458,
+        long: 79.0882,
+      ),
+    );
   }
 }
