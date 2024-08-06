@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:skyscape/controllers/location_controller.dart';
 import 'package:skyscape/utils/models/weather%20models/open_weather.dart';
 import 'package:skyscape/utils/repository/open_weather_repo.dart';
 
 class OpenWeatherController extends GetxController {
   late Rxn<OpenWeather> weather = Rxn<OpenWeather>();
+  final LocationController _locationController = Get.put(LocationController());
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
-    getWeatherDataFromCoordnites(lat: 23.14, lon: 45.12);
+    await _locationController.getCurrentLocation();
+    await getWeatherDataFromCoordnites(
+        lat: _locationController.latitude.value,
+        lon: _locationController.longitude.value);
   }
 
   Future<void> getWeatherDataFromCoordnites(
