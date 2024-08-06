@@ -6,6 +6,7 @@ class LocationController extends GetxController {
   late Rx<double> latitude = 0.0.obs;
   late Rx<double> longitude = 0.0.obs;
   final Rx<bool> _status = false.obs;
+  final Rx<bool> fetchingLocation = false.obs;
 
   @override
   void onInit() async {
@@ -14,10 +15,12 @@ class LocationController extends GetxController {
   }
 
   Future<void> getCurrentLocation() async {
+    fetchingLocation.value = true;
     if (_status.value == false) {
       await _getLocationPermission();
     }
     Position position = await Geolocator.getCurrentPosition();
+    fetchingLocation.value = false;
     latitude.value = position.latitude;
     longitude.value = position.longitude;
     debugPrint("latitude.value : ${latitude.value}");
