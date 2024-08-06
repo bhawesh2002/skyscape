@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_svg: ^2.0.10+1
+  geolocator: ^13.0.1
   get: ^4.6.6
   get_server: ^1.2.1
   http: ^1.2.2
