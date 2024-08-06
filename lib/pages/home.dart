@@ -79,7 +79,14 @@ class _HomePageState extends State<HomePage> {
                             vertical: 16,
                           ),
                         ),
-                        child: const Text("Get Current Weather"))
+                        child: _locationController.fetchingLocation.value
+                            ? const SizedBox.square(
+                                dimension: 24,
+                                child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                ),
+                              )
+                            : const Text("Get Current Weather"))
                   ],
                 ),
               )
