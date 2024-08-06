@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:skyscape/utils/parsers/parse_to_double.dart';
 
 class Wind {
   final double speed;
@@ -10,7 +11,7 @@ class Wind {
   factory Wind.fromJosn(Map<String, dynamic> json) {
     try {
       return Wind(
-          speed: json['speed'] ?? 0.0,
+          speed: parseToDouble(json['speed']),
           deg: json['deg'] ?? 0,
           gust: json['gust'] ?? 0.0);
     } catch (e) {
