@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:skyscape/utils/parsers/parse_to_double.dart';
 
 class Main {
   final double temp;
@@ -23,10 +24,10 @@ class Main {
   factory Main.fromJson(Map<String, dynamic> json) {
     try {
       return Main(
-          temp: json['temp'],
-          feelsLike: json['feels_like'],
-          tempMin: json['temp_min'],
-          tempMax: json['temp_max'],
+          temp: parseToDouble(json['temp']),
+          feelsLike: parseToDouble(json['feels_like']),
+          tempMin: parseToDouble(json['temp_min']),
+          tempMax: parseToDouble(json['temp_max']),
           pressure: json['pressure'],
           humidity: json['humidity'],
           seaLevel: json['sea_level'],
