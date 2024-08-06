@@ -5,7 +5,7 @@ import 'package:skyscape/utils/models/owm_city.dart';
 import 'package:skyscape/utils/provider/own_cities_list_provider.dart';
 
 class OwmCitiesListRepo {
-  OwnCitiesListProvider _ownCitiesListProvider = OwnCitiesListProvider();
+  final OwnCitiesListProvider _ownCitiesListProvider = OwnCitiesListProvider();
 
   Future<List<OwmCity>> getOwmCitiesListData() async {
     try {

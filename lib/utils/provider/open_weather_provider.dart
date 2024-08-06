@@ -13,7 +13,7 @@ class OpenWeatherProvider {
       final response = await http.get(Uri.parse(
           'https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=$apiKey'));
       final Map<String, dynamic> data = json.decode(response.body);
-      print(data);
+      debugPrint(data.toString());
       return data;
     } catch (e) {
       debugPrint('fetchOpenWeatherData() error:$e ');
