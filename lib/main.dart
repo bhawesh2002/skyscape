@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:skyscape/pages/home.dart';
+import 'package:skyscape/routes/app_pages.dart';
+import 'package:skyscape/routes/app_routes.dart';
 import 'package:skyscape/utils/measurements/ui_sizes.dart';
 
 void main() {
@@ -16,10 +17,8 @@ class MainApp extends StatelessWidget {
     UiSizes().init(context);
     return GetMaterialApp(
       theme: ThemeData(fontFamily: 'GigaSans'),
-      home: const HomePage(
-        lat: 21.1458,
-        long: 79.0882,
-      ),
+      getPages: AppPages.pages,
+      initialRoute: AppRoutes.home,
     );
   }
 }
