@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:skyscape/routes/app_pages.dart';
@@ -16,7 +18,11 @@ class MainApp extends StatelessWidget {
     //Initialize UiSizes to get devices width and height
     UiSizes().init(context);
     return GetMaterialApp(
-      theme: ThemeData(fontFamily: 'GigaSans'),
+      theme: ThemeData(
+          scaffoldBackgroundColor: Platform.isWindows
+              ? const Color.fromARGB(255, 208, 208, 208)
+              : Colors.grey.shade100,
+          fontFamily: 'GigaSans'),
       getPages: AppPages.pages,
       initialRoute: AppRoutes.home,
     );
