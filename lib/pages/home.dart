@@ -59,26 +59,21 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       height: UiSizes().h10,
                     ),
-                    TextButton(
-                        onPressed: () async {
-                          await _locationController.getCurrentLocation();
-                          await _openWeatherController
-                              .getWeatherDataFromCoordnites(
-                                  lat: _locationController.latitude.value,
-                                  lon: _locationController.longitude.value);
-                        },
-                        style: TextButton.styleFrom(
-                          backgroundColor:
-                              const Color.fromARGB(255, 227, 106, 231),
-                          foregroundColor: Colors.white,
-                          textStyle: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 32,
-                            vertical: 16,
-                          ),
-                        ),
+                    GestureDetector(
+                      onTap: () async {
+                        await _locationController.getCurrentLocation();
+                        await _openWeatherController
+                            .getWeatherDataFromCoordnites(
+                                lat: _locationController.latitude.value,
+                                lon: _locationController.longitude.value);
+                      },
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 600),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 36, vertical: 16),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(31),
+                            color: const Color.fromARGB(255, 218, 77, 175)),
                         child: _locationController.fetchingLocation.value
                             ? const SizedBox.square(
                                 dimension: 24,
@@ -86,7 +81,15 @@ class _HomePageState extends State<HomePage> {
                                   color: Colors.white,
                                 ),
                               )
-                            : const Text("Get Current Weather"))
+                            : const Text(
+                                "Get Current Weather",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                      ),
+                    ),
                   ],
                 ),
               )
