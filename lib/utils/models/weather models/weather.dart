@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class Weather {
   final int id;
   final String main;
@@ -11,10 +13,15 @@ class Weather {
       required this.icon});
 
   factory Weather.fromJson(Map<String, dynamic> json) {
-    return Weather(
-        id: json['id'],
-        main: json['main'],
-        description: json['description'] ?? '',
-        icon: json['icon'] ?? '');
+    try {
+      return Weather(
+          id: json['id'],
+          main: json['main'],
+          description: json['description'] ?? '',
+          icon: json['icon'] ?? '');
+    } catch (e) {
+      debugPrint('Weather.fromJson() error: $e');
+      throw e.toString();
+    }
   }
 }

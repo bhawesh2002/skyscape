@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:skyscape/utils/models/weather%20models/clouds.dart';
 import 'package:skyscape/utils/models/weather%20models/coord.dart';
 import 'package:skyscape/utils/models/weather%20models/main_model.dart';
@@ -39,22 +40,28 @@ class OpenWeather {
       required this.cod});
 
   factory OpenWeather.fromJson(Map<String, dynamic> json) {
-    return OpenWeather(
-        coord: Coord.fromjson(json['coord'] as Map<String, dynamic>),
-        weather: (json['weather'] as List<dynamic>)
-            .map((e) => Weather.fromJson(e as Map<String, dynamic>))
-            .toList(),
-        base: json['base'] as String,
-        main: Main.fromJson(json['main'] as Map<String, dynamic>),
-        visibility: json['visibility'] as int,
-        wind: json['wind'] != null ? Wind.fromJosn(json['wind']) : null,
-        rain: json['rain'] != null ? Rain.fromJson(json['rain']) : null,
-        clouds: json['clouds'] != null ? Clouds.fromJson(json['clouds']) : null,
-        dt: json['dt'] as int,
-        sys: json['sys'] != null ? Sys.fromJson(json['sys']) : null,
-        timezone: json['timezone'] as int,
-        id: json['id'] as int,
-        name: json['name'] as String,
-        cod: json['cod'] as int);
+    try {
+      return OpenWeather(
+          coord: Coord.fromjson(json['coord'] as Map<String, dynamic>),
+          weather: (json['weather'] as List<dynamic>)
+              .map((e) => Weather.fromJson(e as Map<String, dynamic>))
+              .toList(),
+          base: json['base'] as String,
+          main: Main.fromJson(json['main'] as Map<String, dynamic>),
+          visibility: json['visibility'] as int,
+          wind: json['wind'] != null ? Wind.fromJosn(json['wind']) : null,
+          rain: json['rain'] != null ? Rain.fromJson(json['rain']) : null,
+          clouds:
+              json['clouds'] != null ? Clouds.fromJson(json['clouds']) : null,
+          dt: json['dt'] as int,
+          sys: json['sys'] != null ? Sys.fromJson(json['sys']) : null,
+          timezone: json['timezone'] as int,
+          id: json['id'] as int,
+          name: json['name'] as String,
+          cod: json['cod'] as int);
+    } catch (e) {
+      debugPrint('OpenWeather.fromJson() error: $e');
+      throw ('OpenWeather.fromJson(): ${e.toString()}');
+    }
   }
 }

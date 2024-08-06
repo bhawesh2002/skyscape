@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class Sys {
   final int? type;
   final int? id;
@@ -12,11 +14,16 @@ class Sys {
       required this.sunrise,
       required this.sunset});
   factory Sys.fromJson(Map<String, dynamic> json) {
-    return Sys(
-        type: json['type'],
-        id: json['id'],
-        country: json['country'],
-        sunrise: json['sunrise'],
-        sunset: json['sunset']);
+    try {
+      return Sys(
+          type: json['type'],
+          id: json['id'],
+          country: json['country'],
+          sunrise: json['sunrise'],
+          sunset: json['sunset']);
+    } catch (e) {
+      debugPrint('Sys.fromJson() error: $e');
+      throw ('Sys.fromJson(): ${e.toString()}');
+    }
   }
 }
