@@ -8,6 +8,8 @@ double parseToDouble(dynamic value) {
     return double.parse(value.toString());
   } else if (value is double) {
     return value;
+  } else if (value == null) {
+    return 0.0;
   } else {
     throw Exception('Invalid Value Obtained');
   }
