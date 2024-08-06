@@ -13,7 +13,7 @@ class Wind {
       return Wind(
           speed: parseToDouble(json['speed']),
           deg: json['deg'] ?? 0,
-          gust: json['gust'] ?? 0.0);
+          gust: parseToDouble(json['gust']));
     } catch (e) {
       debugPrint('Wind.fromJson() error: $e');
       throw ('Wind.fromJson(): ${e.toString()}');
