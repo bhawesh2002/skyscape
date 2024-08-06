@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:skyscape/controllers/cities_list_controller.dart';
 import 'package:skyscape/controllers/open_weather_controller.dart';
 import 'package:skyscape/routes/app_routes.dart';
 
@@ -13,6 +14,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final OpenWeatherController _openWeatherController =
       Get.put(OpenWeatherController());
+  // ignore: unused_field
+  final CitiesListController _citiesListController =
+      Get.put(CitiesListController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
