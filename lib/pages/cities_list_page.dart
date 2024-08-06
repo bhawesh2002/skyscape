@@ -16,7 +16,7 @@ class _CitiesListPageState extends State<CitiesListPage> {
   final OpenWeatherController _openWeatherController =
       Get.find<OpenWeatherController>();
   final CitiesListController _citiesListController =
-      Get.put(CitiesListController());
+      Get.find<CitiesListController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,6 +96,11 @@ class _CitiesListPageState extends State<CitiesListPage> {
             : const Center(
                 child: CircularProgressIndicator(),
               ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Obx(
+            () => Text('${_citiesListController.owmCitiesList.value?.length}')),
       ),
     );
   }
