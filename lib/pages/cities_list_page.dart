@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:skyscape/pages/home.dart';
+import 'package:get/get.dart';
+import 'package:skyscape/routes/app_routes.dart';
 import 'package:skyscape/utils/measurements/ui_sizes.dart';
 import 'package:skyscape/utils/models/owm_city.dart';
 import 'package:skyscape/utils/repository/owm_cities_list_repo.dart';
@@ -69,11 +70,7 @@ class CitiesListPage extends StatelessWidget {
                     );
                   },
                   onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => HomePage(
-                              lat: double.parse(owmCity[index].latitude),
-                              long: double.parse(owmCity[index].longitude),
-                            )));
+                    Get.offAndToNamed(AppRoutes.home);
                   },
                   title: Text(
                     owmCity[index].cityName,

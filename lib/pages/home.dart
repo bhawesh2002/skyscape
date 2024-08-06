@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:skyscape/pages/cities_list_page.dart';
+import 'package:get/get.dart';
+import 'package:skyscape/routes/app_routes.dart';
 import 'package:skyscape/utils/models/weather%20models/open_weather.dart';
 import 'package:skyscape/utils/repository/open_weather_repo.dart';
 
@@ -56,8 +57,7 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const CitiesListPage()));
+          Get.toNamed(AppRoutes.citiesList);
         },
         child: const Icon(Icons.location_city),
       ),
