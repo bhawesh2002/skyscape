@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:skyscape/controllers/open_weather_controller.dart';
 import 'package:skyscape/routes/app_routes.dart';
 import 'package:skyscape/utils/measurements/ui_sizes.dart';
 import 'package:skyscape/utils/models/owm_city.dart';
 import 'package:skyscape/utils/repository/owm_cities_list_repo.dart';
 
-class CitiesListPage extends StatelessWidget {
+class CitiesListPage extends StatefulWidget {
   const CitiesListPage({super.key});
 
+  @override
+  State<CitiesListPage> createState() => _CitiesListPageState();
+}
+
+class _CitiesListPageState extends State<CitiesListPage> {
+  final OpenWeatherController _openWeatherController =
+      Get.find<OpenWeatherController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,6 +78,9 @@ class CitiesListPage extends StatelessWidget {
                     );
                   },
                   onTap: () {
+                    _openWeatherController.getWeatherDataFromCoordnites(
+                        lat: double.parse(owmCity[index].latitude),
+                        lon: double.parse(owmCity[index].longitude));
                     Get.offAndToNamed(AppRoutes.home);
                   },
                   title: Text(
