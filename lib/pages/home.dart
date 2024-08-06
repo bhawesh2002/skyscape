@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:skyscape/controllers/cities_list_controller.dart';
+import 'package:skyscape/controllers/location_controller.dart';
 import 'package:skyscape/controllers/open_weather_controller.dart';
 import 'package:skyscape/routes/app_routes.dart';
+import 'package:skyscape/utils/measurements/ui_sizes.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,9 +16,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final OpenWeatherController _openWeatherController =
       Get.put(OpenWeatherController());
+  final LocationController _locationController = Get.find<LocationController>();
   // ignore: unused_field
   final CitiesListController _citiesListController =
       Get.put(CitiesListController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,6 +56,30 @@ class _HomePageState extends State<HomePage> {
                         'Rain 1H:${_openWeatherController.weather.value?.rain?.oneHour}'),
                     Text(
                         'Main temp:${_openWeatherController.weather.value?.main.temp}'),
+                    SizedBox(
+                      height: UiSizes().h10,
+                    ),
+                    TextButton(
+                        onPressed: () async {
+                          await _locationController.getCurrentLocation();
+                          await _openWeatherController
+                              .getWeatherDataFromCoordnites(
+                                  lat: _locationController.latitude.value,
+                                  lon: _locationController.longitude.value);
+                        },
+                        style: TextButton.styleFrom(
+                          backgroundColor:
+                              const Color.fromARGB(255, 227, 106, 231),
+                          foregroundColor: Colors.white,
+                          textStyle: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 32,
+                            vertical: 16,
+                          ),
+                        ),
+                        child: const Text("Get Current Weather"))
                   ],
                 ),
               )
