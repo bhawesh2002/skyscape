@@ -19,10 +19,11 @@ class MainApp extends StatelessWidget {
     UiSizes().init(context);
     return GetMaterialApp(
       theme: ThemeData(
-          scaffoldBackgroundColor: Platform.isWindows
-              ? const Color.fromARGB(255, 228, 228, 228)
-              : Colors.grey.shade100,
-          fontFamily: 'GigaSans'),
+        scaffoldBackgroundColor: Platform.isWindows
+            ? const Color.fromARGB(255, 228, 228, 228)
+            : Colors.grey.shade100,
+        fontFamily: 'GigaSans',
+      ),
       getPages: AppPages.pages,
       initialRoute: AppRoutes.home,
     );

@@ -72,8 +72,9 @@ class _HomePageState extends State<HomePage> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 36, vertical: 16),
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(31),
-                            color: const Color.fromARGB(255, 218, 77, 175)),
+                          borderRadius: BorderRadius.circular(32),
+                          color: const Color.fromARGB(255, 216, 9, 154),
+                        ),
                         child: _locationController.fetchingLocation.value
                             ? const SizedBox.square(
                                 dimension: 24,
