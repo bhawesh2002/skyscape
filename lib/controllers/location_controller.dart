@@ -19,6 +19,8 @@ class LocationController extends GetxController {
     if (_status.value == false) {
       await _getLocationPermission();
     }
+    debugPrint(
+        'LocationController.getCurrentLocation(): Locating Current Location');
     Position position = await Geolocator.getCurrentPosition();
     fetchingLocation.value = false;
     latitude.value = position.latitude;
