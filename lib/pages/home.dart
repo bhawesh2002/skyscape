@@ -136,26 +136,6 @@ class _HomePageState extends State<HomePage> {
                       bottom: UiSizes().h20,
                       child: Align(
                         alignment: Alignment.center,
-                        child: Container(
-                          width: UiSizes().w70,
-                          height: UiSizes().w70,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(32),
-                            image: const DecorationImage(
-                              fit: BoxFit.cover,
-                              colorFilter: ColorFilter.mode(
-                                  Colors.blue, BlendMode.difference),
-                              image: AssetImage(
-                                  'lib/assets/pexels-thiago-japyassu-1928491.jpg'),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Positioned.fill(
-                      bottom: UiSizes().h20,
-                      child: Align(
-                        alignment: Alignment.center,
                         child: SizedBox.square(
                           dimension: UiSizes().w70,
                         ),
