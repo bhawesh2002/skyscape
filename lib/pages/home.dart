@@ -62,10 +62,13 @@ class _HomePageState extends State<HomePage> {
                             _settingsController.updateDefaultLocation(
                                 locationName:
                                     _openWeatherController.weather.value!.name);
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
                                 duration: const Duration(milliseconds: 800),
                                 content: Text(
-                                    "Updated Default Location to ${_settingsController.defaultLocation.value}")));
+                                    "Updated Default Location to ${_settingsController.defaultLocation.value}"),
+                              ),
+                            );
                           },
                           icon: Icon(
                             _settingsController.defaultLocation.value ==
@@ -177,6 +180,59 @@ class _HomePageState extends State<HomePage> {
                                         fontWeight: FontWeight.w600,
                                       ),
                                     ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: UiSizes().h2,
+                          ),
+                          GestureDetector(
+                            onTap: () async {
+                              String? cityName =
+                                  _settingsController.defaultLocation.value;
+                              if (cityName != null) {
+                                _openWeatherController
+                                    .getWeatherDataFromCityName(
+                                        cityName: _settingsController
+                                            .defaultLocation.value!);
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    duration: Duration(seconds: 1),
+                                    content: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Set a Default Location First",
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Text(
+                                          "This can be done by tapping on the gps icon at Top Right",
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              }
+                            },
+                            child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 600),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 36, vertical: 16),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(32),
+                                color: const Color.fromARGB(255, 216, 9, 154),
+                              ),
+                              child: const Text(
+                                "Get Default Weather",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
                             ),
                           ),
                         ],
