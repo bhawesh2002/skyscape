@@ -59,6 +59,30 @@ class _HomePageState extends State<HomePage> {
                         alignment: Alignment.topRight,
                         child: IconButton(
                           onPressed: () {
+                            _settingsController.updateDefaultLocation(
+                                locationName:
+                                    _openWeatherController.weather.value!.name);
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                duration: const Duration(milliseconds: 800),
+                                content: Text(
+                                    "Updated Default Location to ${_settingsController.defaultLocation.value}")));
+                          },
+                          icon: Icon(
+                            _settingsController.defaultLocation.value ==
+                                    _openWeatherController.weather.value!.name
+                                ? Icons.gps_fixed
+                                : Icons.gps_not_fixed,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned.fill(
+                      top: 10,
+                      right: 110,
+                      child: Align(
+                        alignment: Alignment.topRight,
+                        child: IconButton(
+                          onPressed: () {
                             _settingsController.defaultUnit.value ==
                                     TemperatureUnit.celsius
                                 ? _settingsController.updateTempUnit(
