@@ -37,8 +37,9 @@ class _HomePageState extends State<HomePage> {
                       right: 10,
                       child: Align(
                         alignment: Alignment.topRight,
-                        child: IconButton(
-                            onPressed: () {
+                        child: InkWell(
+                            borderRadius: BorderRadius.circular(24),
+                            onTap: () {
                               _settingsController.themeMode.value ==
                                       ThemeMode.light
                                   ? _settingsController.updateTheme(
@@ -46,10 +47,13 @@ class _HomePageState extends State<HomePage> {
                                   : _settingsController.updateTheme(
                                       themeMode: ThemeMode.light);
                             },
-                            icon: Icon(_settingsController.themeMode.value ==
-                                    ThemeMode.light
-                                ? Icons.dark_mode
-                                : Icons.light_mode)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Icon(_settingsController.themeMode.value ==
+                                      ThemeMode.light
+                                  ? Icons.dark_mode
+                                  : Icons.light_mode),
+                            )),
                       ),
                     ),
                     Positioned.fill(
@@ -57,24 +61,38 @@ class _HomePageState extends State<HomePage> {
                       right: 60,
                       child: Align(
                         alignment: Alignment.topRight,
-                        child: IconButton(
-                          onPressed: () {
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(24),
+                          onTap: () {
                             _settingsController.updateDefaultLocation(
                                 locationName:
                                     _openWeatherController.weather.value!.name);
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 duration: const Duration(milliseconds: 800),
-                                content: Text(
-                                    "Updated Default Location to ${_settingsController.defaultLocation.value}"),
+                                content: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '${_openWeatherController.weather.value?.name}',
+                                      style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    const Text("Default Loaction Updated"),
+                                  ],
+                                ),
                               ),
                             );
                           },
-                          icon: Icon(
-                            _settingsController.defaultLocation.value ==
-                                    _openWeatherController.weather.value!.name
-                                ? Icons.gps_fixed
-                                : Icons.gps_not_fixed,
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Icon(
+                              _settingsController.defaultLocation.value ==
+                                      _openWeatherController.weather.value!.name
+                                  ? Icons.gps_fixed
+                                  : Icons.gps_not_fixed,
+                            ),
                           ),
                         ),
                       ),
@@ -84,8 +102,9 @@ class _HomePageState extends State<HomePage> {
                       right: 110,
                       child: Align(
                         alignment: Alignment.topRight,
-                        child: IconButton(
-                          onPressed: () {
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(24),
+                          onTap: () {
                             _settingsController.defaultUnit.value ==
                                     TemperatureUnit.celsius
                                 ? _settingsController.updateTempUnit(
@@ -93,13 +112,16 @@ class _HomePageState extends State<HomePage> {
                                 : _settingsController.updateTempUnit(
                                     tempUnit: TemperatureUnit.celsius);
                           },
-                          icon: Text(
-                            _settingsController.defaultUnit.value ==
-                                    TemperatureUnit.celsius
-                                ? '°F'
-                                : '°C',
-                            style: const TextStyle(
-                                fontWeight: FontWeight.w600, fontSize: 16),
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Text(
+                              _settingsController.defaultUnit.value ==
+                                      TemperatureUnit.celsius
+                                  ? '°F'
+                                  : '°C',
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w600, fontSize: 16),
+                            ),
                           ),
                         ),
                       ),
