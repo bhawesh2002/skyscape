@@ -22,27 +22,29 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     //Initialize UiSizes to get devices width and height
     UiSizes().init(context);
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        scaffoldBackgroundColor: Platform.isWindows
-            ? const Color.fromARGB(255, 228, 228, 228)
-            : Colors.grey.shade100,
-        colorScheme: const ColorScheme.light(
-          primary: Color.fromARGB(255, 216, 9, 154),
+    return Obx(
+      () => GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          scaffoldBackgroundColor: Platform.isWindows
+              ? const Color.fromARGB(255, 228, 228, 228)
+              : Colors.grey.shade100,
+          colorScheme: const ColorScheme.light(
+            primary: Color.fromARGB(255, 216, 9, 154),
+          ),
+          fontFamily: 'GigaSans',
         ),
-        fontFamily: 'GigaSans',
-      ),
-      darkTheme: ThemeData(
-        scaffoldBackgroundColor: Colors.black,
-        colorScheme: const ColorScheme.dark(
-          primary: Color.fromARGB(255, 216, 9, 154),
+        darkTheme: ThemeData(
+          scaffoldBackgroundColor: Colors.black,
+          colorScheme: const ColorScheme.dark(
+            primary: Color.fromARGB(255, 216, 9, 154),
+          ),
+          fontFamily: 'GigaSans',
         ),
-        fontFamily: 'GigaSans',
+        themeMode: _settingsController.themeMode.value!,
+        getPages: AppPages.pages,
+        initialRoute: AppRoutes.home,
       ),
-      themeMode: _settingsController.themeMode.value!,
-      getPages: AppPages.pages,
-      initialRoute: AppRoutes.home,
     );
   }
 }
