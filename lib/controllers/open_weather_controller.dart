@@ -30,4 +30,15 @@ class OpenWeatherController extends GetxController {
       throw (' OpenWeatherController.getWeatherDataFromCoordnites error: $e');
     }
   }
+
+  Future<void> getWeatherDataFromCityName({required String cityName}) async {
+    try {
+      OpenWeather weatherData = await OpenWeatherRepo()
+          .getOpenWeatherDataFromCityName(cityName: cityName);
+      weather.value = weatherData;
+    } catch (e) {
+      debugPrint('getWeatherDataFromCityName() error: $e');
+      throw ('getWeatherDataFromCityName() error: $e');
+    }
+  }
 }

@@ -21,4 +21,17 @@ class OpenWeatherRepo {
       throw e.toString();
     }
   }
+
+  Future<OpenWeather> getOpenWeatherDataFromCityName(
+      {required String cityName}) async {
+    try {
+      final Map<String, dynamic> data = await _openWeatherProvider
+          .fetchOpenWeatherDataFromCityName(cityName: cityName);
+      final OpenWeather openWeather = OpenWeather.fromJson(data);
+      return openWeather;
+    } catch (e) {
+      debugPrint('getOpenWeatherDataFromCityName() error: $e');
+      throw ('getOpenWeatherDataFromCityName() error: $e');
+    }
+  }
 }

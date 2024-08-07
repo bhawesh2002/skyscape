@@ -19,4 +19,17 @@ class OpenWeatherProvider {
       throw e.toString();
     }
   }
+
+  Future<Map<String, dynamic>> fetchOpenWeatherDataFromCityName(
+      {required String cityName}) async {
+    try {
+      final response = await http.get(Uri.parse(
+          'https://api.openweathermap.org/data/2.5/weather?q=$cityName&appid=$apiKey'));
+      final Map<String, dynamic> data = json.decode(response.body);
+      return data;
+    } catch (e) {
+      debugPrint('fetchOpenWeatherDataFromCityName() error: $e');
+      throw ('fetchOpenWeatherDataFromCityName() error: $e');
+    }
+  }
 }
