@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:skyscape/controllers/cities_list_controller.dart';
@@ -130,47 +132,51 @@ class _HomePageState extends State<HomePage> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            _settingsController.defaultUnit.value ==
-                                    TemperatureUnit.celsius
-                                ? '${(_openWeatherController.weather.value!.main.temp - 273.15).toPrecision(2)} °C'
-                                : '${((_openWeatherController.weather.value!.main.temp - 273.15) * 1.8 + 32).toPrecision(2)} °F',
-                            style: const TextStyle(
-                              fontSize: 40,
-                              fontWeight: FontWeight.w600,
+                          Container(
+                            padding: const EdgeInsets.all(24),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(32),
+                            ),
+                            child: ImageFiltered(
+                              imageFilter:
+                                  ImageFilter.blur(sigmaX: 0, sigmaY: 0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    '${_openWeatherController.weather.value?.name}',
+                                    style: const TextStyle(
+                                        fontSize: 32,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(
+                                    height: UiSizes().h2,
+                                  ),
+                                  Text(
+                                    _settingsController.defaultUnit.value ==
+                                            TemperatureUnit.celsius
+                                        ? '${(_openWeatherController.weather.value!.main.temp - 273.15).toPrecision(2)} °C'
+                                        : '${((_openWeatherController.weather.value!.main.temp - 273.15) * 1.8 + 32).toPrecision(2)} °F',
+                                    style: const TextStyle(
+                                      fontSize: 40,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: UiSizes().h2,
+                                  ),
+                                  Text(
+                                    '${_openWeatherController.weather.value?.weather[0].main}',
+                                    style: const TextStyle(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                           SizedBox(
-                            height: UiSizes().h6,
-                          ),
-                          Text(
-                              'Lat: ${_openWeatherController.weather.value?.coord.latitude} , Lan: ${_openWeatherController.weather.value?.coord.longitude}'),
-                          Text(
-                              'Name: ${_openWeatherController.weather.value?.name}'),
-                          Text(
-                              'Base: ${_openWeatherController.weather.value?.base}'),
-                          Text(
-                              'COD: ${_openWeatherController.weather.value?.cod.toString()}'),
-                          Text(
-                              'DT: ${_openWeatherController.weather.value?.dt.toString()}'),
-                          Text(
-                              'ID: ${_openWeatherController.weather.value?.id.toString()}'),
-                          Text(
-                              'Time Zone: ${_openWeatherController.weather.value?.timezone.toString()}'),
-                          Text(
-                              'Visibility: ${_openWeatherController.weather.value?.visibility.toString()}'),
-                          Text(
-                              'Weather Main:${_openWeatherController.weather.value?.weather[0].main}'),
-                          Text(
-                              'Sys Country:${_openWeatherController.weather.value?.sys?.country}'),
-                          Text(
-                              'Cloud all:${_openWeatherController.weather.value?.clouds?.all}'),
-                          Text(
-                              'Wind speed:${_openWeatherController.weather.value?.wind?.speed}'),
-                          Text(
-                              'Rain 1H:${_openWeatherController.weather.value?.rain?.oneHour}'),
-                          SizedBox(
-                            height: UiSizes().h10,
+                            height: UiSizes().h12,
                           ),
                           GestureDetector(
                             onTap: () async {
