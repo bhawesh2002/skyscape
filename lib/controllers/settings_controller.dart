@@ -7,7 +7,7 @@ import 'package:skyscape/utils/enums/temperature_unit.dart';
 class SettingsController extends GetxController {
   late Rxn<ThemeMode> themeMode = Rxn<ThemeMode>();
   late Rxn<TemperatureUnit> defaultUnit = Rxn<TemperatureUnit>();
-
+  late Rxn<String> defaultLocation = Rxn<String>();
   late SharedPreferences _prefs;
 
   @override
@@ -33,8 +33,7 @@ class SettingsController extends GetxController {
         ThemeMode.values.elementAt(_prefs.getInt('themeMode') ?? 0);
     defaultUnit.value =
         TemperatureUnit.values.elementAt(_prefs.getInt('defaultUnit') ?? 0);
-    debugPrint(
-        'Theme Mode: ${themeMode.value}, Default Unit: ${defaultUnit.value}');
+    defaultLocation.value = _prefs.getString('defaultLocation');
   }
 
   Future<void> updateTheme({required ThemeMode themeMode}) async {
@@ -49,5 +48,14 @@ class SettingsController extends GetxController {
     debugPrint('Updating temperature unit to: ${tempUnit.name.toUpperCase()}');
     await _prefs.setInt('defaultUnit', tempUnit.index);
     await loadSettings();
+  }
+
+  Future<void> updateDefaultLocation({required String locationName}) async {
+    if (locationName.isNotEmpty) {
+      _prefs = await SharedPreferences.getInstance();
+      debugPrint('Updating Default Location to $locationName');
+      _prefs.setString('defaultLocation', locationName);
+      loadSettings();
+    }
   }
 }
