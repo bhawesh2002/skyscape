@@ -14,6 +14,7 @@ dependencies:
   get: ^4.6.6
   get_server: ^1.2.1
   http: ^1.2.2
+  is_first_run: ^1.0.0
   shared_preferences: ^2.3.1
 
 dev_dependencies:
