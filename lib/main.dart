@@ -20,7 +20,7 @@ class MainApp extends StatelessWidget {
     return GetMaterialApp(
       theme: ThemeData(
           scaffoldBackgroundColor: Platform.isWindows
-              ? const Color.fromARGB(255, 208, 208, 208)
+              ? const Color.fromARGB(255, 228, 228, 228)
               : Colors.grey.shade100,
           fontFamily: 'GigaSans'),
       getPages: AppPages.pages,
