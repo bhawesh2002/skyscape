@@ -11,12 +11,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SettingsController settingsController = Get.put(SettingsController());
   await settingsController.loadSettings();
-  runApp(const MainApp());
+  runApp(MainApp());
 }
 
 class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+  MainApp({super.key});
 
+  final SettingsController _settingsController = Get.find<SettingsController>();
   @override
   Widget build(BuildContext context) {
     //Initialize UiSizes to get devices width and height
@@ -27,8 +28,19 @@ class MainApp extends StatelessWidget {
         scaffoldBackgroundColor: Platform.isWindows
             ? const Color.fromARGB(255, 228, 228, 228)
             : Colors.grey.shade100,
+        colorScheme: const ColorScheme.light(
+          primary: Color.fromARGB(255, 216, 9, 154),
+        ),
         fontFamily: 'GigaSans',
       ),
+      darkTheme: ThemeData(
+        scaffoldBackgroundColor: Colors.black,
+        colorScheme: const ColorScheme.dark(
+          primary: Color.fromARGB(255, 216, 9, 154),
+        ),
+        fontFamily: 'GigaSans',
+      ),
+      themeMode: _settingsController.themeMode.value!,
       getPages: AppPages.pages,
       initialRoute: AppRoutes.home,
     );
