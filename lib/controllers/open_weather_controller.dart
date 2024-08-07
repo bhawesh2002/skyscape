@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:skyscape/controllers/location_controller.dart';
+import 'package:skyscape/controllers/settings_controller.dart';
 import 'package:skyscape/utils/models/weather%20models/open_weather.dart';
 import 'package:skyscape/utils/repository/open_weather_repo.dart';
 
 class OpenWeatherController extends GetxController {
   late Rxn<OpenWeather> weather = Rxn<OpenWeather>();
   final LocationController _locationController = Get.put(LocationController());
-
+  final SettingsController _settingsController = Get.find<SettingsController>();
   @override
   void onInit() async {
     super.onInit();
-    await _locationController.getCurrentLocation();
-    await getWeatherDataFromCoordnites(
-        lat: _locationController.latitude.value,
-        lon: _locationController.longitude.value);
+    if (_settingsController.defaultLocation.value != null) {
+      await getWeatherDataFromCityName(
+          cityName: _settingsController.defaultLocation.value!);
+    } else {
+      await _locationController.getCurrentLocation();
+      await getWeatherDataFromCoordnites(
+          lat: _locationController.latitude.value,
+          lon: _locationController.longitude.value);
+    }
   }
 
   Future<void> getWeatherDataFromCoordnites(
@@ -36,6 +42,8 @@ class OpenWeatherController extends GetxController {
       OpenWeather weatherData = await OpenWeatherRepo()
           .getOpenWeatherDataFromCityName(cityName: cityName);
       weather.value = weatherData;
+      debugPrint(
+          'OpenWeatherController.getWeatherDataFromCityName(): Weather Data Fetched');
     } catch (e) {
       debugPrint('getWeatherDataFromCityName() error: $e');
       throw ('getWeatherDataFromCityName() error: $e');
