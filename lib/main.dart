@@ -2,11 +2,15 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:skyscape/controllers/settings_controller.dart';
 import 'package:skyscape/routes/app_pages.dart';
 import 'package:skyscape/routes/app_routes.dart';
 import 'package:skyscape/utils/measurements/ui_sizes.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SettingsController settingsController = Get.put(SettingsController());
+  await settingsController.loadSettings();
   runApp(const MainApp());
 }
 
