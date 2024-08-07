@@ -104,10 +104,10 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     Positioned.fill(
-                      top: 10,
-                      right: 110,
+                      top: 12,
+                      left: 10,
                       child: Align(
-                        alignment: Alignment.topRight,
+                        alignment: Alignment.topLeft,
                         child: InkWell(
                           borderRadius: BorderRadius.circular(24),
                           onTap: () {
@@ -123,10 +123,10 @@ class _HomePageState extends State<HomePage> {
                             child: Text(
                               _settingsController.defaultUnit.value ==
                                       TemperatureUnit.celsius
-                                  ? '°F'
-                                  : '°C',
+                                  ? 'Fahrenheit'
+                                  : 'Celsius',
                               style: const TextStyle(
-                                  fontWeight: FontWeight.w600, fontSize: 16),
+                                  fontWeight: FontWeight.w500, fontSize: 16),
                             ),
                           ),
                         ),
@@ -137,53 +137,68 @@ class _HomePageState extends State<HomePage> {
                       child: Align(
                         alignment: Alignment.center,
                         child: Container(
+                          width: UiSizes().w70,
+                          height: UiSizes().w70,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(32),
                             image: const DecorationImage(
                               fit: BoxFit.cover,
                               colorFilter: ColorFilter.mode(
                                   Colors.blue, BlendMode.difference),
-                              image: NetworkImage(
-                                  'https://images.unsplash.com/photo-1622036408781-594f03b181ba?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDN8aVVJc25WdGpCMFl8fGVufDB8fHx8fA%3D%3D'),
+                              image: AssetImage(
+                                  'lib/assets/pexels-thiago-japyassu-1928491.jpg'),
                             ),
                           ),
-                          child: SizedBox.square(
-                            dimension: UiSizes().w70,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  '${_openWeatherController.weather.value?.name}',
-                                  style: const TextStyle(
-                                      fontSize: 32,
-                                      fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                    Positioned.fill(
+                      bottom: UiSizes().h20,
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: SizedBox.square(
+                          dimension: UiSizes().w70,
+                        ),
+                      ),
+                    ),
+                    Positioned.fill(
+                      bottom: UiSizes().h20,
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: SizedBox.square(
+                          dimension: UiSizes().w70,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                '${_openWeatherController.weather.value?.name}',
+                                style: const TextStyle(
+                                    fontSize: 32, fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                height: UiSizes().h2,
+                              ),
+                              Text(
+                                _settingsController.defaultUnit.value ==
+                                        TemperatureUnit.celsius
+                                    ? '${(_openWeatherController.weather.value!.main.temp - 273.15).toPrecision(2)} °C'
+                                    : '${((_openWeatherController.weather.value!.main.temp - 273.15) * 1.8 + 32).toPrecision(2)} °F',
+                                style: const TextStyle(
+                                  fontSize: 40,
+                                  fontWeight: FontWeight.w600,
                                 ),
-                                SizedBox(
-                                  height: UiSizes().h2,
-                                ),
-                                Text(
-                                  _settingsController.defaultUnit.value ==
-                                          TemperatureUnit.celsius
-                                      ? '${(_openWeatherController.weather.value!.main.temp - 273.15).toPrecision(2)} °C'
-                                      : '${((_openWeatherController.weather.value!.main.temp - 273.15) * 1.8 + 32).toPrecision(2)} °F',
-                                  style: const TextStyle(
-                                    fontSize: 40,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: UiSizes().h2,
-                                ),
-                                Text(
-                                  '${_openWeatherController.weather.value?.weather[0].main}',
-                                  style: const TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ],
-                            ),
+                              ),
+                              SizedBox(
+                                height: UiSizes().h2,
+                              ),
+                              Text(
+                                '${_openWeatherController.weather.value?.weather[0].main}',
+                                style: const TextStyle(
+                                    fontSize: 24, fontWeight: FontWeight.w500),
+                              ),
+                            ],
                           ),
                         ),
                       ),
