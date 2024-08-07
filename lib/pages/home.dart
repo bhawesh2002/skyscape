@@ -34,6 +34,10 @@ class _HomePageState extends State<HomePage> {
           () => _openWeatherController.weather.value != null
               ? Stack(
                   children: [
+                    SizedBox(
+                      width: UiSizes().width,
+                      height: UiSizes().height,
+                    ),
                     Positioned.fill(
                       top: 10,
                       right: 10,
@@ -128,142 +132,156 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     ),
-                    Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(24),
+                    Positioned.fill(
+                      bottom: UiSizes().h20,
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(32),
+                            image: const DecorationImage(
+                              fit: BoxFit.cover,
+                              colorFilter: ColorFilter.mode(
+                                  Colors.blue, BlendMode.difference),
+                              image: NetworkImage(
+                                  'https://images.unsplash.com/photo-1622036408781-594f03b181ba?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDN8aVVJc25WdGpCMFl8fGVufDB8fHx8fA%3D%3D'),
+                            ),
+                          ),
+                          child: SizedBox.square(
+                            dimension: UiSizes().w70,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  '${_openWeatherController.weather.value?.name}',
+                                  style: const TextStyle(
+                                      fontSize: 32,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(
+                                  height: UiSizes().h2,
+                                ),
+                                Text(
+                                  _settingsController.defaultUnit.value ==
+                                          TemperatureUnit.celsius
+                                      ? '${(_openWeatherController.weather.value!.main.temp - 273.15).toPrecision(2)} °C'
+                                      : '${((_openWeatherController.weather.value!.main.temp - 273.15) * 1.8 + 32).toPrecision(2)} °F',
+                                  style: const TextStyle(
+                                    fontSize: 40,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: UiSizes().h2,
+                                ),
+                                Text(
+                                  '${_openWeatherController.weather.value?.weather[0].main}',
+                                  style: const TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned.fill(
+                      bottom: UiSizes().h22 + UiSizes().h1,
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: GestureDetector(
+                          onTap: () async {
+                            await _locationController.getCurrentLocation();
+                            await _openWeatherController
+                                .getWeatherDataFromCoordnites(
+                                    lat: _locationController.latitude.value,
+                                    lon: _locationController.longitude.value);
+                          },
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 600),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 36, vertical: 16),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(32),
+                              color: const Color.fromARGB(255, 216, 9, 154),
                             ),
-                            child: ImageFiltered(
-                              imageFilter:
-                                  ImageFilter.blur(sigmaX: 0, sigmaY: 0),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    '${_openWeatherController.weather.value?.name}',
-                                    style: const TextStyle(
-                                        fontSize: 32,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  SizedBox(
-                                    height: UiSizes().h2,
-                                  ),
-                                  Text(
-                                    _settingsController.defaultUnit.value ==
-                                            TemperatureUnit.celsius
-                                        ? '${(_openWeatherController.weather.value!.main.temp - 273.15).toPrecision(2)} °C'
-                                        : '${((_openWeatherController.weather.value!.main.temp - 273.15) * 1.8 + 32).toPrecision(2)} °F',
-                                    style: const TextStyle(
-                                      fontSize: 40,
+                            child: _locationController.fetchingLocation.value
+                                ? const SizedBox.square(
+                                    dimension: 24,
+                                    child: CircularProgressIndicator(
+                                      color: Colors.white,
+                                    ),
+                                  )
+                                : const Text(
+                                    "Get Current Weather",
+                                    style: TextStyle(
+                                      color: Colors.white,
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: UiSizes().h2,
-                                  ),
-                                  Text(
-                                    '${_openWeatherController.weather.value?.weather[0].main}',
-                                    style: const TextStyle(
-                                        fontSize: 24,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                ],
-                              ),
-                            ),
                           ),
-                          SizedBox(
-                            height: UiSizes().h12,
-                          ),
-                          GestureDetector(
-                            onTap: () async {
-                              await _locationController.getCurrentLocation();
-                              await _openWeatherController
-                                  .getWeatherDataFromCoordnites(
-                                      lat: _locationController.latitude.value,
-                                      lon: _locationController.longitude.value);
-                            },
-                            child: AnimatedContainer(
-                              duration: const Duration(milliseconds: 600),
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 36, vertical: 16),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(32),
-                                color: const Color.fromARGB(255, 216, 9, 154),
-                              ),
-                              child: _locationController.fetchingLocation.value
-                                  ? const SizedBox.square(
-                                      dimension: 24,
-                                      child: CircularProgressIndicator(
-                                        color: Colors.white,
-                                      ),
-                                    )
-                                  : const Text(
-                                      "Get Current Weather",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: UiSizes().h2,
-                          ),
-                          GestureDetector(
-                            onTap: () async {
-                              String? cityName =
-                                  _settingsController.defaultLocation.value;
-                              if (cityName != null) {
-                                _openWeatherController
-                                    .getWeatherDataFromCityName(
-                                        cityName: _settingsController
-                                            .defaultLocation.value!);
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    duration: Duration(seconds: 1),
-                                    content: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Set a Default Location First",
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: UiSizes().h2,
+                    ),
+                    Positioned.fill(
+                      bottom: UiSizes().w25,
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: GestureDetector(
+                          onTap: () async {
+                            String? cityName =
+                                _settingsController.defaultLocation.value;
+                            if (cityName != null) {
+                              _openWeatherController.getWeatherDataFromCityName(
+                                  cityName: _settingsController
+                                      .defaultLocation.value!);
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  duration: Duration(seconds: 1),
+                                  content: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Set a Default Location First",
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
                                         ),
-                                        Text(
-                                          "This can be done by tapping on the gps icon at Top Right",
-                                        ),
-                                      ],
-                                    ),
+                                      ),
+                                      Text(
+                                        "This can be done by tapping on the gps icon at Top Right",
+                                      ),
+                                    ],
                                   ),
-                                );
-                              }
-                            },
-                            child: AnimatedContainer(
-                              duration: const Duration(milliseconds: 600),
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 36, vertical: 16),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(32),
-                                color: const Color.fromARGB(255, 216, 9, 154),
-                              ),
-                              child: const Text(
-                                "Get Default Weather",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
                                 ),
+                              );
+                            }
+                          },
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 600),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 36, vertical: 16),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(32),
+                              color: const Color.fromARGB(255, 216, 9, 154),
+                            ),
+                            child: const Text(
+                              "Get Default Weather",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                           ),
-                        ],
+                        ),
                       ),
                     ),
                   ],
