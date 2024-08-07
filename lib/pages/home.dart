@@ -5,6 +5,7 @@ import 'package:skyscape/controllers/location_controller.dart';
 import 'package:skyscape/controllers/open_weather_controller.dart';
 import 'package:skyscape/controllers/settings_controller.dart';
 import 'package:skyscape/routes/app_routes.dart';
+import 'package:skyscape/utils/enums/temperature_unit.dart';
 import 'package:skyscape/utils/measurements/ui_sizes.dart';
 
 class HomePage extends StatefulWidget {
@@ -51,10 +52,48 @@ class _HomePageState extends State<HomePage> {
                                 : Icons.light_mode)),
                       ),
                     ),
+                    Positioned.fill(
+                      top: 10,
+                      right: 60,
+                      child: Align(
+                        alignment: Alignment.topRight,
+                        child: IconButton(
+                          onPressed: () {
+                            _settingsController.defaultUnit.value ==
+                                    TemperatureUnit.celsius
+                                ? _settingsController.updateTempUnit(
+                                    tempUnit: TemperatureUnit.fahrenheit)
+                                : _settingsController.updateTempUnit(
+                                    tempUnit: TemperatureUnit.celsius);
+                          },
+                          icon: Text(
+                            _settingsController.defaultUnit.value ==
+                                    TemperatureUnit.celsius
+                                ? '°F'
+                                : '°C',
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w600, fontSize: 16),
+                          ),
+                        ),
+                      ),
+                    ),
                     Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          Text(
+                            _settingsController.defaultUnit.value ==
+                                    TemperatureUnit.celsius
+                                ? '${(_openWeatherController.weather.value!.main.temp - 273.15).toPrecision(2)} °C'
+                                : '${((_openWeatherController.weather.value!.main.temp - 273.15) * 1.8 + 32).toPrecision(2)} °F',
+                            style: const TextStyle(
+                              fontSize: 40,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          SizedBox(
+                            height: UiSizes().h6,
+                          ),
                           Text(
                               'Lat: ${_openWeatherController.weather.value?.coord.latitude} , Lan: ${_openWeatherController.weather.value?.coord.longitude}'),
                           Text(
@@ -81,8 +120,6 @@ class _HomePageState extends State<HomePage> {
                               'Wind speed:${_openWeatherController.weather.value?.wind?.speed}'),
                           Text(
                               'Rain 1H:${_openWeatherController.weather.value?.rain?.oneHour}'),
-                          Text(
-                              'Main temp:${_openWeatherController.weather.value?.main.temp}'),
                           SizedBox(
                             height: UiSizes().h10,
                           ),
