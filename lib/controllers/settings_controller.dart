@@ -18,7 +18,6 @@ class SettingsController extends GetxController {
       debugPrint('Settings Controller: First Run Detected');
       await loadDefaults();
     }
-    await loadSettings();
   }
 
   Future<void> loadDefaults() async {
@@ -29,13 +28,20 @@ class SettingsController extends GetxController {
   }
 
   Future<void> loadSettings() async {
+    debugPrint("LOADING SETTINGS");
     _prefs = await SharedPreferences.getInstance();
-    _prefs.setInt('themeMode', ThemeMode.system.index);
     themeMode.value =
         ThemeMode.values.elementAt(_prefs.getInt('themeMode') ?? 0);
     defaultUnit.value =
         TemperatureUnit.values.elementAt(_prefs.getInt('defaultUnit') ?? 0);
     debugPrint(
         'Theme Mode: ${themeMode.value}, Default Unit: ${defaultUnit.value}');
+  }
+
+  Future<void> updateTheme({required ThemeMode themeMode}) async {
+    _prefs = await SharedPreferences.getInstance();
+    debugPrint('Updating theme to: ${themeMode.name.toUpperCase()} Theme');
+    await _prefs.setInt('themeMode', themeMode.index);
+    await loadSettings();
   }
 }
