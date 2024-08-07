@@ -18,6 +18,7 @@ class MainApp extends StatelessWidget {
     //Initialize UiSizes to get devices width and height
     UiSizes().init(context);
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         scaffoldBackgroundColor: Platform.isWindows
             ? const Color.fromARGB(255, 228, 228, 228)
