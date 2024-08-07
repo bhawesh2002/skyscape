@@ -9,9 +9,9 @@ class LocationController extends GetxController {
   final Rx<bool> fetchingLocation = false.obs;
 
   @override
-  void onInit() async {
+  void onInit() {
     super.onInit();
-    await _getLocationPermission();
+    _checkLocationPermission();
   }
 
   Future<void> getCurrentLocation() async {
