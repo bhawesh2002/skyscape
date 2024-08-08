@@ -136,15 +136,6 @@ class _HomePageState extends State<HomePage> {
                         alignment: Alignment.center,
                         child: SizedBox.square(
                           dimension: UiSizes().w70,
-                        ),
-                      ),
-                    ),
-                    Positioned.fill(
-                      bottom: UiSizes().h20,
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: SizedBox.square(
-                          dimension: UiSizes().w70,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -223,7 +214,7 @@ class _HomePageState extends State<HomePage> {
                       height: UiSizes().h2,
                     ),
                     Positioned.fill(
-                      bottom: UiSizes().w25,
+                      bottom: UiSizes().h15,
                       child: Align(
                         alignment: Alignment.bottomCenter,
                         child: GestureDetector(
