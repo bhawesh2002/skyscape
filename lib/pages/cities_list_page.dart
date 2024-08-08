@@ -19,6 +19,12 @@ class _CitiesListPageState extends State<CitiesListPage> {
       Get.find<CitiesListController>();
   final TextEditingController _queryController = TextEditingController();
   @override
+  void initState() {
+    _citiesListController.searchCities(query: '');
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
