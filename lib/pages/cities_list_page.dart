@@ -133,8 +133,14 @@ class _CitiesListPageState extends State<CitiesListPage> {
                                         fontWeight: FontWeight.w500),
                                   ),
                                   subtitle: Text(
-                                    '${_citiesListController.searchedCities[index].state}, ${_citiesListController.searchedCities[index].cityName}',
+                                    '${_citiesListController.searchedCities[index].state}, ${_citiesListController.searchedCities[index].countryLong}',
                                     style: const TextStyle(fontSize: 12),
+                                  ),
+                                  trailing: Text(
+                                    _citiesListController
+                                        .searchedCities[index].postalCode,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w500),
                                   ),
                                 );
                               },
