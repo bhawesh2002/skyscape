@@ -43,3 +43,4 @@ app.*.map.json
 /android/app/release
 # ignore this file containing the api key
 lib/api_key/api_key.dart 
+lib/pages/*test_page.dart
