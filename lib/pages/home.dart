@@ -1,3 +1,4 @@
+import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:skyscape/controllers/cities_list_controller.dart';
@@ -8,6 +9,7 @@ import 'package:skyscape/routes/app_routes.dart';
 import 'package:skyscape/utils/enums/temperature_unit.dart';
 import 'package:skyscape/utils/helpers/text_height_behaviour_helper.dart';
 import 'package:skyscape/utils/measurements/ui_sizes.dart';
+import 'package:weather_icons/weather_icons.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -124,6 +126,7 @@ class _HomePageState extends State<HomePage> {
                                       TemperatureUnit.celsius
                                   ? 'Fahrenheit'
                                   : 'Celsius',
+                              textHeightBehavior: gigaSansTextHeightBehaviour(),
                               style: const TextStyle(
                                   fontWeight: FontWeight.w500, fontSize: 16),
                             ),
@@ -161,13 +164,126 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                               SizedBox(
-                                height: UiSizes().h2,
+                                height: UiSizes().h1,
                               ),
                               Text(
                                 '${_openWeatherController.weather.value?.weather[0].main}',
                                 style: const TextStyle(
                                     fontSize: 24, fontWeight: FontWeight.w500),
                               ),
+                              SizedBox(
+                                height: UiSizes().h4,
+                              ),
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 50, vertical: 24),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(82),
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .primary
+                                      .withOpacity(0.8),
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Icon(
+                                          FeatherIcons.wind,
+                                          color: Theme.of(context).brightness ==
+                                                  Brightness.light
+                                              ? Colors.white
+                                              : Colors.black,
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text(
+                                          '${_openWeatherController.weather.value?.wind?.speed} KM/H',
+                                          textHeightBehavior:
+                                              gigaSansTextHeightBehaviour(),
+                                          style: TextStyle(
+                                            color:
+                                                Theme.of(context).brightness ==
+                                                        Brightness.light
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: UiSizes().h2,
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Icon(
+                                              WeatherIcons.cloud,
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.light
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                            ),
+                                            const SizedBox(
+                                              width: 10,
+                                            ),
+                                            Text(
+                                              '${_openWeatherController.weather.value?.clouds?.all}',
+                                              textHeightBehavior:
+                                                  gigaSansTextHeightBehaviour(),
+                                              style: TextStyle(
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.light
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          width: 8,
+                                        ),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Icon(
+                                              WeatherIcons.raindrops,
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.light
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                            ),
+                                            const SizedBox(
+                                              width: 2,
+                                            ),
+                                            Text(
+                                              '${_openWeatherController.weather.value?.main.humidity}',
+                                              textHeightBehavior:
+                                                  gigaSansTextHeightBehaviour(),
+                                              style: TextStyle(
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.light
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              )
                             ],
                           ),
                         ),
