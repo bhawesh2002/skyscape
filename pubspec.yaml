@@ -1,5 +1,11 @@
 name: skyscape
-description: "SkyScape is a weather app built with Flutter that uses the OpenWeatherApi to fetch and display weather data. The app provides users with detailed weather information, including the current temperature, weather condition, humidity, wind speed, and visibility. SkyScape offers a range of features, such as default location setting, location-based weather retrieval, theme switching, temperature conversion, and search functionality, to enhance the user experience and provide valuable weather insights."
+description: "SkyScape is a weather app built with Flutter that uses the
+  OpenWeatherApi to fetch and display weather data. The app provides users with
+  detailed weather information, including the current temperature, weather
+  condition, humidity, wind speed, and visibility. SkyScape offers a range of
+  features, such as default location setting, location-based weather retrieval,
+  theme switching, temperature conversion, and search functionality, to enhance
+  the user experience and provide valuable weather insights."
 publish_to: 'none'
 version: 1.0.0
 
@@ -7,6 +13,7 @@ environment:
   sdk: '>=3.4.1 <4.0.0'
 
 dependencies:
+  feather_icons: ^1.2.0
   flutter:
     sdk: flutter
   flutter_svg: ^2.0.10+1
@@ -16,11 +23,12 @@ dependencies:
   http: ^1.2.2
   is_first_run: ^1.0.0
   shared_preferences: ^2.3.1
+  weather_icons: ^3.0.0
 
 dev_dependencies:
+  flutter_lints: ^3.0.0
   flutter_test:
     sdk: flutter
-  flutter_lints: ^3.0.0
 
 flutter:
   uses-material-design: true
