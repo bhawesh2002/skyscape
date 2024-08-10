@@ -179,10 +179,7 @@ class _HomePageState extends State<HomePage> {
                                     horizontal: 50, vertical: 24),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(82),
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .primary
-                                      .withOpacity(0.8),
+                                  color: Theme.of(context).colorScheme.primary,
                                 ),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
@@ -307,7 +304,7 @@ class _HomePageState extends State<HomePage> {
                                 horizontal: 36, vertical: 18),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(32),
-                              color: const Color.fromARGB(255, 216, 9, 154),
+                              color: Theme.of(context).colorScheme.primary,
                             ),
                             child: _locationController.fetchingLocation.value
                                 ? const SizedBox.square(
@@ -374,7 +371,7 @@ class _HomePageState extends State<HomePage> {
                                 horizontal: 36, vertical: 18),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(32),
-                              color: const Color.fromARGB(255, 216, 9, 154),
+                              color: Theme.of(context).colorScheme.primary,
                             ),
                             child: Text(
                               "Get Default Weather",
