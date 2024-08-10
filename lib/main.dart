@@ -30,14 +30,14 @@ class MainApp extends StatelessWidget {
               ? const Color.fromARGB(255, 228, 228, 228)
               : Colors.grey.shade100,
           colorScheme: const ColorScheme.light(
-            primary: Color.fromARGB(255, 216, 9, 154),
+            primary: Color.fromARGB(255, 157, 9, 216),
           ),
           fontFamily: 'GigaSans',
         ),
         darkTheme: ThemeData(
           scaffoldBackgroundColor: Colors.black,
           colorScheme: const ColorScheme.dark(
-            primary: Color.fromARGB(255, 216, 9, 154),
+            primary: Color.fromARGB(255, 157, 9, 216),
           ),
           fontFamily: 'GigaSans',
         ),
