@@ -6,6 +6,7 @@ import 'package:skyscape/controllers/open_weather_controller.dart';
 import 'package:skyscape/controllers/settings_controller.dart';
 import 'package:skyscape/routes/app_routes.dart';
 import 'package:skyscape/utils/enums/temperature_unit.dart';
+import 'package:skyscape/utils/helpers/text_height_behaviour_helper.dart';
 import 'package:skyscape/utils/measurements/ui_sizes.dart';
 
 class HomePage extends StatefulWidget {
@@ -187,7 +188,7 @@ class _HomePageState extends State<HomePage> {
                           child: AnimatedContainer(
                             duration: const Duration(milliseconds: 600),
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 36, vertical: 16),
+                                horizontal: 36, vertical: 18),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(32),
                               color: const Color.fromARGB(255, 216, 9, 154),
@@ -199,9 +200,11 @@ class _HomePageState extends State<HomePage> {
                                       color: Colors.white,
                                     ),
                                   )
-                                : const Text(
+                                : Text(
                                     "Get Current Weather",
-                                    style: TextStyle(
+                                    textHeightBehavior:
+                                        gigaSansTextHeightBehaviour(),
+                                    style: const TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -252,15 +255,17 @@ class _HomePageState extends State<HomePage> {
                           child: AnimatedContainer(
                             duration: const Duration(milliseconds: 600),
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 36, vertical: 16),
+                                horizontal: 36, vertical: 18),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(32),
                               color: const Color.fromARGB(255, 216, 9, 154),
                             ),
-                            child: const Text(
+                            child: Text(
                               "Get Default Weather",
-                              style: TextStyle(
+                              textHeightBehavior: gigaSansTextHeightBehaviour(),
+                              style: const TextStyle(
                                 color: Colors.white,
+                                textBaseline: TextBaseline.alphabetic,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
