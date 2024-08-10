@@ -22,6 +22,7 @@ SkyScape is a weather app built with Flutter that uses the OpenWeatherApi to fet
 
 https://github.com/user-attachments/assets/215a0a88-7556-432c-aa3a-e1b329be8ff3
 
+## Note
 **Note:** In order to run the app, you need to obtain an API key from OpenWeatherApi. Once you have the API key, create a folder called `api_key` inside `lib` folder with `api_key.dart` file. This should be the path to the file containing apiKey: `lib/api_key/api_key.dart`
 
 Add the following code to `api_key.dart` file:
