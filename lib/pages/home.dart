@@ -174,112 +174,69 @@ class _HomePageState extends State<HomePage> {
                               SizedBox(
                                 height: UiSizes().h4,
                               ),
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 50, vertical: 24),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(82),
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Icon(
-                                          FeatherIcons.wind,
-                                          color: Theme.of(context).brightness ==
-                                                  Brightness.light
-                                              ? Colors.white
-                                              : Colors.black,
-                                        ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Text(
-                                          '${_openWeatherController.weather.value?.wind?.speed} KM/H',
-                                          textHeightBehavior:
-                                              gigaSansTextHeightBehaviour(),
-                                          style: TextStyle(
-                                            color:
-                                                Theme.of(context).brightness ==
-                                                        Brightness.light
-                                                    ? Colors.white
-                                                    : Colors.black,
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      const Icon(
+                                        FeatherIcons.wind,
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(
+                                        '${_openWeatherController.weather.value?.wind?.speed} KM/H',
+                                        textHeightBehavior:
+                                            gigaSansTextHeightBehaviour(),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: UiSizes().h2,
+                                  ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          const Icon(
+                                            WeatherIcons.cloud,
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: UiSizes().h2,
-                                    ),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Icon(
-                                              WeatherIcons.cloud,
-                                              color: Theme.of(context)
-                                                          .brightness ==
-                                                      Brightness.light
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                            ),
-                                            const SizedBox(
-                                              width: 10,
-                                            ),
-                                            Text(
-                                              '${_openWeatherController.weather.value?.clouds?.all}',
-                                              textHeightBehavior:
-                                                  gigaSansTextHeightBehaviour(),
-                                              style: TextStyle(
-                                                color: Theme.of(context)
-                                                            .brightness ==
-                                                        Brightness.light
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          width: 8,
-                                        ),
-                                        Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Icon(
-                                              WeatherIcons.raindrops,
-                                              color: Theme.of(context)
-                                                          .brightness ==
-                                                      Brightness.light
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                            ),
-                                            const SizedBox(
-                                              width: 2,
-                                            ),
-                                            Text(
-                                              '${_openWeatherController.weather.value?.main.humidity}',
-                                              textHeightBehavior:
-                                                  gigaSansTextHeightBehaviour(),
-                                              style: TextStyle(
-                                                color: Theme.of(context)
-                                                            .brightness ==
-                                                        Brightness.light
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                            '${_openWeatherController.weather.value?.clouds?.all}',
+                                            textHeightBehavior:
+                                                gigaSansTextHeightBehaviour(),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        width: 8,
+                                      ),
+                                      Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          const Icon(
+                                            WeatherIcons.raindrops,
+                                          ),
+                                          const SizedBox(
+                                            width: 2,
+                                          ),
+                                          Text(
+                                            '${_openWeatherController.weather.value?.main.humidity}',
+                                            textHeightBehavior:
+                                                gigaSansTextHeightBehaviour(),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  )
+                                ],
                               )
                             ],
                           ),
