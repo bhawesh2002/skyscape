@@ -1,11 +1,10 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:skyscape/controllers/settings_controller.dart';
 import 'package:skyscape/routes/app_pages.dart';
 import 'package:skyscape/routes/app_routes.dart';
 import 'package:skyscape/utils/measurements/ui_sizes.dart';
+import 'package:skyscape/utils/theme/app_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,22 +24,8 @@ class MainApp extends StatelessWidget {
     return Obx(
       () => GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          scaffoldBackgroundColor: Platform.isWindows
-              ? const Color.fromARGB(255, 228, 228, 228)
-              : Colors.grey.shade100,
-          colorScheme: const ColorScheme.light(
-            primary: Color.fromARGB(255, 157, 9, 216),
-          ),
-          fontFamily: 'GigaSans',
-        ),
-        darkTheme: ThemeData(
-          scaffoldBackgroundColor: Colors.black,
-          colorScheme: const ColorScheme.dark(
-            primary: Color.fromARGB(255, 157, 9, 216),
-          ),
-          fontFamily: 'GigaSans',
-        ),
+        theme: AppTheme.lightTheme(),
+        darkTheme: AppTheme.darkTheme(),
         themeMode: _settingsController.themeMode.value!,
         getPages: AppPages.pages,
         initialRoute: AppRoutes.home,
