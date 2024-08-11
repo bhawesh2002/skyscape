@@ -6,22 +6,23 @@ SkyScape is a weather app built with Flutter that uses the OpenWeatherApi to fet
 
 ### Light Theme
 <div style="display: flex; flex-direction: row;">
-  <img src="https://github.com/user-attachments/assets/fff3c142-6846-46bf-8eb4-38c4932d07c3" alt="Light Theme 1" style="max-width: 30%; margin-right: 10px;">
-  <img src="https://github.com/user-attachments/assets/7a093dd4-b2e8-452a-85b6-64441f15de63" alt="Light Theme 2" style="max-width: 30%; margin-right: 10px;">
-  <img src="https://github.com/user-attachments/assets/9033ac46-fb00-4d2f-b178-f459232ec7fb" alt="Light Theme 3" style="max-width: 30%;">
+  <img src="https://github.com/user-attachments/assets/fff3c142-6846-46bf-8eb4-38c4932d07c3" alt="Light Theme 1" style="width: 30%; margin-right: 10px;">
+  <img src="https://github.com/user-attachments/assets/7a093dd4-b2e8-452a-85b6-64441f15de63" alt="Light Theme 2" style="width: 30%; margin-right: 10px;">
+  <img src="https://github.com/user-attachments/assets/9033ac46-fb00-4d2f-b178-f459232ec7fb" alt="Light Theme 3" style="width: 30%;">
 </div>
 
 ### Dark Theme
 <div style="display: flex; flex-direction: row;">
-  <img src="https://github.com/user-attachments/assets/02bfe5fd-a265-42f3-8c9e-387b7db9b4dc" alt="Dark Theme 1" style="max-width: 30%; margin-right: 10px;">
-  <img src="https://github.com/user-attachments/assets/7a912823-599f-457f-817e-766ee0ba18b2" alt="Dark Theme 2" style="max-width: 30%; margin-right: 10px;">
-  <img src="https://github.com/user-attachments/assets/333cf511-c5cf-443b-839c-93cd25fd2189" alt="Dark Theme 3" style="max-width: 30%;">
+  <img src="https://github.com/user-attachments/assets/02bfe5fd-a265-42f3-8c9e-387b7db9b4dc" alt="Dark Theme 1" style="width: 30%; margin-right: 10px;">
+  <img src="https://github.com/user-attachments/assets/7a912823-599f-457f-817e-766ee0ba18b2" alt="Dark Theme 2" style="width: 30%; margin-right: 10px;">
+  <img src="https://github.com/user-attachments/assets/333cf511-c5cf-443b-839c-93cd25fd2189" alt="Dark Theme 3" style="width: 30%;">
 </div>
 
 ## Video
 
 https://github.com/user-attachments/assets/215a0a88-7556-432c-aa3a-e1b329be8ff3
 
+## Note
 **Note:** In order to run the app, you need to obtain an API key from OpenWeatherApi. Once you have the API key, create a folder called `api_key` inside `lib` folder with `api_key.dart` file. This should be the path to the file containing apiKey: `lib/api_key/api_key.dart`
 
 Add the following code to `api_key.dart` file:
