@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:skyscape/utils/models/owm_city.dart';
+import 'package:skyscape/models/owm_city.dart';
 import 'package:skyscape/utils/repository/owm_cities_list_repo.dart';
 
 class CitiesListController extends GetxController {

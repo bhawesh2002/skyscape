@@ -119,23 +119,7 @@ The folder structure of SkyScape is organized as follows:
     - **`open_weather_controller.dart`**: Manages the weather data fetched from the OpenWeatherApi.
     - **`settings_controller.dart`**: Manages the user's settings and preferences.
 
-  - **`pages`**: Contains the page classes that define the app's user interface and layout.
-
-    - **`home.dart`**: Displays the main weather information and user interface elements.
-    - **`cities_list_page.dart`**: Displays the search bar and search results for location-based weather retrieval.
-
-  - **`routes`**: Contains the route configuration for the app's navigation and routing.
-
-    - **`app_pages.dart`**: Defines the app's routes and page names for navigation.
-    - **`app_routes.dart`**: Contains the route names and paths used for navigating between pages.
-
-  - **`utils`**: Contains utility classes and functions used throughout the app.
-
-    - **`enums`**: Contains the enums used in the app for defining constants and values.
-
-    - **`measurements`**: Contains `UiSizes.dart` file with the values for height and width of the screen.
-
-    - **`models`**: Contains the model classes used for data representation and serialization.
+  - **`models`**: Contains the model classes used for data representation and serialization.
 
       - **`weather_models`**: Contains the weather model classes for representing weather data.
 
@@ -151,6 +135,22 @@ The folder structure of SkyScape is organized as follows:
       - **`owm_city.dart`**: Contains the model class for representing city data obtained from `owm_city_list.json`.
       - **`scapeuser.dart`**: Contains the model class for representing user data.
       - **`settings.dart`**: Contains the model class for representing user settings and preferences.
+
+  - **`pages`**: Contains the page classes that define the app's user interface and layout.
+
+    - **`home.dart`**: Displays the main weather information and user interface elements.
+    - **`cities_list_page.dart`**: Displays the search bar and search results for location-based weather retrieval.
+
+  - **`routes`**: Contains the route configuration for the app's navigation and routing.
+
+    - **`app_pages.dart`**: Defines the app's routes and page names for navigation.
+    - **`app_routes.dart`**: Contains the route names and paths used for navigating between pages.
+
+  - **`utils`**: Contains utility classes and functions used throughout the app.
+
+    - **`enums`**: Contains the enums used in the app for defining constants and values.
+
+    - **`measurements`**: Contains `UiSizes.dart` file with the values for height and width of the screen.
 
     - **`parsers`**: Contains the `parse_to_double.dart` file with the function to parse a int to double.
 

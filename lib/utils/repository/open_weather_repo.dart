@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:skyscape/utils/models/weather%20models/open_weather.dart';
+import 'package:skyscape/models/weather%20models/open_weather.dart';
 import 'package:skyscape/utils/provider/open_weather_provider.dart';
 
 class OpenWeatherRepo {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:skyscape/controllers/location_controller.dart';
 import 'package:skyscape/controllers/settings_controller.dart';
-import 'package:skyscape/utils/models/weather%20models/open_weather.dart';
+import 'package:skyscape/models/weather%20models/open_weather.dart';
 import 'package:skyscape/utils/repository/open_weather_repo.dart';
 
 class OpenWeatherController extends GetxController {

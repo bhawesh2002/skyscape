@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:skyscape/utils/models/owm_city.dart';
+import 'package:skyscape/models/owm_city.dart';
 import 'package:skyscape/utils/provider/own_cities_list_provider.dart';
 
 class OwmCitiesListRepo {
