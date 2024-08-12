@@ -155,34 +155,57 @@ class _CitiesListPageState extends State<CitiesListPage> {
                                   padding: const EdgeInsets.all(12),
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: Theme.of(context).brightness ==
-                                            Brightness.dark
-                                        ? Colors.white
-                                        : Colors.black,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
                                   ),
                                   child: Icon(
                                     _queryController.text.isNotEmpty
                                         ? Icons.search_off
                                         : Icons.search,
                                     size: 48,
-                                    color: Theme.of(context).brightness ==
-                                            Brightness.dark
-                                        ? Colors.black
-                                        : Colors.white,
+                                    color: Colors.white,
                                   ),
                                 ),
                                 const SizedBox(
                                   height: 36,
                                 ),
-                                Text(
-                                  _queryController.text.isNotEmpty
-                                      ? "City Not Found!"
-                                      : "Search For Your City",
-                                  style: const TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.w500,
+                                SizedBox(
+                                  width: UiSizes().w80,
+                                  child: Center(
+                                    child: RichText(
+                                      textAlign: TextAlign.center,
+                                      text: TextSpan(
+                                        text: _queryController.text.isNotEmpty
+                                            ? _queryController.text
+                                            : "Search",
+                                        style: TextStyle(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                        children: [
+                                          TextSpan(
+                                            text:
+                                                _queryController.text.isNotEmpty
+                                                    ? " Not Found!"
+                                                    : " for your City",
+                                            style: TextStyle(
+                                              color: Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
                                   ),
-                                )
+                                ),
                               ],
                             ),
                     ),
