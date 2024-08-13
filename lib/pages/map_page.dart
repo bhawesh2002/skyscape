@@ -44,7 +44,7 @@ class _MapPageState extends State<MapPage> {
                     mapController: _mapController,
                     options: MapOptions(
                       initialCenter: LatLng(latitude, longitude),
-                      initialZoom: 15,
+                      initialZoom: 14,
                     ),
                     children: [
                       TileLayer(
