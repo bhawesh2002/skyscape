@@ -105,6 +105,22 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     Positioned.fill(
+                        top: 10,
+                        right: 110,
+                        child: Align(
+                          alignment: Alignment.topRight,
+                          child: InkWell(
+                            borderRadius: BorderRadius.circular(24),
+                            onTap: () {
+                              Get.toNamed(AppRoutes.mapPage);
+                            },
+                            child: const Padding(
+                              padding: EdgeInsets.all(12.0),
+                              child: Icon(Icons.map_rounded),
+                            ),
+                          ),
+                        )),
+                    Positioned.fill(
                       top: 12,
                       left: 10,
                       child: Align(
