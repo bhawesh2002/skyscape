@@ -5,7 +5,6 @@ import 'package:skyscape/controllers/cities_list_controller.dart';
 import 'package:skyscape/controllers/location_controller.dart';
 import 'package:skyscape/controllers/open_weather_controller.dart';
 import 'package:skyscape/controllers/settings_controller.dart';
-import 'package:skyscape/utils/painters/sun2_custom_painter.dart';
 import 'package:skyscape/routes/app_routes.dart';
 import 'package:skyscape/utils/enums/temperature_unit.dart';
 import 'package:skyscape/utils/helpers/text_height_behaviour_helper.dart';
@@ -40,13 +39,6 @@ class _HomePageState extends State<HomePage> {
                       width: UiSizes().width,
                       height: UiSizes().height,
                     ),
-                    Positioned.fill(
-                        top: UiSizes().h8,
-                        left: UiSizes().w50,
-                        child: CustomPaint(
-                          size: const Size(311, 313),
-                          painter: SunTwoCustomPainter(),
-                        )),
                     Positioned.fill(
                       top: 10,
                       right: 10,
