@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 class LocationController extends GetxController {
   late Rx<double> latitude = 0.0.obs;
   late Rx<double> longitude = 0.0.obs;
-  final Rx<bool> _status = false.obs;
+  final Rx<bool> _permissionStatus = false.obs;
   final Rx<bool> fetchingLocation = false.obs;
 
   @override
@@ -16,7 +16,7 @@ class LocationController extends GetxController {
 
   Future<void> getCurrentLocation() async {
     fetchingLocation.value = true;
-    if (_status.value == false) {
+    if (_permissionStatus.value == false) {
       await _getLocationPermission();
     }
     debugPrint(
@@ -33,23 +33,23 @@ class LocationController extends GetxController {
     bool isServiceEnaabled = await Geolocator.isLocationServiceEnabled();
     if (!isServiceEnaabled) {
       debugPrint("checkLocationPermission(): Location Service Disabled");
-      _status.value = false;
+      _permissionStatus.value = false;
     }
     LocationPermission permission = await Geolocator.checkPermission();
 
     if (permission == LocationPermission.always ||
         permission == LocationPermission.whileInUse) {
-      _status.value = true;
+      _permissionStatus.value = true;
       debugPrint('checkLocationPermission(): Location Permission Granted');
     } else if (permission == LocationPermission.denied) {
-      _status.value = false;
+      _permissionStatus.value = false;
       debugPrint("checkLocationPermission(): Location Permission Denied");
     } else if (permission == LocationPermission.deniedForever) {
-      _status.value = false;
+      _permissionStatus.value = false;
       debugPrint(
           "checkLocationPermission(): Location Permission Denied Forever");
     } else if (permission == LocationPermission.unableToDetermine) {
-      _status.value = false;
+      _permissionStatus.value = false;
       debugPrint(
           "checkLocationPermission(): Unable to Determine Location Permission");
     }
@@ -57,11 +57,11 @@ class LocationController extends GetxController {
 
   Future<void> _getLocationPermission() async {
     await _checkLocationPermission();
-    if (_status.value == false) {
+    if (_permissionStatus.value == false) {
       LocationPermission permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.always ||
           permission == LocationPermission.whileInUse) {
-        _status.value = true;
+        _permissionStatus.value = true;
         debugPrint(
             'LocationControler.getLocationPermission(): Location Permission Granted');
       }
