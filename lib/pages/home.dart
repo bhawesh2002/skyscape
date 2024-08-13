@@ -27,6 +27,8 @@ class _HomePageState extends State<HomePage> {
   final CitiesListController _citiesListController =
       Get.put(CitiesListController());
 
+  bool fetchingLocation = false;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -265,21 +267,26 @@ class _HomePageState extends State<HomePage> {
                         alignment: Alignment.bottomCenter,
                         child: GestureDetector(
                           onTap: () async {
+                            setState(() {
+                              fetchingLocation = true;
+                            });
                             await _locationController.getCurrentLocation();
                             await _openWeatherController
                                 .getWeatherDataFromCoordnites(
                                     lat: _locationController.latitude.value,
                                     lon: _locationController.longitude.value);
+                            setState(() {
+                              fetchingLocation = false;
+                            });
                           },
-                          child: AnimatedContainer(
-                            duration: const Duration(milliseconds: 600),
+                          child: Container(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 36, vertical: 18),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(32),
                               color: Theme.of(context).colorScheme.primary,
                             ),
-                            child: _locationController.fetchingLocation.value
+                            child: fetchingLocation
                                 ? const SizedBox.square(
                                     dimension: 24,
                                     child: CircularProgressIndicator(
