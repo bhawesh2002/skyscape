@@ -12,7 +12,7 @@ class OpenWeatherController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    if (_settingsController.defaultLocation.value != null) {
+    if (_settingsController.defaultLocation.value != '') {
       await getWeatherDataFromCityName(
           cityName: _settingsController.defaultLocation.value!);
     } else {

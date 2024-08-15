@@ -25,6 +25,7 @@ class SettingsController extends GetxController {
     debugPrint("SettingsController.loadDefaults(): Loading Default Settings");
     _prefs.setInt('themeMode', ThemeMode.system.index);
     _prefs.setInt('defaultUnit', TemperatureUnit.celsius.index);
+    _prefs.setString('defaultLocation', '');
   }
 
   Future<void> loadSettings() async {
@@ -51,11 +52,13 @@ class SettingsController extends GetxController {
   }
 
   Future<void> updateDefaultLocation({required String locationName}) async {
-    if (locationName.isNotEmpty) {
-      _prefs = await SharedPreferences.getInstance();
+    _prefs = await SharedPreferences.getInstance();
+    if (locationName != '') {
       debugPrint('Updating Default Location to $locationName');
       _prefs.setString('defaultLocation', locationName);
-      loadSettings();
+    } else {
+      _prefs.setString('defaultLocation', '');
     }
+    loadSettings();
   }
 }

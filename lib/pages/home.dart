@@ -72,6 +72,33 @@ class _HomePageState extends State<HomePage> {
                         alignment: Alignment.topRight,
                         child: InkWell(
                           borderRadius: BorderRadius.circular(24),
+                          onLongPress: () {
+                            String message;
+                            if (_settingsController.defaultLocation.value !=
+                                '') {
+                              _settingsController.updateDefaultLocation(
+                                  locationName: '');
+                              message = "No Default Location";
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        message,
+                                        style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      const Text(
+                                          "Unsetting the default location"),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            }
+                          },
                           onTap: () {
                             _settingsController.updateDefaultLocation(
                                 locationName:
@@ -317,7 +344,7 @@ class _HomePageState extends State<HomePage> {
                           onTap: () async {
                             String? cityName =
                                 _settingsController.defaultLocation.value;
-                            if (cityName != null) {
+                            if (cityName != '') {
                               _openWeatherController.getWeatherDataFromCityName(
                                   cityName: _settingsController
                                       .defaultLocation.value!);
