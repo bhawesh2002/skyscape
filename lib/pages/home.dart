@@ -81,6 +81,7 @@ class _HomePageState extends State<HomePage> {
                               message = "No Default Location";
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
+                                  duration: const Duration(milliseconds: 600),
                                   content: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -105,7 +106,7 @@ class _HomePageState extends State<HomePage> {
                                     _openWeatherController.weather.value!.name);
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                duration: const Duration(milliseconds: 800),
+                                duration: const Duration(milliseconds: 600),
                                 content: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -351,7 +352,7 @@ class _HomePageState extends State<HomePage> {
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
-                                  duration: Duration(seconds: 1),
+                                  duration: Duration(milliseconds: 600),
                                   content: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
