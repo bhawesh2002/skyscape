@@ -59,6 +59,6 @@ class SettingsController extends GetxController {
     } else {
       _prefs.setString('defaultLocation', '');
     }
-    loadSettings();
+    await loadSettings();
   }
 }
