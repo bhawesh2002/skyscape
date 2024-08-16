@@ -373,8 +373,7 @@ class _HomePageState extends State<HomePage> {
                               );
                             }
                           },
-                          child: AnimatedContainer(
-                            duration: const Duration(milliseconds: 600),
+                          child: Container(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 36, vertical: 18),
                             decoration: BoxDecoration(
