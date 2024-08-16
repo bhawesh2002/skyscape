@@ -57,6 +57,7 @@ class _MapPageState extends State<MapPage> {
                     options: MapOptions(
                       initialCenter: LatLng(latitude!, longitude!),
                       initialZoom: 12,
+                      keepAlive: true,
                     ),
                     children: [
                       TileLayer(
